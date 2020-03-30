@@ -1,0 +1,28 @@
+<!-- ==================================
+ *            e j D i c t o             *
+ * ==================================== *
+ * (c)2012-2020 - Patrick Cardona       *
+ * Licence GPL version 3 ou ultérieure  *
+ * VOIR la licence complète à la racine *
+ * ==================================== -->
+
+ <!-- Navigation : Menu : menuTemplate.hbs -->
+
+ <div class="w3-bar w3-teal w3-hide-medium w3-hide-large">
+ <button onclick="$('#menu_principal').toggle()" class="w3-button w3-teal w3-bar-item">
+ <i class="material-icons">menu</i>
+ </button>
+ </div>
+
+ <div class="w3-bar w3-teal" id="menu_principal" style="display: block">
+ {{#each item}}
+ <a href="{{this.lien}}" 
+ data-navigo class="w3-bar-item w3-button w3-mobile
+	 {{#if this.droite}}
+		w3-right"
+	 {{/if}}
+	 ">
+	 <i class="material-icons">{{this.icone}}</i> {{this.legende}}
+ </a>
+ {{/each}}
+ </div>

@@ -1,0 +1,41 @@
+<!-- ==================================
+ *            e j D i c t o             *
+ * ==================================== *
+ * (c)2012-2020 - Patrick Cardona       *
+ * Licence GPL version 3 ou ultérieure  *
+ * VOIR la licence complète à la racine *
+ * ==================================== -->
+ 
+ <!-- Template : ecouterTemplate.hbs -->
+
+
+<div class="w3-container">
+
+	<h3 class="w3-text-teal">Écouter la dictée {{did}}</h3>
+
+    <audio controls="controls">
+	    <source src="./static/audio/dictee{{did}}.ogg" type="audio/ogg">
+	    <source src="./static/audio/dictee{{did}}.mp3" type="audio/mpeg">
+	    <p>Erreur de chargement du fichier audio...</p>
+    </audio>
+</div>
+
+<div class="w3-container w3-padding">
+	<ul class="w3-ul">
+		<li class="w3-green">
+			<h3>Conseils</h3>
+		</li>	
+		<li>D'abord, écoutez une première fois la dictée, sans chercher à l'écrire. Efforcez-vous d'en saisir le sens.
+		</li>
+		<li>
+			Puis écoutez-la de nouveau, en la notant sur votre cahier de brouillon. Au besoin, mettez en pause le lecteur audio.
+		</li>
+		<li>
+			Relisez-vous en écoutant une dernière fois la dictée.
+		</li>
+	</ul>
+	
+  <p>
+	Passez maintenant à la <a class="w3-button w3-text-green" style="text-decoration: none" href="#!saisir/{{did}}">saisie</a> de cette dictée...
+  </p>
+    </div>

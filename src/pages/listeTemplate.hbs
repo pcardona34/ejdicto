@@ -1,0 +1,49 @@
+<!-- ==================================
+ *            e j D i c t o             *
+ * ==================================== *
+ * (c)2012-2020 - Patrick Cardona       *
+ * Licence GPL version 3 ou ultérieure  *
+ * VOIR la licence complète à la racine *
+ * ==================================== -->
+
+<!-- Liste filtrée des dictées
+  listeTemplate.hbs
+  -->
+
+<div class="w3-bar w3-teal">
+
+	<a href="#!" class="w3-bar-item w3-button">
+  		<i class="material-icons">home</i> jDicto
+	</a>
+
+	<button onclick="$('#panneau_recherche').toggle()" class="w3-bar-item w3-button w3-right"><i class="material-icons">search</i></button>
+	</div>
+
+<div class="w3-container">
+ 
+</div>
+<div class="w3-container w3-padding">
+<div class="w3-card-4 w3-light-gray" id="panneau_recherche">
+	<div class="w3-container w3-green">
+		  <h3>Chercher une dictée</h3>
+	</div>
+	<div class="w3-container w3-padding-16">
+	<form>
+		<label class="w3-center w3-text-green"><i class="material-icons">search</i> Filtre :</label>
+		<input class="w3-input w3-border w3-padding" type="text" placeholder="Titre ou numéro..." 
+	oninput="w3.filterHTML('#liste_des_dictees', 'li', this.value)">
+	</form>
+	</div>
+</div>
+
+<div class="w3-container">
+	<h3 class="w3-text-teal">Liste des dictées</h3>
+    <ul id="liste_des_dictees" class="w3-bar-block w3-border w3-light-gray" style="list-style-type: none; margin: 0; padding: 0">
+	    {{#each infodictee}}
+	    <li><a href="#!dictee/{{this.id}}" class="w3-bar-item w3-button">
+			    {{this.id}} : «&nbsp; {{this.titre}} &nbsp;»</a>
+	    </li>
+	    {{/each}}
+    </ul>
+</div>
+</div>

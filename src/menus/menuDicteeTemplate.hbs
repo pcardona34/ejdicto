@@ -1,0 +1,38 @@
+<!-- ==================================
+ *            e j D i c t o             *
+ * ==================================== *
+ * (c)2012-2020 - Patrick Cardona       *
+ * Licence GPL version 3 ou ultérieure  *
+ * VOIR la licence complète à la racine *
+ * ==================================== -->
+
+ <!-- Navigation : Menu : menuDicteeTemplate.hbs -->
+
+ <div id="menu_mobile" class="w3-bar w3-teal w3-hide-medium w3-hide-large">
+ <button onclick="$('#menu_principal_dictee').toggle()" class="w3-button w3-teal w3-bar-item">
+ <i class="material-icons">menu</i>
+ </button>
+ </div>
+
+ <div class="w3-bar w3-teal" id="menu_principal_dictee">
+	 <a href="/" data-navigo class="w3-bar-item w3-button w3-mobile">
+		 <i class="material-icons">home</i> ejDicto
+	 </a>
+	 
+	 <a href="#!ecouter/{{did}}" data-navigo class="w3-bar-item w3-button w3-mobile">
+		 <i class="material-icons">headset</i> Écouter la dictée
+	 </a>
+
+	 <a href="#!saisir/{{did}}" data-navigo class="w3-bar-item w3-button w3-mobile">
+		 <i class="material-icons">edit</i> Saisir la dictée
+	 </a>
+	 
+
+	 <a href="#!mentions/{{did}}" data-navigo class="w3-bar-item w3-button w3-mobile">
+		 <i class="material-icons">info</i> Mentions légales
+	 </a>
+
+    <a href="#!conseils/{{did}}" data-navigo class="w3-bar-item w3-button w3-mobile">
+		 <i class="material-icons">help</i> Aide
+	 </a>
+</div>
