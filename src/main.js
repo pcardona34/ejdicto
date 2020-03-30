@@ -63,7 +63,7 @@ const menuAccueil = menuTemplate(
     {
     'icone': 'home',
     'legende': 'ejDicto',
-    'lien': '/',
+    'lien': '#!',
     'droite': false
     },
     {
@@ -95,7 +95,7 @@ const menuAccueil = menuTemplate(
   */
 
 // Déclaration du routage
-var root = "https://pcardona34.github.io/ejdicto/";
+var root = "/ejdicto/";
 var useHash = true;
 var hash = '#!';
 var router = new Navigo(root, useHash, hash);
