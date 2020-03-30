@@ -95,7 +95,7 @@ const menuAccueil = menuTemplate(
   */
 
 // Déclaration du routage
-var root = null;
+var root = "https://pcardona34.github.io/ejdicto/";
 var useHash = true;
 var hash = '#!';
 var router = new Navigo(root, useHash, hash);
