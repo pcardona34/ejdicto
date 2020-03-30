@@ -1,0 +1,89 @@
+/* ==================================== *
+ *            e j D i c t o             *
+ * ==================================== *
+ * (c)2012-2020 - Patrick Cardona       *
+ * Licence GPL version 3 ou ultérieure  *
+ * VOIR la licence complète à la racine *
+ * ==================================== */
+
+/*
+ * Données au format JSON
+ * de la page A propos : sources et contributions
+ * dans le cadre du projet ejDicto
+ */
+
+[
+	{
+		"appname": "Agrégateur de scripts (bundle) : Browserify",
+		"auteur": "Browserify.org",
+		"site": "http://browserify.org/",
+		"licence": "MIT",
+		"code": "https://github.com/browserify"
+	},
+	{
+		"appname": "Serveur de développement : Budo",
+		"auteur": "Matt DesLauriers",
+		"site": "https://github.com/mattdesl/budo/blob/master/README.md",
+		"licence": "MIT",
+		"code": "https://github.com/mattdesl/budo"
+
+	},
+	{
+		"appname": "Manipulation du DOM : Chibi",
+		"auteur": "Kyle Barrow",
+		"site": "https://github.com/kylebarrow/chibi",
+		"licence": "MIT",
+		"code": "https://github.com/kylebarrow/chibi"
+	},
+	{
+		"appname": "Template : Handlebars",
+		"auteur": "Yehuda Katz",
+		"site": "https://handlebarsjs.com/",
+		"licence": "MIT",
+		"code": "https://github.com/wycats/handlebars.js"
+	},
+	{
+		"appname": "Handlebars avec Browserify : hbsfy",
+		"auteur": "Esa-Matti Suuronen",
+		"site": "https://www.npmjs.com/package/hbsfy",
+		"licence": "MIT",
+		"code": "https://github.com/epeli/node-hbsfy"
+	},
+	{
+		"appname": "Comparaison de chaines : JsDiff",
+		"auteur": "John Resig",
+		"site": "http://ejohn.org/",
+		"licence": "MIT",
+		"code": "https://github.com/kpdecker/jsdiff"
+	},
+	{
+		"appname": "Icones : Material Icons",
+		"auteur": "Google inc.",
+		"site": "https://material.io/resources/icons/?style=baseline",
+		"licence": "Apache License version 2",
+		"code": "http://github.com/google/material-design-icons/"
+	},
+	{
+		"appname": "Routage : Navigo",
+		"auteur": "Krasimir Tsonev",
+		"site": "https://github.com/krasimir/navigo",
+		"licence": "MIT",
+		"code": "https://github.com/krasimir/navigo"
+	},
+	{
+		"appname": "Minification : UglifyJS",
+		"auteur": "Mihai Bazon",
+		"site": "http://lisperator.net/uglifyjs/",
+		"licence": "MIT",
+		"code": "https://github.com/mishoo/UglifyJS2"
+
+	},
+	{
+		"appname": "Style et scripts : W3.css et W3.js",
+		"auteur": "W3schools",
+		"site": "https://www.w3schools.com/w3css/default.asp",
+		"licence": "Usage libre",
+		"code": "https://github.com/JaniRefsnes/w3css"
+	}
+
+]
