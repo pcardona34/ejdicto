@@ -4686,7 +4686,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- accueilTemplate.hbs -->\n\n <div class=\"w3-container\" id=\"page_accueil\">\n <div class=\"w3-display-container\">\n	 <img src=\"../static/images/encrier.jpg\" class=\"w3-opacity-max\">\n	 <h1 class=\"w3-wide w3-display-middle\">"
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- accueilTemplate.hbs -->\n\n <div class=\"w3-container\" id=\"page_accueil\">\n <div class=\"w3-display-container\">\n	 <img src=\"./static/images/encrier.jpg\" class=\"w3-opacity-max\">\n	 <h1 class=\"w3-wide w3-display-middle\">"
     + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"bienvenue") || (depth0 != null ? lookupProperty(depth0,"bienvenue") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"bienvenue","hash":{},"data":data,"loc":{"start":{"line":14,"column":40},"end":{"line":14,"column":55}}}) : helper)))
     + "</h1>\n </div>\n </div>\n\n";
 },"useData":true});

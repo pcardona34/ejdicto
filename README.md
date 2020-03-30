@@ -15,7 +15,7 @@ Version améliorée de l'exerciseur de dictée (jDicto)
     
 ## Pour créer une version de production
 
-    `npm build`
+    `npm run build`
 
 
 
