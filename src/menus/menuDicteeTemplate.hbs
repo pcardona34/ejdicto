@@ -8,31 +8,87 @@
 
  <!-- Navigation : Menu : menuDicteeTemplate.hbs -->
 
- <div id="menu_mobile" class="w3-bar w3-teal w3-hide-medium w3-hide-large">
- <button onclick="$('#menu_principal_dictee').toggle()" class="w3-button w3-teal w3-bar-item">
- <i class="material-icons">menu</i>
- </button>
+<!-- ============================================ -->
+
+<!-- Menu bureau : medium et large -->
+
+<!-- Barre de menu gris clair -->
+ <div class="top">
+ <div class="w3-hide-small w3-bar w3-light-grey w3-text-teal" id="menu_principal">
+
+ <!-- Gestion du lot de boutons du menu -->
+ {{#each item}}
+ <a {{#if @first}}
+      href="{{this.lien}}"
+    {{else}}
+      href="{{this.lien}}/{{../did}}" 
+    {{/if}}
+    {{! donnée traitée par le routeur }}
+    data-navigo 
+    {{! On débute la liste des classes }}
+    class="w3-bar-item w3-button 
+    {{! Classes conditionnelles : cas du premier bouton }}
+    {{#if @first}}
+      w3-teal"
+    {{else}}
+      {{! Cas du bouton à droite }}
+      {{#if this.droite}}
+        w3-right"
+      {{else}}
+        "
+      {{/if}}
+    {{/if}}
+    ><i class="material-icons">{{this.icone}}</i> {{this.legende}}</a>
+ {{/each}}
  </div>
+</div>
 
- <div class="w3-bar w3-teal" id="menu_principal_dictee">
-	 <a href="#!" data-navigo class="w3-bar-item w3-button w3-mobile">
-		 <i class="material-icons">home</i> ejDicto
-	 </a>
-	 
-	 <a href="#!ecouter/{{did}}" data-navigo class="w3-bar-item w3-button w3-mobile">
-		 <i class="material-icons">headset</i> Écouter la dictée
-	 </a>
+<!-- =================================================== -->
+<!-- Menu mobile -->
 
-	 <a href="#!saisir/{{did}}" data-navigo class="w3-bar-item w3-button w3-mobile">
-		 <i class="material-icons">edit</i> Saisir la dictée
-	 </a>
-	 
+<div class="w3-hide-large w3-hide-medium w3-top w3-display-container w3-dark-grey">
+ <div class="display-topleft">
+  <button onclick="$('#menu_principal_mobile').show()" class="w3-button w3-bar-item">
+    <i class="material-icons">menu</i>
+  </button>
+ </div>
+ <div class="w3-wide w3-large w3-xlarge w3-display-topmiddle">&nbsp;ejDicto</div>
+</div>
 
-	 <a href="#!mentions/{{did}}" data-navigo class="w3-bar-item w3-button w3-mobile">
-		 <i class="material-icons">info</i> Mentions légales
-	 </a>
+<!-- Barre de menu gris foncé 
+      Cachée par défaut -->
+ <div class="w3-hide-large w3-hide-medium w3-bar w3-top w3-dark-grey" id="menu_principal_mobile"
+ style="display: none">
 
-    <a href="#!conseils/{{did}}" data-navigo class="w3-bar-item w3-button w3-mobile">
-		 <i class="material-icons">help</i> Aide
-	 </a>
+<!-- Bouton de fermeture à droite : seulement sur mobile -->
+ <a class="w3-button w3-bar-item w3-right" onclick="$('#menu_principal_mobile').hide()">
+ <i class="material-icons">close</i>
+ </a>
+ 
+ <!-- Gestion du lot de boutons du menu -->
+ {{#each item}}
+  <a {{#if @first}}
+      href="{{this.lien}}"
+    {{else}}
+      href="{{this.lien}}/{{../did}}" 
+    {{/if}}
+    {{! donnée traitée par le routeur }}
+    data-navigo 
+    {{! On débute la liste des classes }}
+    class="w3-bar-item w3-button w3-mobile 
+    {{! Classes conditionnelles : cas du premier bouton }}
+    {{#if @first}}
+      w3-teal"
+    {{else}}
+      {{! Cas du bouton à droite }}
+      {{#if this.droite}}
+        w3-right"
+      {{else}}
+        "
+      {{/if}}
+      {{! Un click ou un tap route referme le menu }}
+      onclick="$('#menu_principal_mobile').hide()"
+    {{/if}}
+    ><i class="material-icons">{{this.icone}}</i> {{this.legende}}</a>
+ {{/each}}
 </div>

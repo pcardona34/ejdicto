@@ -35,6 +35,13 @@
 		"licence": "MIT",
 		"code": "https://github.com/kylebarrow/chibi"
 	},
+    {
+      "appname": "Minification: Closure Compiler",
+      "auteur": "Google inc.",
+      "site": "https://closure-compiler.appspot.com/home",
+      "licence": "Apache License, version 2",
+      "code": "https://github.com/google/closure-compiler"
+    },
 	{
 		"appname": "Template : Handlebars",
 		"auteur": "Yehuda Katz",
@@ -69,14 +76,6 @@
 		"site": "https://github.com/krasimir/navigo",
 		"licence": "MIT",
 		"code": "https://github.com/krasimir/navigo"
-	},
-	{
-		"appname": "Minification : UglifyJS",
-		"auteur": "Mihai Bazon",
-		"site": "http://lisperator.net/uglifyjs/",
-		"licence": "MIT",
-		"code": "https://github.com/mishoo/UglifyJS2"
-
 	},
 	{
 		"appname": "Style et scripts : W3.css et W3.js",

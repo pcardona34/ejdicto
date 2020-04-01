@@ -4348,8 +4348,8 @@ const axios = require('axios'); // Requête dynamique de fichiers externes : JSO
 
 // Menus :
 const menuTemplate = require("./menus/menuTemplate.hbs"); // Modèle des menus
-const menuDicteeTemplate = require("./menus/menuDicteeTemplate.hbs"); // Modèle menu de la page Dictee
-
+const menuDicteeTemplate = require("./menus/menuDicteeTemplate.hbs"); // Modèle menu page Dictee
+const menuListeTemplate = require("./menus/menuListeTemplate.hbs"); // Modèle menu contexte de liste
 
 // Composants (Partials) :
 Handlebars.registerPartial("barre", require("./composants/barreCaracteresTemplate.hbs")); // Bouton caractère spécial
@@ -4366,8 +4366,11 @@ const licence2Template = require("./pages/licence2Template.hbs"); // Licence : p
 const dicteeTemplate = require("./pages/dicteeTemplate.hbs"); // Page globale d'une dictée
 const ecouterTemplate = require("./pages/ecouterTemplate.hbs"); // Sous-Page dans le contexte Dictee : avec lecteur audio de la dictée
 const saisirTemplate = require("./pages/saisirTemplate.hbs"); // Sous-Page dans le contexte Dictee : saisie et correction de la dictée
-const mentionsTemplate = require("./pages/mentionsTemplate.hbs"); // Sous-Page dans le contexte Dictee : affichage des mentions légales
-const conseilsTemplate = require("./pages/conseilsTemplate.hbs"); // Page de conseils au moment de la saisie
+const mentionsTemplate = require("./pages/mentionsTemplate.hbs"); // Sous-Page dans le contexte Dictee: mentions légales
+const conseilsTemplate = require("./pages/conseilsTemplate.hbs"); // Page de conseils de la saisie
+const aideTemplate = require("./pages/aideTemplate.hbs"); // Sommaire aide
+const aideIconesMobileTemplate = require("./pages/aideIconesMobileTemplate.hbs"); // Aide sur les icônes en version mobile
+
 
 /* ============================================== */
 // On charge l'interface via un événement global load
@@ -4407,6 +4410,40 @@ const menuAccueil = menuTemplate(
     },
 ]}
 );
+
+const menuDicteeItems = [
+    {
+    'icone': 'home',
+    'legende': 'ejDicto',
+    'lien': '#!',
+    'droite': false
+    },
+    {
+    'icone': 'headset',
+    'legende': 'Écouter la dictée',
+    'lien': '#!ecouter',
+    'droite': false
+    },
+    {
+    'icone': 'edit',
+    'legende': 'Saisir la dictée',
+    'lien': '#!saisir',
+    'droite': false
+    },
+    {
+    'icone': 'info',
+    'legende': 'Mentions légales',
+    'lien': '#!mentions',
+    'droite': false
+    },
+    {
+    'icone': 'help',
+    'legende': 'Aide',
+    'lien': '#!aide',
+    'droite': true
+    }
+];
+
 
 
  /* 
@@ -4466,17 +4503,22 @@ var router = new Navigo(root, useHash, hash);
 		}
 	let html = listeTemplate(contenu);
 	// Le contexte de liste a son propre menu de navigation
-	menu.html('');
+	let menuL = menuListeTemplate();
+	menu.html(menuL);
 	app.html(html);
 	},
 
- // Page du contexte Dictee : une dictée a été choisie => id
+ // Page du contexte Dictee : une dictée a été choisie => id -> did
     'dictee/:id': function (params) {
 	let contenu = {
 		'did': params.id
 	}
 	let html = dicteeTemplate(contenu);
-	let menuD = menuDicteeTemplate(contenu);
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuDicteeItems
+	});
 	menu.html(menuD);
 	app.html(html);
 	},
@@ -4487,7 +4529,12 @@ var router = new Navigo(root, useHash, hash);
 		'did': params.id
 	};
 	let html = ecouterTemplate(contenu);
-	let menuD = menuDicteeTemplate(contenu);
+  // Menu de la dictée avec contexte 'did'
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuDicteeItems
+	});
 	menu.html(menuD);
 	app.html(html);
 	},
@@ -4525,8 +4572,11 @@ var router = new Navigo(root, useHash, hash);
 	 });
 
 	// On crée et on affiche le menu lié au contexte Dictée
-	let contenu = { did: params.id }; 
-	let menuD = menuDicteeTemplate(contenu);
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuDicteeItems
+	});
 	menu.html(menuD);
 
 	}, // Fin du routage vers la page de saisie de la dictée...
@@ -4561,8 +4611,11 @@ var router = new Navigo(root, useHash, hash);
 		console.log("Erreur: "+ err);
     });
 	// On crée et on affiche le menu lié au contexte Dictée
-	let contenu = { did: params.id }; 
-	let menuD = menuDicteeTemplate(contenu);
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuDicteeItems
+	});
 	menu.html(menuD);
 	},
 
@@ -4573,11 +4626,51 @@ var router = new Navigo(root, useHash, hash);
 		'did': params.id
 	  };
 	let html = conseilsTemplate(contenu);
-	let menuD = menuDicteeTemplate(contenu);
-	menu.html(menuD);
 	app.html(html);
+  // Menu de la dictée avec son contexte : 'did'
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuDicteeItems
+	});
+	menu.html(menuD);
   },
   
+
+  // Sommaire de l'aide
+  'aide/:id': function(params){
+      let contenu = {
+        'did': params.id
+        };
+      let html = aideTemplate(contenu);
+      app.html(html);
+  // Menu de la dictée avec son contexte : 'did'
+      let menuD = menuDicteeTemplate(
+      {
+      'did': params.id,
+      'item': menuDicteeItems
+      });
+      menu.html(menuD);
+  },
+
+  // Aide sur les icones en version mobile
+    'boutons/:id': function(params){
+      let contenu = {
+        'did': params.id
+        };
+      let html = aideIconesMobileTemplate(contenu);
+      app.html(html);
+  // Menu de la dictée avec son contexte : 'did'
+      let menuD = menuDicteeTemplate(
+      {
+      'did': params.id,
+      'item': menuDicteeItems
+      });
+      menu.html(menuD);
+  },
+
+  // Chemin générique
+
   '*': function() {
   let html = accueilTemplate({"bienvenue": "Bienvenue dans votre espace d'entrainement à la dictée"});
   app.html(html);
@@ -4618,29 +4711,115 @@ router.notFound(function () {
 }); // Fin de event load
 
 
-},{"../static/config/apropos.json":68,"../static/config/liste_dictees.json":69,"./composants/barreCaracteresTemplate.hbs":52,"./menus/menuDicteeTemplate.hbs":54,"./menus/menuTemplate.hbs":55,"./pages/accueilTemplate.hbs":56,"./pages/aproposTemplate.hbs":57,"./pages/conseilsTemplate.hbs":58,"./pages/dicteeTemplate.hbs":59,"./pages/ecouterTemplate.hbs":60,"./pages/erreurTemplate.hbs":61,"./pages/licence1Template.hbs":62,"./pages/licence2Template.hbs":63,"./pages/listeTemplate.hbs":64,"./pages/mentionsTemplate.hbs":65,"./pages/popupTemplate.hbs":66,"./pages/saisirTemplate.hbs":67,"axios":2,"chibijs/chibi":28,"hbsfy/runtime":50,"navigo/lib/navigo":51}],54:[function(require,module,exports){
+},{"../static/config/apropos.json":71,"../static/config/liste_dictees.json":72,"./composants/barreCaracteresTemplate.hbs":52,"./menus/menuDicteeTemplate.hbs":54,"./menus/menuListeTemplate.hbs":55,"./menus/menuTemplate.hbs":56,"./pages/accueilTemplate.hbs":57,"./pages/aideIconesMobileTemplate.hbs":58,"./pages/aideTemplate.hbs":59,"./pages/aproposTemplate.hbs":60,"./pages/conseilsTemplate.hbs":61,"./pages/dicteeTemplate.hbs":62,"./pages/ecouterTemplate.hbs":63,"./pages/erreurTemplate.hbs":64,"./pages/licence1Template.hbs":65,"./pages/licence2Template.hbs":66,"./pages/listeTemplate.hbs":67,"./pages/mentionsTemplate.hbs":68,"./pages/popupTemplate.hbs":69,"./pages/saisirTemplate.hbs":70,"axios":2,"chibijs/chibi":28,"hbsfy/runtime":50,"navigo/lib/navigo":51}],54:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
-module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.lambda, alias3=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n <!-- Navigation : Menu : menuDicteeTemplate.hbs -->\n\n <div id=\"menu_mobile\" class=\"w3-bar w3-teal w3-hide-medium w3-hide-large\">\n <button onclick=\"$('#menu_principal_dictee').toggle()\" class=\"w3-button w3-teal w3-bar-item\">\n <i class=\"material-icons\">menu</i>\n </button>\n </div>\n\n <div class=\"w3-bar w3-teal\" id=\"menu_principal_dictee\">\n	 <a href=\"#!\" data-navigo class=\"w3-bar-item w3-button w3-mobile\">\n		 <i class=\"material-icons\">home</i> ejDicto\n	 </a>\n	 \n	 <a href=\"#!ecouter/"
-    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":22,"column":21},"end":{"line":22,"column":28}}}) : helper)))
-    + "\" data-navigo class=\"w3-bar-item w3-button w3-mobile\">\n		 <i class=\"material-icons\">headset</i> Écouter la dictée\n	 </a>\n\n	 <a href=\"#!saisir/"
-    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":26,"column":20},"end":{"line":26,"column":27}}}) : helper)))
-    + "\" data-navigo class=\"w3-bar-item w3-button w3-mobile\">\n		 <i class=\"material-icons\">edit</i> Saisir la dictée\n	 </a>\n	 \n\n	 <a href=\"#!mentions/"
-    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":31,"column":22},"end":{"line":31,"column":29}}}) : helper)))
-    + "\" data-navigo class=\"w3-bar-item w3-button w3-mobile\">\n		 <i class=\"material-icons\">info</i> Mentions légales\n	 </a>\n\n    <a href=\"#!conseils/"
-    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":35,"column":24},"end":{"line":35,"column":31}}}) : helper)))
-    + "\" data-navigo class=\"w3-bar-item w3-button w3-mobile\">\n		 <i class=\"material-icons\">help</i> Aide\n	 </a>\n</div>\n";
-},"useData":true});
+  return " <a "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(data && lookupProperty(data,"first")),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.program(4, data, 0, blockParams, depths),"data":data,"loc":{"start":{"line":21,"column":4},"end":{"line":25,"column":11}}})) != null ? stack1 : "")
+    + "    data-navigo \n    class=\"w3-bar-item w3-button \n"
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(data && lookupProperty(data,"first")),{"name":"if","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.program(8, data, 0, blockParams, depths),"data":data,"loc":{"start":{"line":31,"column":4},"end":{"line":40,"column":11}}})) != null ? stack1 : "")
+    + "    ><i class=\"material-icons\">"
+    + alias3(alias2((depth0 != null ? lookupProperty(depth0,"icone") : depth0), depth0))
+    + "</i> "
+    + alias3(alias2((depth0 != null ? lookupProperty(depth0,"legende") : depth0), depth0))
+    + "</a>\n";
+},"2":function(container,depth0,helpers,partials,data) {
+    var lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "\n      href=\""
+    + container.escapeExpression(container.lambda((depth0 != null ? lookupProperty(depth0,"lien") : depth0), depth0))
+    + "\"\n";
+},"4":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var alias1=container.lambda, alias2=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "      href=\""
+    + alias2(alias1((depth0 != null ? lookupProperty(depth0,"lien") : depth0), depth0))
+    + "/"
+    + alias2(alias1((depths[1] != null ? lookupProperty(depths[1],"did") : depths[1]), depth0))
+    + "\" \n";
+},"6":function(container,depth0,helpers,partials,data) {
+    return "      w3-teal\"\n";
+},"8":function(container,depth0,helpers,partials,data) {
+    var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"droite") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.program(11, data, 0),"data":data,"loc":{"start":{"line":35,"column":6},"end":{"line":39,"column":13}}})) != null ? stack1 : "");
+},"9":function(container,depth0,helpers,partials,data) {
+    return "        w3-right\"\n";
+},"11":function(container,depth0,helpers,partials,data) {
+    return "        \"\n";
+},"13":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.lambda, alias3=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "  <a "
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(data && lookupProperty(data,"first")),{"name":"if","hash":{},"fn":container.program(2, data, 0, blockParams, depths),"inverse":container.program(4, data, 0, blockParams, depths),"data":data,"loc":{"start":{"line":70,"column":5},"end":{"line":74,"column":11}}})) != null ? stack1 : "")
+    + "    data-navigo \n    class=\"w3-bar-item w3-button w3-mobile \n"
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(data && lookupProperty(data,"first")),{"name":"if","hash":{},"fn":container.program(6, data, 0, blockParams, depths),"inverse":container.program(14, data, 0, blockParams, depths),"data":data,"loc":{"start":{"line":80,"column":4},"end":{"line":91,"column":11}}})) != null ? stack1 : "")
+    + "    ><i class=\"material-icons\">"
+    + alias3(alias2((depth0 != null ? lookupProperty(depth0,"icone") : depth0), depth0))
+    + "</i> "
+    + alias3(alias2((depth0 != null ? lookupProperty(depth0,"legende") : depth0), depth0))
+    + "</a>\n";
+},"14":function(container,depth0,helpers,partials,data) {
+    var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"droite") : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.program(11, data, 0),"data":data,"loc":{"start":{"line":84,"column":6},"end":{"line":88,"column":13}}})) != null ? stack1 : "")
+    + "      onclick=\"$('#menu_principal_mobile').hide()\"\n";
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data,blockParams,depths) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n <!-- Navigation : Menu : menuDicteeTemplate.hbs -->\n\n<!-- ============================================ -->\n\n<!-- Menu bureau : medium et large -->\n\n<!-- Barre de menu gris clair -->\n <div class=\"top\">\n <div class=\"w3-hide-small w3-bar w3-light-grey w3-text-teal\" id=\"menu_principal\">\n\n <!-- Gestion du lot de boutons du menu -->\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"item") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":1},"end":{"line":42,"column":10}}})) != null ? stack1 : "")
+    + " </div>\n</div>\n\n<!-- =================================================== -->\n<!-- Menu mobile -->\n\n<div class=\"w3-hide-large w3-hide-medium w3-top w3-display-container w3-dark-grey\">\n <div class=\"display-topleft\">\n  <button onclick=\"$('#menu_principal_mobile').show()\" class=\"w3-button w3-bar-item\">\n    <i class=\"material-icons\">menu</i>\n  </button>\n </div>\n <div class=\"w3-wide w3-large w3-xlarge w3-display-topmiddle\">&nbsp;ejDicto</div>\n</div>\n\n<!-- Barre de menu gris foncé \n      Cachée par défaut -->\n <div class=\"w3-hide-large w3-hide-medium w3-bar w3-top w3-dark-grey\" id=\"menu_principal_mobile\"\n style=\"display: none\">\n\n<!-- Bouton de fermeture à droite : seulement sur mobile -->\n <a class=\"w3-button w3-bar-item w3-right\" onclick=\"$('#menu_principal_mobile').hide()\">\n <i class=\"material-icons\">close</i>\n </a>\n \n <!-- Gestion du lot de boutons du menu -->\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"item") : depth0),{"name":"each","hash":{},"fn":container.program(13, data, 0, blockParams, depths),"inverse":container.noop,"data":data,"loc":{"start":{"line":69,"column":1},"end":{"line":93,"column":10}}})) != null ? stack1 : "")
+    + "</div>\n";
+},"useData":true,"useDepths":true});
 
 },{"hbsfy/runtime":50}],55:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n <!-- Navigation : Menu : menuListe.hbs -->\n\n<div class=\"w3-top w3-hide-small\">\n  <div class=\"w3-bar w3-light-grey w3-text-teal\">\n\n  <a href=\"#!\" class=\"w3-bar-item w3-button w3-teal\">\n    <i class=\"material-icons\">home</i> ejDicto\n  </a>\n\n  <button onclick=\"$('#panneau_recherche').toggle()\" \n  class=\"w3-bar-item w3-button w3-right\">\n  <i class=\"material-icons\">search</i>\n  </button>\n  </div>\n</div>\n\n\n<!-- ooooooooooooooooooooooooooooooooooooo -->\n\n<!-- Version mobile : on fonce la barre, suffisant pour ce menu. -->\n\n<div class=\"w3-top w3-hide-medium w3-hide-large\">\n  <div class=\"w3-bar w3-dark-grey\">\n\n  <a href=\"#!\" class=\"w3-bar-item w3-button w3-teal\">\n    <i class=\"material-icons\">home</i> jDicto\n  </a>\n\n  <button onclick=\"$('#panneau_recherche').toggle()\" \n  class=\"w3-bar-item w3-button w3-dark-grey w3-right\">\n  <i class=\"material-icons\">search</i>\n  </button>\n  </div>\n</div>\n";
+},"useData":true});
+
+},{"hbsfy/runtime":50}],56:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
@@ -4653,16 +4832,16 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
 
   return " <a href=\""
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"lien") : depth0), depth0))
-    + "\" \n data-navigo class=\"w3-bar-item w3-button w3-mobile\n"
-    + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"droite") : depth0),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":21,"column":2},"end":{"line":23,"column":9}}})) != null ? stack1 : "")
-    + "	 \">\n	 <i class=\"material-icons\">"
+    + "\" \n    data-navigo \n    class=\"w3-bar-item w3-button \n"
+    + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(data && lookupProperty(data,"first")),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(4, data, 0),"data":data,"loc":{"start":{"line":27,"column":4},"end":{"line":36,"column":11}}})) != null ? stack1 : "")
+    + "    ><i class=\"material-icons\">"
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"icone") : depth0), depth0))
     + "</i> "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"legende") : depth0), depth0))
-    + "\n </a>\n";
+    + "</a>\n";
 },"2":function(container,depth0,helpers,partials,data) {
-    return "		w3-right\"\n";
-},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "      w3-teal\"\n";
+},"4":function(container,depth0,helpers,partials,data) {
     var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -4670,12 +4849,54 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n <!-- Navigation : Menu : menuTemplate.hbs -->\n\n <div class=\"w3-bar w3-teal w3-hide-medium w3-hide-large\">\n <button onclick=\"$('#menu_principal').toggle()\" class=\"w3-button w3-teal w3-bar-item\">\n <i class=\"material-icons\">menu</i>\n </button>\n </div>\n\n <div class=\"w3-bar w3-teal\" id=\"menu_principal\" style=\"display: block\">\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"item") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":1},"end":{"line":27,"column":10}}})) != null ? stack1 : "")
-    + " </div>\n";
+  return ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"droite") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":31,"column":6},"end":{"line":35,"column":13}}})) != null ? stack1 : "");
+},"5":function(container,depth0,helpers,partials,data) {
+    return "        w3-right\"\n";
+},"7":function(container,depth0,helpers,partials,data) {
+    return "        \"\n";
+},"9":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=container.lambda, alias2=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return " <a href=\""
+    + alias2(alias1((depth0 != null ? lookupProperty(depth0,"lien") : depth0), depth0))
+    + "\" \n    data-navigo \n    class=\"w3-bar-item w3-button w3-mobile \n"
+    + ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(data && lookupProperty(data,"first")),{"name":"if","hash":{},"fn":container.program(2, data, 0),"inverse":container.program(10, data, 0),"data":data,"loc":{"start":{"line":72,"column":4},"end":{"line":83,"column":11}}})) != null ? stack1 : "")
+    + "    ><i class=\"material-icons\">"
+    + alias2(alias1((depth0 != null ? lookupProperty(depth0,"icone") : depth0), depth0))
+    + "</i> "
+    + alias2(alias1((depth0 != null ? lookupProperty(depth0,"legende") : depth0), depth0))
+    + "</a>\n";
+},"10":function(container,depth0,helpers,partials,data) {
+    var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"droite") : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.program(7, data, 0),"data":data,"loc":{"start":{"line":76,"column":6},"end":{"line":80,"column":13}}})) != null ? stack1 : "")
+    + "      onclick=\"$('#menu_principal_mobile').hide()\"\n";
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n <!-- Navigation : Menu : menuTemplate.hbs -->\n\n<!-- ============================================ -->\n\n<!-- Menu bureau : medium et large -->\n\n<!-- Barre de menu gris clair -->\n <div class=\"top\">\n <div class=\"w3-hide-small w3-bar w3-light-grey w3-text-teal\" id=\"menu_principal\">\n\n <!-- Gestion du lot de boutons du menu -->\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"item") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":20,"column":1},"end":{"line":38,"column":10}}})) != null ? stack1 : "")
+    + " </div>\n</div>\n\n<!-- =================================================== -->\n<!-- Menu mobile -->\n\n<div class=\"w3-hide-large w3-hide-medium w3-top w3-display-container w3-dark-grey\">\n <div class=\"display-topleft\">\n  <button onclick=\"$('#menu_principal_mobile').show()\" class=\"w3-button w3-bar-item\">\n    <i class=\"material-icons\">menu</i>\n  </button>\n </div>\n <div class=\"w3-wide w3-large w3-xlarge w3-display-topmiddle\">&nbsp;ejDicto</div>\n</div>\n\n<!-- Barre de menu gris foncé \n      Cachée par défaut -->\n <div class=\"w3-hide-large w3-hide-medium w3-bar w3-top w3-dark-grey\" id=\"menu_principal_mobile\"\n style=\"display: none\">\n\n<!-- Bouton de fermeture à droite : seulement sur mobile -->\n <a class=\"w3-button w3-bar-item w3-right\" onclick=\"$('#menu_principal_mobile').hide()\">\n <i class=\"material-icons\">close</i>\n </a>\n \n <!-- Gestion du lot de boutons du menu -->\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"item") : depth0),{"name":"each","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":65,"column":1},"end":{"line":85,"column":10}}})) != null ? stack1 : "")
+    + "</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],56:[function(require,module,exports){
+},{"hbsfy/runtime":50}],57:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -4686,12 +4907,48 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- accueilTemplate.hbs -->\n\n <div class=\"w3-container\" id=\"page_accueil\">\n <div class=\"w3-display-container\">\n	 <img src=\"./static/images/encrier.jpg\" class=\"w3-opacity-max\">\n	 <h1 class=\"w3-wide w3-display-middle\">"
-    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"bienvenue") || (depth0 != null ? lookupProperty(depth0,"bienvenue") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"bienvenue","hash":{},"data":data,"loc":{"start":{"line":14,"column":40},"end":{"line":14,"column":55}}}) : helper)))
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- accueilTemplate.hbs -->\n\n <div class=\"w3-container\" id=\"page_accueil\">\n <div class=\"w3-display-container\">\n   <img src=\"./static/images/encrier.jpg\" class=\"w3-image w3-opacity-max\">\n   <h1 class=\"w3-wide w3-display-middle w3-text-teal w3-opacity\" >"
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"bienvenue") || (depth0 != null ? lookupProperty(depth0,"bienvenue") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"bienvenue","hash":{},"data":data,"loc":{"start":{"line":14,"column":66},"end":{"line":14,"column":81}}}) : helper)))
     + "</h1>\n </div>\n </div>\n\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],57:[function(require,module,exports){
+},{"hbsfy/runtime":50}],58:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- Template : aideTemplate.hbs -->\n\n\n<div class=\"w3-container w3-padding-32\">\n\n	<h3 class=\"w3-text-teal\">Boutons en version mobile</h3>\n\n<div class=\"w3-container w3-padding\">\n	<ul class=\"w3-ul\">\n    <li><span class=\"w3-green w3-padding\"><i class=\"material-icons\">add</i></span> affiche la barre des caractères spéciaux.</li>\n    <li><span class=\"w3-orange w3-padding\"><i class=\"material-icons\">delete_forever</i></span> efface la saisie commencée.</li>\n    <li><span class=\"w3-green w3-padding\"><i class=\"material-icons\">announcement</i></span> soumet la dictée au correcteur <sup>(1)</sup></li>\n    <li><span class=\"w3-red w3-padding\"><i class=\"material-icons\">assignment_turned_in</i></span> termine la dictée et affiche la correction finale</li>\n	</ul>\n<p><sup>(1)</sup> Si le correcteur détecte des erreurs, il affiche un message invitant à améliorer la dictée saisie.</p>\n  <p>\n	<a class=\"w3-button w3-green\" \" href=\"#!saisir/"
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"did","hash":{},"data":data,"loc":{"start":{"line":25,"column":48},"end":{"line":25,"column":55}}}) : helper)))
+    + "\"><i class=\"material-icons\">arrow_back_ios</i> Reprendre ma saisie</a>\n  </p>\n</div>\n";
+},"useData":true});
+
+},{"hbsfy/runtime":50}],59:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- Template : aideTemplate.hbs -->\n\n\n<div class=\"w3-container w3-padding-32\">\n\n	<h3 class=\"w3-text-teal\">Aide</h3>\n\n<div class=\"w3-container w3-padding\">\n	<ul class=\"w3-ul\">\n		<li class=\"w3-green\">\n			<h3>Sommaire</h3>\n        <li><a href=\"#!boutons/"
+    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":20,"column":31},"end":{"line":20,"column":38}}}) : helper)))
+    + "\" data-navigo class=\"w3-button w3-text-green\">Boutons de la version mobile</a>\n		</li>\n		<li><a href=\"#!conseils/"
+    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":22,"column":26},"end":{"line":22,"column":33}}}) : helper)))
+    + "\" data-navigo class=\"w3-button w3-text-green\">Améliorer ma saisie\n		</li>\n	</ul>\n	\n  <p>\n	<a class=\"w3-button w3-green\" \" href=\"#!saisir/"
+    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":27,"column":48},"end":{"line":27,"column":55}}}) : helper)))
+    + "\"><i class=\"material-icons\">arrow_back_ios</i> Reprendre ma saisie</a>\n  </p>\n</div>\n";
+},"useData":true});
+
+},{"hbsfy/runtime":50}],60:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
@@ -4723,12 +4980,12 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
 
   return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : aproposTemplate.hbs -->\n\n<div class=\"w3-container\">\n    <h3 class=\"w3-text-teal\">À propos de "
     + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"app_name") || (depth0 != null ? lookupProperty(depth0,"app_name") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(alias1,{"name":"app_name","hash":{},"data":data,"loc":{"start":{"line":12,"column":41},"end":{"line":12,"column":55}}}) : helper)))
-    + "</h3>\n\n    <p>Cette application Web permet de s'exercer en orthographe de manière autonome en proposant des exercices variés : dictées, réécritures...</p>\n    <p>C'est un <a href=\"#!licence/1\" class=\"w3-text-teal\" style=\"text-decoration: none\">logiciel libre</a> réalisé grace aux modules ou outils suivants :</p>\n\n    <ul style=\"list-style: none\">\n"
+    + "</h3>\n\n    <p>Cette application Web permet de s'exercer en orthographe de manière autonome en proposant des exercices variés : dictées, réécritures...</p>\n    <p>C'est un <a href=\"#!licence/1\" class=\"w3-text-teal\" style=\"text-decoration: none\">logiciel libre</a> réalisé grâce aux modules ou outils suivants :</p>\n\n    <ul style=\"list-style: none\">\n"
     + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"module") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":18,"column":5},"end":{"line":20,"column":14}}})) != null ? stack1 : "")
     + "    </ul>\n\n    <h3>Crédit photo</h3>\n    <p>Le dessin de l'encrier en page d'accueil est l'œuvre de Rawpixel : <a class=\"w3-text-teal\" style=\"text-decoration: none\" target=\"_blank\" href=\"http://www.freepik.com\">designed by rawpixel.com / Freepik</a></p>\n</div>\n\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],58:[function(require,module,exports){
+},{"hbsfy/runtime":50}],61:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -4739,12 +4996,12 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- Template : conseilsTemplate.hbs -->\n\n\n<div class=\"w3-container\">\n\n	<h3 class=\"w3-text-teal\">Comment améliorer mon texte ?</h3>\n\n<div class=\"w3-container w3-padding\">\n	<ul class=\"w3-ul\">\n		<li class=\"w3-green\">\n			<h3>Je vérifie...</h3>\n        <li>Les homophones : <b>a</b> ou <b>à</b> ? <b>et</b> ou <b>est</b> ? etc.\n		</li>\n		<li>Les accords au sein du groupe nominal.\n		</li>\n		<li>\n			Les accords du verbe avec son sujet :\n			 attention au sujet parfois inversé ou composé de plusieurs noms&nbsp;.\n			 Attention à la présence de pronoms sournois, placés entre le sujet et le verbe.\n		</li>\n		<li>\n			Je fais attention aux accords plus subtils : mots éloignés ou détachés, participe passé...\n		</li>\n		<li>\n		    Pour les mots que je ne reconnais pas, je peux les chercher dans un<a href=\"https://www.dictionnaire-academie.fr\" \n		    target=\"_blank\" class=\"w3-button w3-text-green\" style=\"text-decoration: none\">dictionnaire</a>...\n        </li>\n	</ul>\n	\n  <p>\n	<a class=\"w3-button w3-green\" \" href=\"#!saisir/"
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- Template : conseilsTemplate.hbs -->\n\n\n<div class=\"w3-container w3-padding-32\">\n\n	<h3 class=\"w3-text-teal\">Comment améliorer mon texte ?</h3>\n\n<div class=\"w3-container w3-padding\">\n	<ul class=\"w3-ul\">\n		<li class=\"w3-green\">\n			<h3>Je vérifie...</h3>\n        <li>Les homophones : <b>a</b> ou <b>à</b> ? <b>et</b> ou <b>est</b> ? etc.\n		</li>\n		<li>Les accords au sein du groupe nominal.\n		</li>\n		<li>\n			Les accords du verbe avec son sujet :\n			 attention au sujet parfois inversé ou composé de plusieurs noms&nbsp;.\n			 Attention à la présence de pronoms sournois, placés entre le sujet et le verbe.\n		</li>\n		<li>\n			Je fais attention aux accords plus subtils : mots éloignés ou détachés, participe passé...\n		</li>\n		<li>\n		    Pour les mots que je ne reconnais pas, je peux les chercher dans un<a href=\"https://www.dictionnaire-academie.fr\" \n		    target=\"_blank\" class=\"w3-button w3-text-green\" style=\"text-decoration: none\">dictionnaire</a>...\n        </li>\n	</ul>\n	\n  <p>\n	<a class=\"w3-button w3-green\" \" href=\"#!saisir/"
     + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"did","hash":{},"data":data,"loc":{"start":{"line":39,"column":48},"end":{"line":39,"column":55}}}) : helper)))
     + "\"><i class=\"material-icons\">arrow_back_ios</i> Reprendre ma saisie</a>\n  </p>\n    </div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],59:[function(require,module,exports){
+},{"hbsfy/runtime":50}],62:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -4755,14 +5012,14 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : dicteeTemplate -->\n\n<div class=\"w3-container w3-padding\">\n\n  <h3 class=\"w3-text-teal\">Dictée "
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : dicteeTemplate -->\n\n<div class=\"w3-container w3-padding-32\">\n\n  <h3 class=\"w3-text-teal\">Dictée "
     + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":13,"column":34},"end":{"line":13,"column":41}}}) : helper)))
     + "</h3>\n\n  <div class=\"w3-container\">\n\n	<ul class=\"w3-ul\">\n		<li class=\"w3-green\">\n			<h3>Mode d'emploi</h3>\n		</li>	\n		<li><span class=\"w3-badge w3-green\">1</span> D'abord, écoutez la dictée et notez-la au brouillon.\n		</li>\n		<li>\n			<span class=\"w3-badge w3-green\">2</span> Saisissez-la ensuite et obtenez un bilan. \n			Si des erreurs persistent, tentez d'améliorer cette saisie.\n		</li>\n		<li>\n			<span class=\"w3-badge w3-green\">3</span> Quand vous aurez effectué toutes les corrections possibles, \n			terminez la saisie pour voir la correction.\n		</li>\n	</ul>\n\n  <p>\n	Passez maintenant à la première \n	<a class=\"w3-button w3-text-teal\" style=\"text-decoration: none\" href=\"#!ecouter/"
     + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":35,"column":81},"end":{"line":35,"column":88}}}) : helper)))
     + "\">écoute</a> de la dictée...\n  </p>\n\n  </div>\n\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],60:[function(require,module,exports){
+},{"hbsfy/runtime":50}],63:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -4773,18 +5030,18 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- Template : ecouterTemplate.hbs -->\n\n\n<div class=\"w3-container\">\n\n	<h3 class=\"w3-text-teal\">Écouter la dictée "
-    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":14,"column":44},"end":{"line":14,"column":51}}}) : helper)))
-    + "</h3>\n\n    <audio controls=\"controls\">\n	    <source src=\"./static/audio/dictee"
-    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":17,"column":39},"end":{"line":17,"column":46}}}) : helper)))
-    + ".ogg\" type=\"audio/ogg\">\n	    <source src=\"./static/audio/dictee"
-    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":18,"column":39},"end":{"line":18,"column":46}}}) : helper)))
-    + ".mp3\" type=\"audio/mpeg\">\n	    <p>Erreur de chargement du fichier audio...</p>\n    </audio>\n</div>\n\n<div class=\"w3-container w3-padding\">\n	<ul class=\"w3-ul\">\n		<li class=\"w3-green\">\n			<h3>Conseils</h3>\n		</li>	\n		<li>D'abord, écoutez une première fois la dictée, sans chercher à l'écrire. Efforcez-vous d'en saisir le sens.\n		</li>\n		<li>\n			Puis écoutez-la de nouveau, en la notant sur votre cahier de brouillon. Au besoin, mettez en pause le lecteur audio.\n		</li>\n		<li>\n			Relisez-vous en écoutant une dernière fois la dictée.\n		</li>\n	</ul>\n	\n  <p>\n	Passez maintenant à la <a class=\"w3-button w3-text-green\" style=\"text-decoration: none\" href=\"#!saisir/"
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- Template : ecouterTemplate.hbs -->\n\n\n<div class=\"w3-container\">\n\n	<h3 class=\"w3-text-teal w3-padding-32\">Écouter la dictée "
+    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":14,"column":58},"end":{"line":14,"column":65}}}) : helper)))
+    + "</h3>\n\n    <audio controls=\"controls\">\n      <source src=\"./static/audio/dictee"
+    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":17,"column":40},"end":{"line":17,"column":47}}}) : helper)))
+    + ".ogg\" type=\"audio/ogg\">\n      <source src=\"./static/audio/dictee"
+    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":18,"column":40},"end":{"line":18,"column":47}}}) : helper)))
+    + ".mp3\" type=\"audio/mpeg\">\n      <p>Erreur de chargement du fichier audio...</p>\n    </audio>\n</div>\n\n<div class=\"w3-container w3-padding\">\n	<ul class=\"w3-ul\">\n		<li class=\"w3-green\">\n			<h3>Conseils</h3>\n		</li>	\n		<li>D'abord, écoutez une première fois la dictée, sans chercher à l'écrire. Efforcez-vous d'en saisir le sens.\n		</li>\n		<li>\n			Puis écoutez-la de nouveau, en la notant sur votre cahier de brouillon. Au besoin, mettez en pause le lecteur audio.\n		</li>\n		<li>\n			Relisez-vous en écoutant une dernière fois la dictée.\n		</li>\n	</ul>\n	\n  <p>\n	Passez maintenant à la <a class=\"w3-button w3-text-green\" style=\"text-decoration: none\" href=\"#!saisir/"
     + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":39,"column":104},"end":{"line":39,"column":111}}}) : helper)))
     + "\">saisie</a> de cette dictée...\n  </p>\n    </div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],61:[function(require,module,exports){
+},{"hbsfy/runtime":50}],64:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -4804,7 +5061,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],62:[function(require,module,exports){
+},{"hbsfy/runtime":50}],65:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -4822,14 +5079,14 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + " Patrick CARDONA<br /><br />\n      Le code JavaScript de cette page est un logiciel libre : vous \n      pouvez le redistribuer et/ou le modifier selon les termes de la \n      licence GNU General Public License (GNU GPL) telle que publiée \n      par la Free  Software Foundation, en version 3 de la licence, ou \n      (à votre discrétion) toute version ultérieure. Le code est distribué \n      SANS AUCUNE GARANTIE ; sans même la garantie implicite de \n      MARCHANDABILITÉ ou d'ADÉQUATION À UN BUT PARTICULIER. Consulter \nla GNU GPL pour plus de détails.</p>\n  </div>\n\n</div>\n\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],63:[function(require,module,exports){
+},{"hbsfy/runtime":50}],66:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : licence page 2 \n  licence2Template.hbs\n-->\n\n\n<div class=\"w3-container\">\n	<h3 class=\"w3-text-teal\">Licence</h3>\n\n <!-- Pagination -->\n <div class=\"w3-center\">\n	 <div class=\"w3-bar w3-border w3-round\">\n		 <a href=\"#!licence/1\" class=\"w3-bar-item w3-button\">1</a>\n   		 <a href=\"#!licence/2\" class=\"w3-bar-item w3-button w3-teal\">2</a>\n  	</div>\n </div>\n\n <div style=\"max-width: 400px\">\n    <p style=\"text-align: justify\">\n      En tant que permission supplémentaire selon les termes de la GNU \n      GPL version 3 section 7, vous pouvez distribuer des formes \n      « non-source » (par ex., minimisées ou compactées) de ce code\n      sans la copie de la GNU GPL normalement requise section 4, à \n      condition d'inclure cette notice de licence et une URL par laquelle \n      les destinataires peuvent accéder au code source correspondant.\n      <br /><br />\n      Consultez la licence GNU GPL pour plus de détails:\n      <br /><a href=\"http://www.gnu.org/licenses/\" target=\"_blank\">\n      http://www.gnu.org/licenses/</a>\n      </p>\n </div>\n\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],64:[function(require,module,exports){
+},{"hbsfy/runtime":50}],67:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
@@ -4844,9 +5101,9 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"id") : depth0), depth0))
     + "\" class=\"w3-bar-item w3-button\">\n			    "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"id") : depth0), depth0))
-    + " : «&nbsp; "
+    + " : "
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"titre") : depth0), depth0))
-    + " &nbsp;»</a>\n	    </li>\n";
+    + " </a>\n	    </li>\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -4855,12 +5112,12 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Liste filtrée des dictées\n  listeTemplate.hbs\n  -->\n\n<div class=\"w3-bar w3-teal\">\n\n	<a href=\"#!\" class=\"w3-bar-item w3-button\">\n  		<i class=\"material-icons\">home</i> jDicto\n	</a>\n\n	<button onclick=\"$('#panneau_recherche').toggle()\" class=\"w3-bar-item w3-button w3-right\"><i class=\"material-icons\">search</i></button>\n	</div>\n\n<div class=\"w3-container\">\n \n</div>\n<div class=\"w3-container w3-padding\">\n<div class=\"w3-card-4 w3-light-gray\" id=\"panneau_recherche\">\n	<div class=\"w3-container w3-green\">\n		  <h3>Chercher une dictée</h3>\n	</div>\n	<div class=\"w3-container w3-padding-16\">\n	<form>\n		<label class=\"w3-center w3-text-green\"><i class=\"material-icons\">search</i> Filtre :</label>\n		<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Titre ou numéro...\" \n	oninput=\"w3.filterHTML('#liste_des_dictees', 'li', this.value)\">\n	</form>\n	</div>\n</div>\n\n<div class=\"w3-container\">\n	<h3 class=\"w3-text-teal\">Liste des dictées</h3>\n    <ul id=\"liste_des_dictees\" class=\"w3-bar-block w3-border w3-light-gray\" style=\"list-style-type: none; margin: 0; padding: 0\">\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"infodictee") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":42,"column":5},"end":{"line":46,"column":14}}})) != null ? stack1 : "")
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Liste filtrée des dictées\n  listeTemplate.hbs\n  -->\n\n\n<div class=\"w3-container\">\n \n</div>\n<div class=\"w3-container w3-padding-32\">\n<div class=\"w3-card-4 w3-light-gray\" id=\"panneau_recherche\" style=\"display: none\">\n	<div class=\"w3-container w3-green\">\n		  <h3>Chercher une dictée</h3>\n	</div>\n	<div class=\"w3-container w3-padding-16\">\n	<form>\n		<label class=\"w3-center w3-text-green\"><i class=\"material-icons\">search</i> Filtre :</label>\n		<input class=\"w3-input w3-border w3-padding\" type=\"text\" placeholder=\"Titre ou numéro...\" \n	oninput=\"w3.filterHTML('#liste_des_dictees', 'li', this.value)\">\n	</form>\n	</div>\n</div>\n\n<div class=\"w3-container\">\n	<h3 class=\"w3-text-teal\">Liste des dictées</h3>\n    <ul id=\"liste_des_dictees\" class=\"w3-bar-block w3-border w3-light-gray\" style=\"list-style-type: none; margin: 0; padding: 0\">\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"infodictee") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":34,"column":5},"end":{"line":38,"column":14}}})) != null ? stack1 : "")
     + "    </ul>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],65:[function(require,module,exports){
+},{"hbsfy/runtime":50}],68:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -4871,7 +5128,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : mentions légales\n  mentionsTemplate.hbs\n -->\n\n   <div class=\"w3-container w3-padding\">\n		<div class=\"w3-card\">\n			   <header class=\"w3-green w3-padding\"><h3>Mentions légales</h3></header>\n			   <div class=\"w3-container\">\n			   		 <h3>"
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : mentions légales\n  mentionsTemplate.hbs\n -->\n\n   <div class=\"w3-container w3-padding-48\">\n		<div class=\"w3-card\">\n			   <header class=\"w3-green w3-padding\"><h3>Mentions légales</h3></header>\n			   <div class=\"w3-container\">\n			   		 <h3>"
     + alias4(((helper = (helper = lookupProperty(helpers,"titre") || (depth0 != null ? lookupProperty(depth0,"titre") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titre","hash":{},"data":data,"loc":{"start":{"line":17,"column":13},"end":{"line":17,"column":24}}}) : helper)))
     + "</h3>\n				      <p><span class=\"w3-text-green\">Référence :</span>\n				       <span class=\"auteur\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"auteur") || (depth0 != null ? lookupProperty(depth0,"auteur") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"auteur","hash":{},"data":data,"loc":{"start":{"line":19,"column":32},"end":{"line":19,"column":44}}}) : helper)))
@@ -4882,7 +5139,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "</p>\n			  </div>\n		</div>\n   </div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],66:[function(require,module,exports){
+},{"hbsfy/runtime":50}],69:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -4900,7 +5157,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "</p>\n\n\n";
 },"useData":true});
 
-},{"hbsfy/runtime":50}],67:[function(require,module,exports){
+},{"hbsfy/runtime":50}],70:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
@@ -4920,18 +5177,20 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- Template de saisie, correction et affichage de la correction \n    saisirTemplate.hbs\n -->\n\n<div id=\"zone_saisie\" class=\"w3-container\" style=\"display: block\">\n\n	<h3 class=\"w3-text-teal\">Saisie de la dictée "
-    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":15,"column":46},"end":{"line":15,"column":53}}}) : helper)))
-    + "</h3>\n\n<!-- Zone de notification modale -->\n\n<div id=\"notification\" class=\"w3-modal\">\n  <div class=\"w3-modal-content\">\n    <div class=\"w3-container\">\n      <span onclick=\"document.getElementById('notification').style.display='none'\"\n      class=\"w3-button w3-display-topright\"><i class=\"material-icons\">close</i></span>\n      <h4 id=\"titre_notification\">Notification</h4>\n      <p id=\"message_notification\">Mon message...</p>\n    </div>\n  </div>\n</div>\n\n	<!-- zone de boutons : actions sur la saisie -->\n	<div class=\"w3-container w3-padding\">\n		<nav class=\"w3-row\">\n			<button class=\"w3-button w3-orange\" onclick=\"dictee.recommencerSaisie()\">Effacer</button>\n			<button class=\"w3-button w3-green\" onclick=\"dictee.corriger()\">Corriger</button>\n			<button class=\"w3-button w3-red\" onclick=\"dictee.terminer()\">Terminer</a>\n		</nav>\n	</div> <!-- fin zone de boutons -->\n\n	<!-- Barre de caractères spéciaux et zone de saisie -->\n	<div class=\"w3-container\"> \n		<div id=\"conteneur_barre\" class=\"w3-bar\">\n		    <button onclick=\"$('#barre_car_spec').toggle()\" class=\"w3-bar-item w3-button w3-green w3-border\">\n			<i class=\"material-icons\">add</i>\n		    </button>\n		    <span id=\"barre_car_spec\" style=\"display: block\">\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"caracteres") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":46,"column":3},"end":{"line":48,"column":12}}})) != null ? stack1 : "")
-    + "		    </span>\n		</div>\n	</div>\n\n	<!-- Zone de saisie du texte de la dictée -->\n	<textarea id=\"ma_saisie\" spellcheck=\"false\" class=\"w3-block w3-sand\" rows=\"15\" \n	style=\"max-width: 600px\"\n	placeholder=\"Saisissez ici le texte de votre dictée notée au brouillon...\" \n	onblur=\"sessionStorage.setItem('dictee', this.value)\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"saisie") || (depth0 != null ? lookupProperty(depth0,"saisie") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"saisie","hash":{},"data":data,"loc":{"start":{"line":57,"column":55},"end":{"line":57,"column":65}}}) : helper)))
-    + "</textarea>\n\n</div>  <!-- Fin de la zone de saisie -->\n\n	<!-- ============================================== -->\n\n<div id=\"zone_correction\" class=\"w3-container\" style=\"display: none\">\n<div class=\"w3-display-container\">\n  <a href=\"#!\" class=\"w3-button w3-display-topright \"><i class=\"material-icons\">close</i></a>\n</div>\n <h3 class=\"w3-text-teal\">Correction</h3>\n\n <p id=\"corrige\" class=\"correction\"></p>\n\n</div> <!-- Fin div zone_correction -->\n\n<!-- ================================================== -->\n\n<!-- BLOC MASQUE: MAIS NECESSAIRE POUR LA CORRECTION\n    Son contenu est utilisé par la méthode corriger() de l'objet Dictee -->\n\n<div id=\"texte\" style=\"visibility: hidden\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"texte") || (depth0 != null ? lookupProperty(depth0,"texte") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"texte","hash":{},"data":data,"loc":{"start":{"line":78,"column":43},"end":{"line":78,"column":52}}}) : helper)))
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- Template de saisie, correction et affichage de la correction \n    saisirTemplate.hbs\n -->\n\n<div class=\"w3-container w3-padding-32\">\n<div id=\"zone_saisie\">\n\n	<h3 class=\"w3-text-teal\">Saisie de la dictée "
+    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":16,"column":46},"end":{"line":16,"column":53}}}) : helper)))
+    + " \n		<a href=\"#!boutons/"
+    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":17,"column":21},"end":{"line":17,"column":28}}}) : helper)))
+    + "\" data-navigo class=\"w3-badge w3-dark-grey w3-hide-large w3-hide-medium\"\n		style=\"text-decoration: none\"\n		>?</a>\n	</h3>\n\n<!-- Zone de notification modale -->\n\n<div id=\"notification\" class=\"w3-modal\">\n  <div class=\"w3-modal-content\">\n    <div class=\"w3-container\">\n      <span onclick=\"document.getElementById('notification').style.display='none'\"\n      class=\"w3-button w3-display-topright\"><i class=\"material-icons\">close</i></span>\n      <h4 id=\"titre_notification\">Notification</h4>\n      <p id=\"message_notification\">Mon message...</p>\n    </div>\n  </div>\n</div>\n\n	<!-- zone de boutons : actions sur la saisie : version bureau -->\n<div class=\"w3-hide-small w3-container w3-padding\">\n	<nav class=\"w3-row\">\n	    <button onclick=\"$('#barre_car_spec').toggle()\" class=\"w3-button w3-green\">\n    		<i class=\"material-icons\">add</i>\n	    </button>\n    	<button class=\"w3-button w3-orange\" onclick=\"dictee.recommencerSaisie()\">Effacer</button>\n		<button class=\"w3-button w3-green\" onclick=\"dictee.corriger()\">Corriger</button>\n		<button class=\"w3-button w3-red\" onclick=\"dictee.terminer()\">Terminer</button>\n	</nav>\n</div> <!-- fin zone de boutons -->\n\n	<!-- zone de boutons : actions sur la saisie : version mobile -->\n<div class=\"w3-hide-large w3-hide-medium w3-container w3-padding\">\n	<nav class=\"w3-row\">\n	    <button onclick=\"$('#barre_car_spec').toggle()\" class=\"w3-button w3-green\">\n    		<i class=\"material-icons\">add</i>\n	    </button>\n    	<button class=\"w3-button w3-orange\" onclick=\"dictee.recommencerSaisie()\">\n    	<i class=\"material-icons\">delete_forever</i>\n    	</button>\n		<button class=\"w3-button w3-green\" onclick=\"dictee.corriger()\">\n		<i class=\"material-icons\">announcement</i>\n		</button>\n		<button class=\"w3-button w3-red\" onclick=\"dictee.terminer()\">\n		<i class=\"material-icons\">assignment_turned_in</i>\n		</button>\n\n	</nav>\n</div> <!-- fin zone de boutons -->\n\n\n\n	<!-- Barre de caractères spéciaux et zone de saisie -->\n	<div class=\"w3-container\"> \n		<div id=\"conteneur_barre\" class=\"w3-bar\">\n		    <div id=\"barre_car_spec\" style=\"display: none\">\n"
+    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"caracteres") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":72,"column":3},"end":{"line":74,"column":12}}})) != null ? stack1 : "")
+    + "		    </div>\n		</div>\n	</div>\n\n	<!-- Zone de saisie du texte de la dictée -->\n	<textarea id=\"ma_saisie\" spellcheck=\"false\" class=\"w3-block w3-sand\" rows=\"15\" \n	style=\"max-width: 600px\"\n	placeholder=\"Saisissez ici le texte de votre dictée notée au brouillon...\" \n	onblur=\"sessionStorage.setItem('dictee', this.value)\">"
+    + alias4(((helper = (helper = lookupProperty(helpers,"saisie") || (depth0 != null ? lookupProperty(depth0,"saisie") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"saisie","hash":{},"data":data,"loc":{"start":{"line":83,"column":55},"end":{"line":83,"column":65}}}) : helper)))
+    + "</textarea>\n\n</div>  <!-- Fin de la zone de saisie -->\n\n	<!-- ============================================== -->\n\n<div id=\"zone_correction\" class=\"w3-container\" style=\"display: none\">\n<div class=\"w3-display-container\">\n  <a href=\"#!\" class=\"w3-button w3-display-topright \"><i class=\"material-icons\">close</i></a>\n</div>\n <h3 class=\"w3-text-teal\">Correction</h3>\n\n <p id=\"corrige\" class=\"correction\"></p>\n\n</div> <!-- Fin div zone_correction -->\n\n</div> <!-- fin de la zone englobante des zones de la page -->\n\n<!-- ================================================== -->\n\n<!-- BLOC MASQUE: MAIS NECESSAIRE POUR LA CORRECTION\n    Son contenu est utilisé par la méthode corriger() de l'objet Dictee -->\n\n<div id=\"texte\" style=\"visibility: hidden\">"
+    + alias4(((helper = (helper = lookupProperty(helpers,"texte") || (depth0 != null ? lookupProperty(depth0,"texte") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"texte","hash":{},"data":data,"loc":{"start":{"line":106,"column":43},"end":{"line":106,"column":52}}}) : helper)))
     + "</div>\n\n";
 },"usePartial":true,"useData":true});
 
-},{"hbsfy/runtime":50}],68:[function(require,module,exports){
+},{"hbsfy/runtime":50}],71:[function(require,module,exports){
 module.exports=/* ==================================== *
  *            e j D i c t o             *
  * ==================================== *
@@ -4969,6 +5228,13 @@ module.exports=/* ==================================== *
 		"licence": "MIT",
 		"code": "https://github.com/kylebarrow/chibi"
 	},
+    {
+      "appname": "Minification: Closure Compiler",
+      "auteur": "Google inc.",
+      "site": "https://closure-compiler.appspot.com/home",
+      "licence": "Apache License, version 2",
+      "code": "https://github.com/google/closure-compiler"
+    },
 	{
 		"appname": "Template : Handlebars",
 		"auteur": "Yehuda Katz",
@@ -5005,14 +5271,6 @@ module.exports=/* ==================================== *
 		"code": "https://github.com/krasimir/navigo"
 	},
 	{
-		"appname": "Minification : UglifyJS",
-		"auteur": "Mihai Bazon",
-		"site": "http://lisperator.net/uglifyjs/",
-		"licence": "MIT",
-		"code": "https://github.com/mishoo/UglifyJS2"
-
-	},
-	{
 		"appname": "Style et scripts : W3.css et W3.js",
 		"auteur": "W3schools",
 		"site": "https://www.w3schools.com/w3css/default.asp",
@@ -5022,7 +5280,7 @@ module.exports=/* ==================================== *
 
 ]
 
-},{}],69:[function(require,module,exports){
+},{}],72:[function(require,module,exports){
 module.exports=/* ==================================== *
  *            e j D i c t o             *
  * ==================================== *

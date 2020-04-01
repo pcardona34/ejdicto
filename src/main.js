@@ -27,8 +27,8 @@ const axios = require('axios'); // Requête dynamique de fichiers externes : JSO
 
 // Menus :
 const menuTemplate = require("./menus/menuTemplate.hbs"); // Modèle des menus
-const menuDicteeTemplate = require("./menus/menuDicteeTemplate.hbs"); // Modèle menu de la page Dictee
-
+const menuDicteeTemplate = require("./menus/menuDicteeTemplate.hbs"); // Modèle menu page Dictee
+const menuListeTemplate = require("./menus/menuListeTemplate.hbs"); // Modèle menu contexte de liste
 
 // Composants (Partials) :
 Handlebars.registerPartial("barre", require("./composants/barreCaracteresTemplate.hbs")); // Bouton caractère spécial
@@ -45,8 +45,11 @@ const licence2Template = require("./pages/licence2Template.hbs"); // Licence : p
 const dicteeTemplate = require("./pages/dicteeTemplate.hbs"); // Page globale d'une dictée
 const ecouterTemplate = require("./pages/ecouterTemplate.hbs"); // Sous-Page dans le contexte Dictee : avec lecteur audio de la dictée
 const saisirTemplate = require("./pages/saisirTemplate.hbs"); // Sous-Page dans le contexte Dictee : saisie et correction de la dictée
-const mentionsTemplate = require("./pages/mentionsTemplate.hbs"); // Sous-Page dans le contexte Dictee : affichage des mentions légales
-const conseilsTemplate = require("./pages/conseilsTemplate.hbs"); // Page de conseils au moment de la saisie
+const mentionsTemplate = require("./pages/mentionsTemplate.hbs"); // Sous-Page dans le contexte Dictee: mentions légales
+const conseilsTemplate = require("./pages/conseilsTemplate.hbs"); // Page de conseils de la saisie
+const aideTemplate = require("./pages/aideTemplate.hbs"); // Sommaire aide
+const aideIconesMobileTemplate = require("./pages/aideIconesMobileTemplate.hbs"); // Aide sur les icônes en version mobile
+
 
 /* ============================================== */
 // On charge l'interface via un événement global load
@@ -86,6 +89,40 @@ const menuAccueil = menuTemplate(
     },
 ]}
 );
+
+const menuDicteeItems = [
+    {
+    'icone': 'home',
+    'legende': 'ejDicto',
+    'lien': '#!',
+    'droite': false
+    },
+    {
+    'icone': 'headset',
+    'legende': 'Écouter la dictée',
+    'lien': '#!ecouter',
+    'droite': false
+    },
+    {
+    'icone': 'edit',
+    'legende': 'Saisir la dictée',
+    'lien': '#!saisir',
+    'droite': false
+    },
+    {
+    'icone': 'info',
+    'legende': 'Mentions légales',
+    'lien': '#!mentions',
+    'droite': false
+    },
+    {
+    'icone': 'help',
+    'legende': 'Aide',
+    'lien': '#!aide',
+    'droite': true
+    }
+];
+
 
 
  /* 
@@ -145,17 +182,22 @@ var router = new Navigo(root, useHash, hash);
 		}
 	let html = listeTemplate(contenu);
 	// Le contexte de liste a son propre menu de navigation
-	menu.html('');
+	let menuL = menuListeTemplate();
+	menu.html(menuL);
 	app.html(html);
 	},
 
- // Page du contexte Dictee : une dictée a été choisie => id
+ // Page du contexte Dictee : une dictée a été choisie => id -> did
     'dictee/:id': function (params) {
 	let contenu = {
 		'did': params.id
 	}
 	let html = dicteeTemplate(contenu);
-	let menuD = menuDicteeTemplate(contenu);
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuDicteeItems
+	});
 	menu.html(menuD);
 	app.html(html);
 	},
@@ -166,7 +208,12 @@ var router = new Navigo(root, useHash, hash);
 		'did': params.id
 	};
 	let html = ecouterTemplate(contenu);
-	let menuD = menuDicteeTemplate(contenu);
+  // Menu de la dictée avec contexte 'did'
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuDicteeItems
+	});
 	menu.html(menuD);
 	app.html(html);
 	},
@@ -204,8 +251,11 @@ var router = new Navigo(root, useHash, hash);
 	 });
 
 	// On crée et on affiche le menu lié au contexte Dictée
-	let contenu = { did: params.id }; 
-	let menuD = menuDicteeTemplate(contenu);
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuDicteeItems
+	});
 	menu.html(menuD);
 
 	}, // Fin du routage vers la page de saisie de la dictée...
@@ -240,8 +290,11 @@ var router = new Navigo(root, useHash, hash);
 		console.log("Erreur: "+ err);
     });
 	// On crée et on affiche le menu lié au contexte Dictée
-	let contenu = { did: params.id }; 
-	let menuD = menuDicteeTemplate(contenu);
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuDicteeItems
+	});
 	menu.html(menuD);
 	},
 
@@ -252,11 +305,51 @@ var router = new Navigo(root, useHash, hash);
 		'did': params.id
 	  };
 	let html = conseilsTemplate(contenu);
-	let menuD = menuDicteeTemplate(contenu);
-	menu.html(menuD);
 	app.html(html);
+  // Menu de la dictée avec son contexte : 'did'
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuDicteeItems
+	});
+	menu.html(menuD);
   },
   
+
+  // Sommaire de l'aide
+  'aide/:id': function(params){
+      let contenu = {
+        'did': params.id
+        };
+      let html = aideTemplate(contenu);
+      app.html(html);
+  // Menu de la dictée avec son contexte : 'did'
+      let menuD = menuDicteeTemplate(
+      {
+      'did': params.id,
+      'item': menuDicteeItems
+      });
+      menu.html(menuD);
+  },
+
+  // Aide sur les icones en version mobile
+    'boutons/:id': function(params){
+      let contenu = {
+        'did': params.id
+        };
+      let html = aideIconesMobileTemplate(contenu);
+      app.html(html);
+  // Menu de la dictée avec son contexte : 'did'
+      let menuD = menuDicteeTemplate(
+      {
+      'did': params.id,
+      'item': menuDicteeItems
+      });
+      menu.html(menuD);
+  },
+
+  // Chemin générique
+
   '*': function() {
   let html = accueilTemplate({"bienvenue": "Bienvenue dans votre espace d'entrainement à la dictée"});
   app.html(html);

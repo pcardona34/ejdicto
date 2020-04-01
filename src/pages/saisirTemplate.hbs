@@ -10,9 +10,14 @@
     saisirTemplate.hbs
  -->
 
-<div id="zone_saisie" class="w3-container" style="display: block">
+<div class="w3-container w3-padding-32">
+<div id="zone_saisie">
 
-	<h3 class="w3-text-teal">Saisie de la dictée {{did}}</h3>
+	<h3 class="w3-text-teal">Saisie de la dictée {{did}} 
+		<a href="#!boutons/{{did}}" data-navigo class="w3-badge w3-dark-grey w3-hide-large w3-hide-medium"
+		style="text-decoration: none"
+		>?</a>
+	</h3>
 
 <!-- Zone de notification modale -->
 
@@ -27,26 +32,47 @@
   </div>
 </div>
 
-	<!-- zone de boutons : actions sur la saisie -->
-	<div class="w3-container w3-padding">
-		<nav class="w3-row">
-			<button class="w3-button w3-orange" onclick="dictee.recommencerSaisie()">Effacer</button>
-			<button class="w3-button w3-green" onclick="dictee.corriger()">Corriger</button>
-			<button class="w3-button w3-red" onclick="dictee.terminer()">Terminer</a>
-		</nav>
-	</div> <!-- fin zone de boutons -->
+	<!-- zone de boutons : actions sur la saisie : version bureau -->
+<div class="w3-hide-small w3-container w3-padding">
+	<nav class="w3-row">
+	    <button onclick="$('#barre_car_spec').toggle()" class="w3-button w3-green">
+    		<i class="material-icons">add</i>
+	    </button>
+    	<button class="w3-button w3-orange" onclick="dictee.recommencerSaisie()">Effacer</button>
+		<button class="w3-button w3-green" onclick="dictee.corriger()">Corriger</button>
+		<button class="w3-button w3-red" onclick="dictee.terminer()">Terminer</button>
+	</nav>
+</div> <!-- fin zone de boutons -->
+
+	<!-- zone de boutons : actions sur la saisie : version mobile -->
+<div class="w3-hide-large w3-hide-medium w3-container w3-padding">
+	<nav class="w3-row">
+	    <button onclick="$('#barre_car_spec').toggle()" class="w3-button w3-green">
+    		<i class="material-icons">add</i>
+	    </button>
+    	<button class="w3-button w3-orange" onclick="dictee.recommencerSaisie()">
+    	<i class="material-icons">delete_forever</i>
+    	</button>
+		<button class="w3-button w3-green" onclick="dictee.corriger()">
+		<i class="material-icons">announcement</i>
+		</button>
+		<button class="w3-button w3-red" onclick="dictee.terminer()">
+		<i class="material-icons">assignment_turned_in</i>
+		</button>
+
+	</nav>
+</div> <!-- fin zone de boutons -->
+
+
 
 	<!-- Barre de caractères spéciaux et zone de saisie -->
 	<div class="w3-container"> 
 		<div id="conteneur_barre" class="w3-bar">
-		    <button onclick="$('#barre_car_spec').toggle()" class="w3-bar-item w3-button w3-green w3-border">
-			<i class="material-icons">add</i>
-		    </button>
-		    <span id="barre_car_spec" style="display: block">
+		    <div id="barre_car_spec" style="display: none">
 			{{#each caracteres}}
 			    {{>barre this}}
 			{{/each}}
-		    </span>
+		    </div>
 		</div>
 	</div>
 
@@ -69,6 +95,8 @@
  <p id="corrige" class="correction"></p>
 
 </div> <!-- Fin div zone_correction -->
+
+</div> <!-- fin de la zone englobante des zones de la page -->
 
 <!-- ================================================== -->
 

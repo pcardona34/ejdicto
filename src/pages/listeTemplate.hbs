@@ -10,20 +10,12 @@
   listeTemplate.hbs
   -->
 
-<div class="w3-bar w3-teal">
-
-	<a href="#!" class="w3-bar-item w3-button">
-  		<i class="material-icons">home</i> jDicto
-	</a>
-
-	<button onclick="$('#panneau_recherche').toggle()" class="w3-bar-item w3-button w3-right"><i class="material-icons">search</i></button>
-	</div>
 
 <div class="w3-container">
  
 </div>
-<div class="w3-container w3-padding">
-<div class="w3-card-4 w3-light-gray" id="panneau_recherche">
+<div class="w3-container w3-padding-32">
+<div class="w3-card-4 w3-light-gray" id="panneau_recherche" style="display: none">
 	<div class="w3-container w3-green">
 		  <h3>Chercher une dictée</h3>
 	</div>
@@ -41,7 +33,7 @@
     <ul id="liste_des_dictees" class="w3-bar-block w3-border w3-light-gray" style="list-style-type: none; margin: 0; padding: 0">
 	    {{#each infodictee}}
 	    <li><a href="#!dictee/{{this.id}}" class="w3-bar-item w3-button">
-			    {{this.id}} : «&nbsp; {{this.titre}} &nbsp;»</a>
+			    {{this.id}} : {{this.titre}} </a>
 	    </li>
 	    {{/each}}
     </ul>
