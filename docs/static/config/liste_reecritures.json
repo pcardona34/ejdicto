@@ -1,0 +1,38 @@
+/* ==================================== *
+ *            e j D i c t o             *
+ * ==================================== *
+ * (c)2012-2020 - Patrick Cardona       *
+ * Licence GPL version 3 ou ultérieure  *
+ * VOIR la licence complète à la racine *
+ * ==================================== */
+
+/*
+ * Liste des réécritures au format JSON
+ * Champs : id, titre et niveau.
+ *
+ */
+
+
+[
+    {
+	"id": "501",
+	"titre": "Remplacement de groupes nominaux [1]",
+	"niveau": "5e"
+    },
+    {
+	"id": "502",
+	"titre": "Remplacement de groupes nominaux [2]",
+	"niveau": "5e"
+    },
+    {
+	"id": "52",
+	"titre": "Accords dans la dictée 52",
+	"niveau": "5e"
+    },
+    {
+	"id": "32",
+	"titre": "Accords dans la dictée 32",
+	"niveau": "3e"
+    }
+]
+

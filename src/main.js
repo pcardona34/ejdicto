@@ -22,7 +22,7 @@
 const Handlebars = require('hbsfy/runtime'); // compilation des tempates Handlebars avec le bundler Browserify
 const Navigo = require('navigo/lib/navigo'); // Routeur
 const chibi = require('chibijs/chibi'); // Fonctions de manipulation du DOM (un JQuery lite)
-const axios = require('axios'); // Requête dynamique de fichiers externes : JSON, etc.
+//const axios = require('axios'); // Requête dynamique de fichiers externes : JSON, etc.
 
 
 // Menus :
@@ -47,8 +47,16 @@ const ecouterTemplate = require("./pages/ecouterTemplate.hbs"); // Sous-Page dan
 const saisirTemplate = require("./pages/saisirTemplate.hbs"); // Sous-Page dans le contexte Dictee : saisie et correction de la dictée
 const mentionsTemplate = require("./pages/mentionsTemplate.hbs"); // Sous-Page dans le contexte Dictee: mentions légales
 const conseilsTemplate = require("./pages/conseilsTemplate.hbs"); // Page de conseils de la saisie
-const aideTemplate = require("./pages/aideTemplate.hbs"); // Sommaire aide
+const conseilsRTemplate = require("./pages/conseilsRTemplate.hbs"); // Page de conseils de la saisie
+const aideTemplate = require("./pages/aideTemplate.hbs"); // Sommaire aide contexte dictée
+const aideRTemplate = require("./pages/aideRTemplate.hbs"); // Sommaire aide contexte réécriture
 const aideIconesMobileTemplate = require("./pages/aideIconesMobileTemplate.hbs"); // Aide sur les icônes en version mobile
+const aideIconesMobileRTemplate = require("./pages/aideIconesMobileRTemplate.hbs"); // Aide sur les icônes en version mobile
+const listeReecrituresTemplate = require("./pages/listeReecrituresTemplate.hbs"); // Liste des réécritures
+const reecritureTemplate = require("./pages/reecritureTemplate.hbs"); // Page globale d'une réécriture
+const mentionsReecritureTemplate = require("./pages/mentionsReecritureTemplate.hbs"); // Sous-Page dans le contexte Reecriture: mentions légale
+const consigneReecritureTemplate = require("./pages/consigneReecritureTemplate.hbs"); // Sous-Page dans le contexte Reecriture : consigne
+const saisirReecritureTemplate = require("./pages/saisirReecritureTemplate.hbs"); // Sous-Page dans le contexte Reecriture : saisie
 
 
 /* ============================================== */
@@ -73,6 +81,12 @@ const menuAccueil = menuTemplate(
     'icone': 'list',
     'legende': 'Liste des dictées',
     'lien': '#!liste',
+    'droite': false
+    },
+    {
+    'icone': 'list',
+    'legende': 'Liste des réécritures',
+    'lien': '#!lister',
     'droite': false
     },
     {
@@ -119,6 +133,39 @@ const menuDicteeItems = [
     'icone': 'help',
     'legende': 'Aide',
     'lien': '#!aide',
+    'droite': true
+    }
+];
+
+const menuReecritureItems = [
+    {
+    'icone': 'home',
+    'legende': 'ejDicto',
+    'lien': '#!',
+    'droite': false
+    },
+    {
+    'icone': 'message',
+    'legende': 'Consigne',
+    'lien': '#!consigne',
+    'droite': false
+    },
+    {
+    'icone': 'edit',
+    'legende': 'Saisir la réécriture',
+    'lien': '#!saisirr',
+    'droite': false
+    },
+    {
+    'icone': 'info',
+    'legende': 'Mentions légales',
+    'lien': '#!mentionsr',
+    'droite': false
+    },
+    {
+    'icone': 'help',
+    'legende': 'Aide',
+    'lien': '#!aider',
     'droite': true
     }
 ];
@@ -187,6 +234,19 @@ var router = new Navigo(root, useHash, hash);
 	app.html(html);
 	},
 
+ // Liste des réécritures
+    'lister': function () {
+	let JSONdata = require('../static/config/liste_reecritures.json');
+	let contenu = {
+		'inforeecriture': JSONdata
+		}
+	let html = listeReecrituresTemplate(contenu);
+	// Le contexte de liste a son propre menu de navigation
+	let menuL = menuListeTemplate();
+	menu.html(menuL);
+	app.html(html);
+	},
+
  // Page du contexte Dictee : une dictée a été choisie => id -> did
     'dictee/:id': function (params) {
 	let contenu = {
@@ -197,6 +257,21 @@ var router = new Navigo(root, useHash, hash);
 	{
 	    'did': params.id,
 	    'item': menuDicteeItems
+	});
+	menu.html(menuD);
+	app.html(html);
+	},
+
+ // Page du contexte Réécriture : une réécriture a été choisie => id -> did
+    'reecriture/:id': function (params) {
+	let contenu = {
+		'did': params.id
+	}
+	let html = reecritureTemplate(contenu);
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuReecritureItems
 	});
 	menu.html(menuD);
 	app.html(html);
@@ -218,14 +293,25 @@ var router = new Navigo(root, useHash, hash);
 	app.html(html);
 	},
 
- // Page de saisie et de correction de la dictée : c'est le coeur de l'application
-'saisir/:id': function (params) {
-	/* On récupère les données de la dictée sélectionnée
-	 Au format JSon et on complète ce contenu pour 
-	 Initialiser le template 'saisir...' et afficher son contenu... */
+   // Page de saisie et de correction de la dictée : c'est le coeur de l'application
+  'saisir/:id': function (params) {
+    	/* On récupère les données de la dictée sélectionnée
+    	 Au format JSon et on complète ce contenu pour 
+    	 Initialiser le template 'saisir...' et afficher son contenu... */
 
-	axios.get("./static/data/dictee" + params.id + ".json")
+fetch('http://example.com/movies.json')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+  });
+
+	fetch("./static/data/dictee" + params.id + ".json")
 		.then((response) => {
+		  return response.json();
+        })
+        .then((data) => {
 		    // On prépare le contenu du template 'saisir...'
 			let contenu = {};
 		    // On prépare le contenu du Partial 'barre'
@@ -234,7 +320,7 @@ var router = new Navigo(root, useHash, hash);
 		    // id de la dictée : passé en paramètre de l'URL
 			contenu.did = params.id;
 		    // Les données récupérées à partir du fichier dictee + id + .json :
-			contenu.texte = response.data.texte;
+			contenu.texte = data.texte;
 		    // On récupère une éventuelle saisie...
 		    contenu.saisie = "";
 		    if (sessionStorage.getItem("dictee")){
@@ -260,26 +346,77 @@ var router = new Navigo(root, useHash, hash);
 
 	}, // Fin du routage vers la page de saisie de la dictée...
 
+
+   // Page de saisie et de correction de la réécriture...
+  'saisirr/:id': function (params) {
+    	/* On récupère les données de la réécriture sélectionnée
+    	 Au format JSon et on complète ce contenu pour 
+    	 Initialiser le template 'saisirr...' et afficher son contenu... */
+    fetch("./static/data/jecho" + params.id + ".json")
+    	.then((response) => {
+		  return response.json();
+        })
+        .then((data) => {
+		    // On prépare le contenu du template 'saisir...'
+			let contenu = {};
+		    // On prépare le contenu du Partial 'barre'
+			contenu.caracteres = [{car: '«'},{car: '—'},{car: '»'},{car: '…'},{car: 'œ'},{car: 'Œ'},{car: 'É'},{car: 'À'}];
+		    // On ajoute les autres données :
+		    // id de la réécriture : passé en paramètre de l'URL
+			contenu.did = params.id;
+		    // Les données récupérées à partir du fichier jecho + id + .json :
+			contenu.initial = data.texte; // C'est le texte initial
+			contenu.attendu = data.correction; // C'est le texte transformé attendu
+		    // On récupère une éventuelle saisie...
+		    contenu.saisie = "";
+		    if (sessionStorage.getItem("reecriture")){
+		      contenu.saisie = sessionStorage.getItem("reecriture");
+		    }else{
+		      // Sinon, c'est le texte initial...
+		      contenu.saisie = contenu.initial;
+		    }
+		    // On crée le contenu de la zone de saisie
+		    let html = saisirReecritureTemplate(contenu);
+		    	// On l'intègre dans le document
+		    app.html(html);
+
+	// On gère l'échec de la récupération des données...
+	}).catch((err) => {
+		console.log("Erreur: "+ err);
+	 });
+
+	// On crée et on affiche le menu lié au contexte : modèle Dictée
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuReecritureItems
+	});
+	menu.html(menuD);
+
+	}, // Fin du routage vers la page de saisie de la réécriture...
+
  // ---------------------------------
  // Page des mentions de la dictée
  // ---------------------------------
     'mentions/:id': function (params) {
-    
+
   /* On récupère les données de la dictée sélectionnée
 	 Au format JSon et on complète ce contenu pour 
 	 Initialiser le template 'saisir...' et afficher son contenu... */
-
-	axios.get("./static/data/dictee" + params.id + ".json")
-		.then((response) => {
+    fetch("./static/data/dictee" + params.id + ".json")
+    	.then((response) => {
+		  return response.json();
+        })
+        .then((data) => {
 		    // On prépare le contenu du template 'mentions...'
 			let contenu = {};
 		    // id de la dictée : passé en paramètre de l'URL
 			contenu.did = params.id;
 		    // Les données récupérées à partir du fichier dictee + id + .json :
-			contenu.auteur = response.data.auteur;
-			contenu.titre = response.data.titre;
-			contenu.prof = response.data.prof;
-            contenu.ouvrage = response.data.ouvrage;
+			contenu.auteur = data.auteur;
+			contenu.titre = data.titre;
+			contenu.prof = data.prof;
+            contenu.ouvrage = data.ouvrage;
 		    // On crée le contenu de la zone de mentions
 		    let html = mentionsTemplate(contenu);
 		    	// On l'intègre dans le document
@@ -296,10 +433,93 @@ var router = new Navigo(root, useHash, hash);
 	    'item': menuDicteeItems
 	});
 	menu.html(menuD);
+	}, // Fin du routage vers la page des mentions de la dictée
+
+ // ---------------------------------
+ // Page des mentions de la réécriture
+ // ---------------------------------
+    'mentionsr/:id': function (params) {
+
+  /* On récupère les données de la réécriture sélectionnée
+    Au format JSon et on complète ce contenu pour 
+    Initialiser le template 'saisir_reecriture...' et afficher son contenu... */
+    fetch("./static/data/jecho" + params.id + ".json")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+      // On prépare le contenu du template 'mentions...'
+      let contenu = {};
+		    // id de la dictée : passé en paramètre de l'URL
+			contenu.did = params.id;
+		    // Les données récupérées à partir du fichier dictee + id + .json :
+			contenu.auteur = data.auteur;
+			contenu.titre = data.titre;
+			contenu.prof = data.prof;
+            contenu.ouvrage = data.ouvrage;
+		    // On crée le contenu de la zone de mentions
+		    let html = mentionsReecritureTemplate(contenu);
+		    // On l'intègre dans le document
+		    app.html(html);
+
+	// On gère l'échec de la récupération des données...
+	}).catch((err) => {
+		console.log("Erreur: "+ err);
+    });
+	// On crée et on affiche le menu lié au contexte Réécriture 
+	// Même modèle que celui de la dictée
+
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuReecritureItems
+	});
+	menu.html(menuD);
+	},
+
+ // ---------------------------------
+ // Page de la consigne de la réécriture
+ // ---------------------------------
+    'consigne/:id': function (params) {
+
+  /* On récupère les données de la réécriture sélectionnée
+    Au format JSon et on complète ce contenu pour 
+    Initialiser le template 'consigneReecritureTemplate' et afficher son contenu... */
+    fetch("./static/data/jecho" + params.id + ".json")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+      // On prépare le contenu du template 'consigne...'
+      let contenu = {};
+		    // id de la dictée : passé en paramètre de l'URL
+			contenu.did = params.id;
+		    // Les données récupérées à partir du fichier dictee + id + .json :
+			contenu.consigne = data.consigne;
+			// Texte initial
+			contenu.texte = data.texte;
+		    // On crée le contenu de la zone de consigne
+		    let html = consigneReecritureTemplate(contenu);
+		    // On l'intègre dans le document
+		    app.html(html);
+
+	// On gère l'échec de la récupération des données...
+	}).catch((err) => {
+		console.log("Erreur: "+ err);
+    });
+	// On crée et on affiche le menu lié au contexte Réécriture 
+	// Même modèle que celui de la dictée
+
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuReecritureItems
+	});
+	menu.html(menuD);
 	},
 
 
-	// Page de conseils
+	// Page de conseils : contexte dictée
 	'conseils/:id': function(params){
 		let contenu = {
 		'did': params.id
@@ -315,8 +535,24 @@ var router = new Navigo(root, useHash, hash);
 	menu.html(menuD);
   },
   
+	// Page de conseils : contexte réécriture
+	'conseilsr/:id': function(params){
+		let contenu = {
+		'did': params.id
+	  };
+	let html = conseilsRTemplate(contenu);
+	app.html(html);
+  // Menu de la réécriture sur le modèle Dictée avec son contexte : 'did'
+	let menuD = menuDicteeTemplate(
+	{
+	    'did': params.id,
+	    'item': menuReecritureItems
+	});
+	menu.html(menuD);
+  },
+  
 
-  // Sommaire de l'aide
+  // Sommaire de l'aide : contexte dictée
   'aide/:id': function(params){
       let contenu = {
         'did': params.id
@@ -328,6 +564,22 @@ var router = new Navigo(root, useHash, hash);
       {
       'did': params.id,
       'item': menuDicteeItems
+      });
+      menu.html(menuD);
+  },
+
+  // Sommaire de l'aide : contexte réécriture
+  'aider/:id': function(params){
+      let contenu = {
+        'did': params.id
+        };
+      let html = aideRTemplate(contenu);
+      app.html(html);
+  // Menu de la réécriture sur le modèle Dictée avec son contexte : 'did'
+      let menuD = menuDicteeTemplate(
+      {
+      'did': params.id,
+      'item': menuReecritureItems
       });
       menu.html(menuD);
   },
@@ -347,11 +599,27 @@ var router = new Navigo(root, useHash, hash);
       });
       menu.html(menuD);
   },
+  
+  // Aide sur les icones en version mobile : contexte Réécriture
+    'boutonsr/:id': function(params){
+      let contenu = {
+        'did': params.id
+        };
+      let html = aideIconesMobileRTemplate(contenu);
+      app.html(html);
+  // Menu de la réécriture sur le modèle Dictée avec son contexte : 'did'
+      let menuD = menuDicteeTemplate(
+      {
+      'did': params.id,
+      'item': menuReecritureItems
+      });
+      menu.html(menuD);
+  },
 
   // Chemin générique
 
   '*': function() {
-  let html = accueilTemplate({"bienvenue": "Bienvenue dans votre espace d'entrainement à la dictée"});
+  let html = accueilTemplate({"bienvenue": "Bienvenue dans votre espace d'entrainement en orthographe !"});
   app.html(html);
   menu.html(menuAccueil);
   menu.show();
@@ -363,9 +631,10 @@ var router = new Navigo(root, useHash, hash);
 
  // Page d'accueil
  router.on(function () {
- let html = accueilTemplate({"bienvenue": "Bienvenue dans votre espace d'entrainement à la dictée"});
+ let html = accueilTemplate({"bienvenue": "Bienvenue dans votre espace d'entrainement en orthographe !"});
  app.html(html);
  menu.html(menuAccueil);
+ sessionStorage.clear();
  
  }).resolve();
 

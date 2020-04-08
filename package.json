@@ -9,6 +9,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify src/main.js -t hbsfy -o dist/app.js",
+    "minifycss": "cleancss -o docs/styles/ejdicto.min.css lib/styles/ejdicto.css",
+    "minifycssvendor": "cleancss -o docs/styles/w3.min.css static/vendor/styles/w3.css",
+    "minifyjslib": "jsmin -o docs/scripts/ejdicto.min.js lib/scripts/ejdicto.js",
+    "minifyjsvendor": "jsmin -o docs/scripts/w3.min.js static/vendor/scripts/w3.js",
+    "minifyjsapp": "jsmin -o docs/scripts/app.min.js dist/app.js",
     "start": "budo src/main.js --live --serve dist/app.js -- -t hbsfy"
   },
   "repository": {
@@ -17,6 +22,7 @@
   },
   "keywords": [
     "dictée",
+    "réécriture",
     "exerciseur"
   ],
   "author": "Patrick Cardona",
@@ -28,10 +34,13 @@
   "dependencies": {
     "axios": "^0.19.2",
     "chibijs": "^3.0.9",
+    "handlebars.binding": "^0.4.0",
     "navigo": "^7.1.2"
   },
   "devDependencies": {
-    "handlebars": "^4.7.3",
-    "hbsfy": "^2.8.1"
+    "clean-css": "^4.2.3",
+    "handlebars": "^4.7.6",
+    "hbsfy": "^2.8.1",
+    "jsmin": "^1.0.1"
   }
 }
