@@ -3927,7 +3927,6 @@ module.exports=/* ==================================== *
 		"site": "https://github.com/mattdesl/budo/blob/master/README.md",
 		"licence": "MIT",
 		"code": "https://github.com/mattdesl/budo"
-
 	},
 	{
 		"appname": "Manipulation du DOM : Chibi",
@@ -3936,14 +3935,14 @@ module.exports=/* ==================================== *
 		"licence": "MIT",
 		"code": "https://github.com/kylebarrow/chibi"
 	},
-    {
-      "appname": "Minification: Closure Compiler",
-      "auteur": "Google inc.",
-      "site": "https://closure-compiler.appspot.com/home",
-      "licence": "Apache License, version 2",
-      "code": "https://github.com/google/closure-compiler"
-    },
 	{
+		"appname": "Minification du code CSS : cleanCSS",
+		"auteur": "Jakub Pawlowicz",
+		"site": "https://www.npmjs.com/package/clean-css",
+		"licence": "MIT",
+		"code": "https://github.com/jakubpawlowicz/clean-css"
+	},
+    {
 		"appname": "Template : Handlebars",
 		"auteur": "Yehuda Katz",
 		"site": "https://handlebarsjs.com/",
@@ -3964,6 +3963,13 @@ module.exports=/* ==================================== *
 		"licence": "MIT",
 		"code": "https://github.com/kpdecker/jsdiff"
 	},
+    {
+      "appname": "Minification du code JS : jsmin",
+      "auteur": "D. Crockford, F. Marcia, P. Krumins",
+      "site": "https://www.npmjs.com/package/jsmin",
+      "licence": "All right reserved",
+      "code": "https://github.com/pkrumins/node-jsmin"
+    },
 	{
 		"appname": "Icones : Material Icons",
 		"auteur": "Google inc.",
