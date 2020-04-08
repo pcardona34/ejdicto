@@ -299,14 +299,6 @@ var router = new Navigo(root, useHash, hash);
     	 Au format JSon et on complète ce contenu pour 
     	 Initialiser le template 'saisir...' et afficher son contenu... */
 
-fetch('http://example.com/movies.json')
-  .then((response) => {
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data);
-  });
-
 	fetch("./static/data/dictee" + params.id + ".json")
 		.then((response) => {
 		  return response.json();
