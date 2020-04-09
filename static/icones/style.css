@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('static/icones/icomoon.eot?1mpjt1');
-  src:  url('static/icones/icomoon.eot?1mpjt1#iefix') format('embedded-opentype'),
-    url('static/icones/icomoon.ttf?1mpjt1') format('truetype'),
-    url('static/icones/icomoon.woff?1mpjt1') format('woff'),
-    url('static/icones/icomoon.svg?1mpjt1#icomoon') format('svg');
+  src:  url('/ejdicto/static/icones/icomoon.eot?1mpjt1');
+  src:  url('/ejdicto/static/icones/icomoon.eot?1mpjt1#iefix') format('embedded-opentype'),
+    url('/ejdicto/static/icones/icomoon.ttf?1mpjt1') format('truetype'),
+    url('/ejdicto/static/icones/icomoon.woff?1mpjt1') format('woff'),
+    url('/ejdicto/static/icones/icomoon.svg?1mpjt1#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
