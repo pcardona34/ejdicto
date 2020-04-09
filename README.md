@@ -28,6 +28,7 @@ La publication est effectuée dans le dossier `docs` (cible de la publication de
 
     `npm run minifycssvendor`
     `npm run minifyjsvendor`
+    `npm run minifycssicones`
 
 ### La première fois et les suivantes
 

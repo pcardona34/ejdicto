@@ -38,7 +38,7 @@
         "
       {{/if}}
     {{/if}}
-    ><i class="material-icons">{{this.icone}}</i> {{this.legende}}</a>
+    ><i class="{{this.icone}}"></i> {{this.legende}}</a>
  {{/each}}
  </div>
 </div>
@@ -49,7 +49,7 @@
 <div class="w3-hide-large w3-hide-medium w3-top w3-display-container w3-dark-grey">
  <div class="display-topleft">
   <button onclick="$('#menu_principal_mobile').show()" class="w3-button w3-bar-item">
-    <i class="material-icons">menu</i>
+    <i class="icon-menu"></i>
   </button>
  </div>
  <div class="w3-wide w3-large w3-xlarge w3-display-topmiddle">&nbsp;ejDicto</div>
@@ -62,7 +62,7 @@
 
 <!-- Bouton de fermeture à droite : seulement sur mobile -->
  <a class="w3-button w3-bar-item w3-right" onclick="$('#menu_principal_mobile').hide()">
- <i class="material-icons">close</i>
+ <i class="icon-fermer"></i>
  </a>
  
  <!-- Gestion du lot de boutons du menu -->
@@ -89,6 +89,6 @@
       {{! Un click ou un tap route referme le menu }}
       onclick="$('#menu_principal_mobile').hide()"
     {{/if}}
-    ><i class="material-icons">{{this.icone}}</i> {{this.legende}}</a>
+    ><i class="{{this.icone}}"></i> {{this.legende}}</a>
  {{/each}}
 </div>

@@ -72,31 +72,31 @@ const menuAccueil = menuTemplate(
 {
     item: [
     {
-    'icone': 'home',
+    'icone': 'icon-home',
     'legende': 'ejDicto',
     'lien': '#!',
     'droite': false
     },
     {
-    'icone': 'list',
+    'icone': 'icon-liste',
     'legende': 'Liste des dictées',
     'lien': '#!liste',
     'droite': false
     },
     {
-    'icone': 'list',
+    'icone': 'icon-liste',
     'legende': 'Liste des réécritures',
     'lien': '#!lister',
     'droite': false
     },
     {
-    'icone': 'info',
+    'icone': 'icon-info',
     'legende': 'Licence',
     'lien': '#!licence/1',
     'droite': false
     },
     {
-    'icone': 'help',
+    'icone': 'icon-question',
     'legende': 'À propos',
     'lien': '#!apropos',
     'droite': true
@@ -106,31 +106,31 @@ const menuAccueil = menuTemplate(
 
 const menuDicteeItems = [
     {
-    'icone': 'home',
+    'icone': 'icon-home',
     'legende': 'ejDicto',
     'lien': '#!',
     'droite': false
     },
     {
-    'icone': 'headset',
+    'icone': 'icon-ecouteurs',
     'legende': 'Écouter la dictée',
     'lien': '#!ecouter',
     'droite': false
     },
     {
-    'icone': 'edit',
+    'icone': 'icon-plume',
     'legende': 'Saisir la dictée',
     'lien': '#!saisir',
     'droite': false
     },
     {
-    'icone': 'info',
+    'icone': 'icon-info',
     'legende': 'Mentions légales',
     'lien': '#!mentions',
     'droite': false
     },
     {
-    'icone': 'help',
+    'icone': 'icon-aide',
     'legende': 'Aide',
     'lien': '#!aide',
     'droite': true
@@ -139,31 +139,31 @@ const menuDicteeItems = [
 
 const menuReecritureItems = [
     {
-    'icone': 'home',
+    'icone': 'icon-home',
     'legende': 'ejDicto',
     'lien': '#!',
     'droite': false
     },
     {
-    'icone': 'message',
+    'icone': 'icon-bulle',
     'legende': 'Consigne',
     'lien': '#!consigne',
     'droite': false
     },
     {
-    'icone': 'edit',
+    'icone': 'icon-plume',
     'legende': 'Saisir la réécriture',
     'lien': '#!saisirr',
     'droite': false
     },
     {
-    'icone': 'info',
+    'icone': 'icon-info',
     'legende': 'Mentions légales',
     'lien': '#!mentionsr',
     'droite': false
     },
     {
-    'icone': 'help',
+    'icone': 'icon-aide',
     'legende': 'Aide',
     'lien': '#!aider',
     'droite': true

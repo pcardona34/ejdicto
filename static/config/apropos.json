@@ -56,6 +56,13 @@
 		"code": "https://github.com/epeli/node-hbsfy"
 	},
 	{
+		"appname": "Icones : IcoMoon Free Version",
+		"auteur": "Keyamoon",
+		"site": "https://icomoon.io/",
+		"licence": "GPL / CC BY 4.0",
+		"code": "https://github.com/Keyamoon/IcoMoon-Free/archive/master.zip"
+	},
+	{
 		"appname": "Comparaison de chaines : JsDiff",
 		"auteur": "John Resig",
 		"site": "http://ejohn.org/",
@@ -69,13 +76,6 @@
       "licence": "All right reserved",
       "code": "https://github.com/pkrumins/node-jsmin"
     },
-	{
-		"appname": "Icones : Material Icons",
-		"auteur": "Google inc.",
-		"site": "https://material.io/resources/icons/?style=baseline",
-		"licence": "Apache License version 2",
-		"code": "http://github.com/google/material-design-icons/"
-	},
 	{
 		"appname": "Routage : Navigo",
 		"auteur": "Krasimir Tsonev",

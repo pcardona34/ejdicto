@@ -43,10 +43,3 @@
   text-align: center;
   color: orange;
 }
-
-/* Alignement vertical des icones
-  Material-icons */
-
-i.material-icons {
-  vertical-align: middle;
-}
