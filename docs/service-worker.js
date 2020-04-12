@@ -9,7 +9,6 @@ let version = 1.0;
 let cacheName = "MyCacheV" + version;
 
 let filesToCache = [
-	"/",
 	"./index.html",
 	"./favicon.ico",
 	"./manifest.webmanifest",
