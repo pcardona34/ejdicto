@@ -3982,8 +3982,14 @@ module.exports=/* ==================================== *
 		"site": "https://www.w3schools.com/w3css/default.asp",
 		"licence": "Usage libre",
 		"code": "https://github.com/JaniRefsnes/w3css"
-	}
-
+	},
+    {
+        "appname": "Service Worker : vanilla-pwa",
+        "auteur": "Arjun Mahishi",
+        "site": "https://www.npmjs.com/package/vanilla-pwa",
+        "licence": "MIT",
+        "code": "https://github.com/arjunmahishi/vanilla-pwa"
+    }
 ]
 
 },{}],53:[function(require,module,exports){

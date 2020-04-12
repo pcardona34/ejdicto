@@ -8,6 +8,12 @@
 <meta name="description" content="Auteur: Patrick Cardona. Application d'entrainement en orthographe. Exercices de dictée et de réécriture.">
 <meta name="keywords" content="orthographe, dictée, réécriture">
 <link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" sizes="180x180" href="./static/images/encrier180.png">
+<link rel="icon" type="image/png" href="./static/images/encrier32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="./static/images/encrier16.png" sizes="16x16">
 <link href="./static/icones/style.min.css" rel="stylesheet">
 <link rel="stylesheet" href="./styles/w3.min.css">
 <link rel="stylesheet" href="./styles/ejdicto.min.css">
@@ -17,9 +23,17 @@
 <div id="menu"></div>
 <div id="app" class="w3-padding-32"></div>
 <div id="pied" class="w3-bottom w3-center w3-teal">Application hébergée par <a href="https://github.com" target="_blank"><img src="./static/images/github.png"></a></div>
-<script src="./scripts/w3.min.js">
-</script><script src="./scripts/ejdicto.min.js">
-</script><script src="./scripts/app.min.js">
+<script src="./scripts/w3.min.js"></script>
+<script src="./scripts/ejdicto.min.js"></script>
+<script src="./scripts/app.min.js"></script>
+<script type="text/javascript">
+    if('serviceWorker' in navigator) {
+        navigator.serviceWorker
+            .register( window.location.href + './service-worker.js')
+            .then(function() { 
+                console.log("Service Worker Registered"); 
+        });
+    }
 </script>
 </body>
 </html>
