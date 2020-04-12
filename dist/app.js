@@ -2637,7 +2637,7 @@ const reecritureTemplate = require("./pages/reecritureTemplate.hbs"); // Page gl
 const mentionsReecritureTemplate = require("./pages/mentionsReecritureTemplate.hbs"); // Sous-Page dans le contexte Reecriture: mentions légale
 const consigneReecritureTemplate = require("./pages/consigneReecritureTemplate.hbs"); // Sous-Page dans le contexte Reecriture : consigne
 const saisirReecritureTemplate = require("./pages/saisirReecritureTemplate.hbs"); // Sous-Page dans le contexte Reecriture : saisie
-
+const aideMobileTemplate = require("./pages/aideMobileTemplate.hbs"); // Aide dictée en usage mobile
 
 /* ============================================== */
 // On charge l'interface via un événement global load
@@ -2989,6 +2989,12 @@ var router = new Navigo(root, useHash, hash);
 			contenu.titre = data.titre;
 			contenu.prof = data.prof;
             contenu.ouvrage = data.ouvrage;
+            // On ajoute une condition pour montrer le bouton de partage
+            if(navigator.share){
+              contenu.partage = true;
+            }else{
+              contenu.partage = false;
+            }
 		    // On crée le contenu de la zone de mentions
 		    let html = mentionsTemplate(contenu);
 		    	// On l'intègre dans le document
@@ -3140,6 +3146,22 @@ var router = new Navigo(root, useHash, hash);
       menu.html(menuD);
   },
 
+  // Aide : dictée en usage mobile
+  'aidem/:id': function(params){
+      let contenu = {
+        'did': params.id
+        };
+      let html = aideMobileTemplate(contenu);
+      app.html(html);
+  // Menu de la dictée avec son contexte : 'did'
+      let menuD = menuDicteeTemplate(
+      {
+      'did': params.id,
+      'item': menuDicteeItems
+      });
+      menu.html(menuD);
+  },
+
   // Sommaire de l'aide : contexte réécriture
   'aider/:id': function(params){
       let contenu = {
@@ -3231,7 +3253,7 @@ router.notFound(function () {
 }); // Fin de event load
 
 
-},{"../static/config/apropos.json":52,"../static/config/liste_dictees.json":53,"../static/config/liste_reecritures.json":54,"./composants/barreCaracteresTemplate.hbs":25,"./menus/menuDicteeTemplate.hbs":27,"./menus/menuListeTemplate.hbs":28,"./menus/menuTemplate.hbs":29,"./pages/accueilTemplate.hbs":30,"./pages/aideIconesMobileRTemplate.hbs":31,"./pages/aideIconesMobileTemplate.hbs":32,"./pages/aideRTemplate.hbs":33,"./pages/aideTemplate.hbs":34,"./pages/aproposTemplate.hbs":35,"./pages/conseilsRTemplate.hbs":36,"./pages/conseilsTemplate.hbs":37,"./pages/consigneReecritureTemplate.hbs":38,"./pages/dicteeTemplate.hbs":39,"./pages/ecouterTemplate.hbs":40,"./pages/erreurTemplate.hbs":41,"./pages/licence1Template.hbs":42,"./pages/licence2Template.hbs":43,"./pages/listeReecrituresTemplate.hbs":44,"./pages/listeTemplate.hbs":45,"./pages/mentionsReecritureTemplate.hbs":46,"./pages/mentionsTemplate.hbs":47,"./pages/popupTemplate.hbs":48,"./pages/reecritureTemplate.hbs":49,"./pages/saisirReecritureTemplate.hbs":50,"./pages/saisirTemplate.hbs":51,"chibijs/chibi":1,"hbsfy/runtime":23,"navigo/lib/navigo":24}],27:[function(require,module,exports){
+},{"../static/config/apropos.json":53,"../static/config/liste_dictees.json":54,"../static/config/liste_reecritures.json":55,"./composants/barreCaracteresTemplate.hbs":25,"./menus/menuDicteeTemplate.hbs":27,"./menus/menuListeTemplate.hbs":28,"./menus/menuTemplate.hbs":29,"./pages/accueilTemplate.hbs":30,"./pages/aideIconesMobileRTemplate.hbs":31,"./pages/aideIconesMobileTemplate.hbs":32,"./pages/aideMobileTemplate.hbs":33,"./pages/aideRTemplate.hbs":34,"./pages/aideTemplate.hbs":35,"./pages/aproposTemplate.hbs":36,"./pages/conseilsRTemplate.hbs":37,"./pages/conseilsTemplate.hbs":38,"./pages/consigneReecritureTemplate.hbs":39,"./pages/dicteeTemplate.hbs":40,"./pages/ecouterTemplate.hbs":41,"./pages/erreurTemplate.hbs":42,"./pages/licence1Template.hbs":43,"./pages/licence2Template.hbs":44,"./pages/listeReecrituresTemplate.hbs":45,"./pages/listeTemplate.hbs":46,"./pages/mentionsReecritureTemplate.hbs":47,"./pages/mentionsTemplate.hbs":48,"./pages/popupTemplate.hbs":49,"./pages/reecritureTemplate.hbs":50,"./pages/saisirReecritureTemplate.hbs":51,"./pages/saisirTemplate.hbs":52,"chibijs/chibi":1,"hbsfy/runtime":23,"navigo/lib/navigo":24}],27:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data,blockParams,depths) {
@@ -3468,6 +3490,22 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n \n <!-- Template : aideMobileTemplate.hbs -->\n\n\n<div class=\"w3-container w3-padding-32\">\n\n	<h3 class=\"w3-text-teal\">Usage mobile</h3>\n\n<div class=\"w3-container w3-padding\">\n	<ul class=\"w3-ul\">\n		<li class=\"w3-green\">\n			<h3>Recommandation importante</h3>\n        </li>\n  <ol>\n  <li>Avant de pouvoir écouter une dictée en usage mobile,\n  prenez la précaution de vous connecter en activant\n  le Wifi.</li>\n  <li>Écoutez la dictée une fois.</li>\n  <li>Désactivez le Wifi.</li>\n  </ol>\n  </ul>\n  <p>Vous êtes maintenant en mesure de l'écouter hors connexion.</p>\n  <p>\n	<a class=\"w3-button w3-green\" \" href=\"#!saisir/"
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"did","hash":{},"data":data,"loc":{"start":{"line":31,"column":48},"end":{"line":31,"column":55}}}) : helper)))
+    + "\"><i class=\"icon-gauche\"></i> Reprendre ma saisie</a>\n  </p>\n</div>\n";
+},"useData":true});
+
+},{"hbsfy/runtime":23}],34:[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var HandlebarsCompiler = require('hbsfy/runtime');
+module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -3484,7 +3522,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "\">\n	<i class=\"icon-gauche\"></i> Reprendre ma saisie\n	</a>\n  </p>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],34:[function(require,module,exports){
+},{"hbsfy/runtime":23}],35:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3499,12 +3537,14 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":20,"column":31},"end":{"line":20,"column":38}}}) : helper)))
     + "\" data-navigo class=\"w3-button w3-text-green\">Boutons de la version mobile</a>\n		</li>\n		<li><a href=\"#!conseils/"
     + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":22,"column":26},"end":{"line":22,"column":33}}}) : helper)))
-    + "\" data-navigo class=\"w3-button w3-text-green\">Améliorer ma saisie\n		</li>\n	</ul>\n	\n  <p>\n	<a class=\"w3-button w3-green\" \" href=\"#!saisir/"
-    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":27,"column":48},"end":{"line":27,"column":55}}}) : helper)))
+    + "\" data-navigo class=\"w3-button w3-text-green\">Améliorer ma saisie</a>\n		</li>\n		<li><a href=\"#!aidem/"
+    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":24,"column":23},"end":{"line":24,"column":30}}}) : helper)))
+    + "\" data-navigo  class=\"w3-button w3-text-green\">Dictée en usage mobile</a>\n        </li>\n	</ul>\n	\n  <p>\n	<a class=\"w3-button w3-green\" \" href=\"#!saisir/"
+    + alias4(((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":29,"column":48},"end":{"line":29,"column":55}}}) : helper)))
     + "\"><i class=\"icon-gauche\"></i> Reprendre ma saisie</a>\n  </p>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],35:[function(require,module,exports){
+},{"hbsfy/runtime":23}],36:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
@@ -3541,7 +3581,7 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
     + "    </ul>\n\n    <h3>Crédit photo</h3>\n    <p>Le dessin de l'encrier en page d'accueil est l'œuvre de Rawpixel : <a class=\"w3-text-teal\" style=\"text-decoration: none\" target=\"_blank\" href=\"http://www.freepik.com\">designed by rawpixel.com / Freepik</a></p>\n</div>\n\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],36:[function(require,module,exports){
+},{"hbsfy/runtime":23}],37:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3557,7 +3597,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "\">\n	<i class=\"icon-gauche\"></i> Reprendre ma saisie</a>\n  </p>\n    </div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],37:[function(require,module,exports){
+},{"hbsfy/runtime":23}],38:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3573,7 +3613,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "\"><i class=\"icon-gauche\"></i> Reprendre ma saisie</a>\n  </p>\n    </div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],38:[function(require,module,exports){
+},{"hbsfy/runtime":23}],39:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3595,7 +3635,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "\">\n	saisie</a> de cette réécriture...\n  </p>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],39:[function(require,module,exports){
+},{"hbsfy/runtime":23}],40:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3613,7 +3653,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "\">écoute</a> de la dictée...\n  </p>\n\n  </div>\n\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],40:[function(require,module,exports){
+},{"hbsfy/runtime":23}],41:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3635,7 +3675,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "\">saisie</a> de cette dictée...\n  </p>\n    </div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],41:[function(require,module,exports){
+},{"hbsfy/runtime":23}],42:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3655,7 +3695,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],42:[function(require,module,exports){
+},{"hbsfy/runtime":23}],43:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3673,14 +3713,14 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + " Patrick CARDONA<br /><br />\n      Le code JavaScript de cette page est un logiciel libre : vous \n      pouvez le redistribuer et/ou le modifier selon les termes de la \n      licence GNU General Public License (GNU GPL) telle que publiée \n      par la Free  Software Foundation, en version 3 de la licence, ou \n      (à votre discrétion) toute version ultérieure. Le code est distribué \n      SANS AUCUNE GARANTIE ; sans même la garantie implicite de \n      MARCHANDABILITÉ ou d'ADÉQUATION À UN BUT PARTICULIER. Consultez \nla GNU GPL pour plus de détails.</p>\n  </div>\n\n</div>\n\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],43:[function(require,module,exports){
+},{"hbsfy/runtime":23}],44:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : licence page 2 \n  licence2Template.hbs\n-->\n\n\n<div class=\"w3-container\">\n	<h3 class=\"w3-text-teal\">Licence</h3>\n\n <!-- Pagination -->\n <div class=\"w3-center\">\n	 <div class=\"w3-bar w3-border w3-round\">\n		 <a href=\"#!licence/1\" class=\"w3-bar-item w3-button\">1</a>\n   		 <a href=\"#!licence/2\" class=\"w3-bar-item w3-button w3-teal\">2</a>\n  	</div>\n </div>\n\n <div style=\"max-width: 400px\">\n    <p style=\"text-align: justify\">\n      En tant que permission supplémentaire selon les termes de la GNU \n      GPL version 3 section 7, vous pouvez distribuer des formes \n      « non-source » (par ex., minimisées ou compactées) de ce code\n      sans la copie de la GNU GPL normalement requise section 4, à \n      condition d'inclure cette notice de licence et une URL par laquelle \n      les destinataires peuvent accéder au code source correspondant.\n      <br /><br />\n      Consultez la licence GNU GPL pour plus de détails:\n      <br /><a href=\"http://www.gnu.org/licenses/\" target=\"_blank\">\n      http://www.gnu.org/licenses/</a>\n      </p>\n </div>\n\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],44:[function(require,module,exports){
+},{"hbsfy/runtime":23}],45:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
@@ -3711,7 +3751,7 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
     + "    </ul>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],45:[function(require,module,exports){
+},{"hbsfy/runtime":23}],46:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
@@ -3742,7 +3782,7 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
     + "    </ul>\n</div>\n</div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],46:[function(require,module,exports){
+},{"hbsfy/runtime":23}],47:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3764,29 +3804,46 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "</p>\n			  </div>\n		</div>\n   </div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],47:[function(require,module,exports){
+},{"hbsfy/runtime":23}],48:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
-module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : mentions légales\n  mentionsTemplate.hbs\n -->\n\n   <div class=\"w3-container w3-padding-48\">\n		<div class=\"w3-card\">\n			   <header class=\"w3-green w3-padding\"><h3>Mentions légales</h3></header>\n			   <div class=\"w3-container\">\n			   		 <h3>"
-    + alias4(((helper = (helper = lookupProperty(helpers,"titre") || (depth0 != null ? lookupProperty(depth0,"titre") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titre","hash":{},"data":data,"loc":{"start":{"line":17,"column":13},"end":{"line":17,"column":24}}}) : helper)))
+  return "                <button class=\"w3-button w3-right\" onclick=\"navigator.share({title: 'ejDicto: dictée "
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":17,"column":101},"end":{"line":17,"column":110}}}) : helper))) != null ? stack1 : "")
+    + "',\n                text: 'Découvrez la dictée "
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":18,"column":43},"end":{"line":18,"column":52}}}) : helper))) != null ? stack1 : "")
+    + "',\n                url: 'https://pcardona34.github.io/ejdicto/#!dictee/"
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":19,"column":68},"end":{"line":19,"column":79}}}) : helper))) != null ? stack1 : "")
+    + "'})\">\n                  <i class=\"icon-partage\"></i>\n                </button>\n";
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : mentions légales\n  mentionsTemplate.hbs\n -->\n\n   <div class=\"w3-container w3-padding-48\">\n		<div class=\"w3-card\">\n			   <header class=\"w3-green w3-padding\">\n"
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"partage") : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":6},"end":{"line":22,"column":23}}})) != null ? stack1 : "")
+    + "			   <h3>Mentions légales</h3>\n			  \n			   </header>\n			   <div class=\"w3-container\">\n			   		 <h3>"
+    + alias4(((helper = (helper = lookupProperty(helpers,"titre") || (depth0 != null ? lookupProperty(depth0,"titre") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titre","hash":{},"data":data,"loc":{"start":{"line":27,"column":13},"end":{"line":27,"column":24}}}) : helper)))
     + "</h3>\n				      <p><span class=\"w3-text-green\">Référence :</span>\n				       <span class=\"auteur\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"auteur") || (depth0 != null ? lookupProperty(depth0,"auteur") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"auteur","hash":{},"data":data,"loc":{"start":{"line":19,"column":32},"end":{"line":19,"column":44}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"auteur") || (depth0 != null ? lookupProperty(depth0,"auteur") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"auteur","hash":{},"data":data,"loc":{"start":{"line":29,"column":32},"end":{"line":29,"column":44}}}) : helper)))
     + "</span>,\n                        <span class=\"ouvrage\"><em>"
-    + alias4(((helper = (helper = lookupProperty(helpers,"ouvrage") || (depth0 != null ? lookupProperty(depth0,"ouvrage") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"ouvrage","hash":{},"data":data,"loc":{"start":{"line":20,"column":50},"end":{"line":20,"column":63}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"ouvrage") || (depth0 != null ? lookupProperty(depth0,"ouvrage") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"ouvrage","hash":{},"data":data,"loc":{"start":{"line":30,"column":50},"end":{"line":30,"column":63}}}) : helper)))
     + "</em></span>\n	 			      </p>\n  	 			      <p><span class=\"w3-text-green\">Dictée proposée par </span>"
-    + alias4(((helper = (helper = lookupProperty(helpers,"prof") || (depth0 != null ? lookupProperty(depth0,"prof") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"prof","hash":{},"data":data,"loc":{"start":{"line":22,"column":71},"end":{"line":22,"column":81}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"prof") || (depth0 != null ? lookupProperty(depth0,"prof") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"prof","hash":{},"data":data,"loc":{"start":{"line":32,"column":71},"end":{"line":32,"column":81}}}) : helper)))
     + "</p>\n			  </div>\n		</div>\n   </div>\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],48:[function(require,module,exports){
+},{"hbsfy/runtime":23}],49:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3804,7 +3861,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "</p>\n\n\n";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],49:[function(require,module,exports){
+},{"hbsfy/runtime":23}],50:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
@@ -3822,7 +3879,7 @@ module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":f
     + "\">consigne</a> de la réécriture.\n  </p>\n\n  </div>\n\n</div>";
 },"useData":true});
 
-},{"hbsfy/runtime":23}],50:[function(require,module,exports){
+},{"hbsfy/runtime":23}],51:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
@@ -3857,7 +3914,7 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
     + "</div>\n";
 },"usePartial":true,"useData":true});
 
-},{"hbsfy/runtime":23}],51:[function(require,module,exports){
+},{"hbsfy/runtime":23}],52:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
@@ -3890,7 +3947,7 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
     + "</div>\n\n";
 },"usePartial":true,"useData":true});
 
-},{"hbsfy/runtime":23}],52:[function(require,module,exports){
+},{"hbsfy/runtime":23}],53:[function(require,module,exports){
 module.exports=/* ==================================== *
  *            e j D i c t o             *
  * ==================================== *
@@ -3992,7 +4049,7 @@ module.exports=/* ==================================== *
     }
 ]
 
-},{}],53:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 module.exports=/* ==================================== *
  *            e j D i c t o             *
  * ==================================== *
@@ -4061,7 +4118,7 @@ module.exports=/* ==================================== *
 ]
 
 
-},{}],54:[function(require,module,exports){
+},{}],55:[function(require,module,exports){
 module.exports=/* ==================================== *
  *            e j D i c t o             *
  * ==================================== *

@@ -57,7 +57,7 @@ const reecritureTemplate = require("./pages/reecritureTemplate.hbs"); // Page gl
 const mentionsReecritureTemplate = require("./pages/mentionsReecritureTemplate.hbs"); // Sous-Page dans le contexte Reecriture: mentions légale
 const consigneReecritureTemplate = require("./pages/consigneReecritureTemplate.hbs"); // Sous-Page dans le contexte Reecriture : consigne
 const saisirReecritureTemplate = require("./pages/saisirReecritureTemplate.hbs"); // Sous-Page dans le contexte Reecriture : saisie
-
+const aideMobileTemplate = require("./pages/aideMobileTemplate.hbs"); // Aide dictée en usage mobile
 
 /* ============================================== */
 // On charge l'interface via un événement global load
@@ -409,6 +409,12 @@ var router = new Navigo(root, useHash, hash);
 			contenu.titre = data.titre;
 			contenu.prof = data.prof;
             contenu.ouvrage = data.ouvrage;
+            // On ajoute une condition pour montrer le bouton de partage
+            if(navigator.share){
+              contenu.partage = true;
+            }else{
+              contenu.partage = false;
+            }
 		    // On crée le contenu de la zone de mentions
 		    let html = mentionsTemplate(contenu);
 		    	// On l'intègre dans le document
@@ -550,6 +556,22 @@ var router = new Navigo(root, useHash, hash);
         'did': params.id
         };
       let html = aideTemplate(contenu);
+      app.html(html);
+  // Menu de la dictée avec son contexte : 'did'
+      let menuD = menuDicteeTemplate(
+      {
+      'did': params.id,
+      'item': menuDicteeItems
+      });
+      menu.html(menuD);
+  },
+
+  // Aide : dictée en usage mobile
+  'aidem/:id': function(params){
+      let contenu = {
+        'did': params.id
+        };
+      let html = aideMobileTemplate(contenu);
       app.html(html);
   // Menu de la dictée avec son contexte : 'did'
       let menuD = menuDicteeTemplate(
