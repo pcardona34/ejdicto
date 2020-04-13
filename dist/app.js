@@ -3035,6 +3035,12 @@ var router = new Navigo(root, useHash, hash);
 			contenu.titre = data.titre;
 			contenu.prof = data.prof;
             contenu.ouvrage = data.ouvrage;
+            // On ajoute une condition pour montrer le bouton de partage
+            if(navigator.share){
+              contenu.partage = true;
+            }else{
+              contenu.partage = false;
+            }
 		    // On crée le contenu de la zone de mentions
 		    let html = mentionsReecritureTemplate(contenu);
 		    // On l'intègre dans le document
@@ -3785,22 +3791,39 @@ module.exports = HandlebarsCompiler.template({"1":function(container,depth0,help
 },{"hbsfy/runtime":23}],47:[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var HandlebarsCompiler = require('hbsfy/runtime');
-module.exports = HandlebarsCompiler.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+module.exports = HandlebarsCompiler.template({"1":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
         }
         return undefined
     };
 
-  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : mentions légales\n  mentionsReecritureTemplate.hbs\n -->\n\n   <div class=\"w3-container w3-padding-48\">\n		<div class=\"w3-card\">\n			   <header class=\"w3-green w3-padding\"><h3>Mentions légales</h3></header>\n			   <div class=\"w3-container\">\n			   		 <h3>"
-    + alias4(((helper = (helper = lookupProperty(helpers,"titre") || (depth0 != null ? lookupProperty(depth0,"titre") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titre","hash":{},"data":data,"loc":{"start":{"line":17,"column":13},"end":{"line":17,"column":24}}}) : helper)))
+  return "                <button class=\"w3-button w3-right\" onclick=\"navigator.share({title: 'ejDicto: réécriture "
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":17,"column":105},"end":{"line":17,"column":114}}}) : helper))) != null ? stack1 : "")
+    + "',\n                text: 'Découvrez la réécriture "
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":18,"column":47},"end":{"line":18,"column":56}}}) : helper))) != null ? stack1 : "")
+    + "',\n                url: 'https://pcardona34.github.io/ejdicto/#!reecriture/"
+    + ((stack1 = ((helper = (helper = lookupProperty(helpers,"did") || (depth0 != null ? lookupProperty(depth0,"did") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"did","hash":{},"data":data,"loc":{"start":{"line":19,"column":72},"end":{"line":19,"column":83}}}) : helper))) != null ? stack1 : "")
+    + "'})\">\n                  <i class=\"icon-partage\"></i>\n                </button>\n";
+},"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "<!-- ==================================\n *            e j D i c t o             *\n * ==================================== *\n * (c)2012-2020 - Patrick Cardona       *\n * Licence GPL version 3 ou ultérieure  *\n * VOIR la licence complète à la racine *\n * ==================================== -->\n\n<!-- Template : mentions légales\n  mentionsReecritureTemplate.hbs\n -->\n\n   <div class=\"w3-container w3-padding-48\">\n		<div class=\"w3-card\">\n			   <header class=\"w3-green w3-padding\"><h3>Mentions légales</h3>\n"
+    + ((stack1 = lookupProperty(helpers,"if").call(alias1,(depth0 != null ? lookupProperty(depth0,"partage") : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":6},"end":{"line":22,"column":23}}})) != null ? stack1 : "")
+    + "			   </header>\n			   <div class=\"w3-container\">\n			   		 <h3>"
+    + alias4(((helper = (helper = lookupProperty(helpers,"titre") || (depth0 != null ? lookupProperty(depth0,"titre") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"titre","hash":{},"data":data,"loc":{"start":{"line":25,"column":13},"end":{"line":25,"column":24}}}) : helper)))
     + "</h3>\n				      <p><span class=\"w3-text-green\">Référence :</span>\n				       <span class=\"auteur\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"auteur") || (depth0 != null ? lookupProperty(depth0,"auteur") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"auteur","hash":{},"data":data,"loc":{"start":{"line":19,"column":32},"end":{"line":19,"column":44}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"auteur") || (depth0 != null ? lookupProperty(depth0,"auteur") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"auteur","hash":{},"data":data,"loc":{"start":{"line":27,"column":32},"end":{"line":27,"column":44}}}) : helper)))
     + "</span>,\n                        <span class=\"ouvrage\"><em>"
-    + alias4(((helper = (helper = lookupProperty(helpers,"ouvrage") || (depth0 != null ? lookupProperty(depth0,"ouvrage") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"ouvrage","hash":{},"data":data,"loc":{"start":{"line":20,"column":50},"end":{"line":20,"column":63}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"ouvrage") || (depth0 != null ? lookupProperty(depth0,"ouvrage") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"ouvrage","hash":{},"data":data,"loc":{"start":{"line":28,"column":50},"end":{"line":28,"column":63}}}) : helper)))
     + "</em></span>\n	 			      </p>\n  	 			      <p><span class=\"w3-text-green\">Réécriture proposée par \n  	 			      </span>"
-    + alias4(((helper = (helper = lookupProperty(helpers,"prof") || (depth0 != null ? lookupProperty(depth0,"prof") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"prof","hash":{},"data":data,"loc":{"start":{"line":23,"column":20},"end":{"line":23,"column":30}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"prof") || (depth0 != null ? lookupProperty(depth0,"prof") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"prof","hash":{},"data":data,"loc":{"start":{"line":31,"column":20},"end":{"line":31,"column":30}}}) : helper)))
     + "</p>\n			  </div>\n		</div>\n   </div>\n";
 },"useData":true});
 

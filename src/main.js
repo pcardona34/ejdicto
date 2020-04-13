@@ -455,6 +455,12 @@ var router = new Navigo(root, useHash, hash);
 			contenu.titre = data.titre;
 			contenu.prof = data.prof;
             contenu.ouvrage = data.ouvrage;
+            // On ajoute une condition pour montrer le bouton de partage
+            if(navigator.share){
+              contenu.partage = true;
+            }else{
+              contenu.partage = false;
+            }
 		    // On crée le contenu de la zone de mentions
 		    let html = mentionsReecritureTemplate(contenu);
 		    // On l'intègre dans le document
