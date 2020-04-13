@@ -12,7 +12,7 @@
 
    <div class="w3-container w3-padding-48">
 		<div class="w3-card">
-			   <header class="w3-green w3-padding"><h3>Mentions légales</h3>
+			   <header class="w3-green w3-padding">
 			   {{#if partage}}
                 <button class="w3-button w3-right" onclick="navigator.share({title: 'ejDicto: réécriture {{{did}}}',
                 text: 'Découvrez la réécriture {{{did}}}',
@@ -20,6 +20,7 @@
                   <i class="icon-partage"></i>
                 </button>
                {{/if }}
+               <h3>Mentions légales</h3>
 			   </header>
 			   <div class="w3-container">
 			   		 <h3>{{ titre }}</h3>
