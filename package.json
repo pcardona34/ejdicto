@@ -7,6 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
+    "audio": "bash ./outils.sh audio",
     "dev": "bash ./outils.sh dev",
     "vendors": "bash ./outils.sh vendors",
     "build": "bash ./outils.sh build",

@@ -28,19 +28,23 @@ outils de développement activés : notamment l'interpréteur de commandes
 (shell) Bash. Vérifiez la présence de ces outils en ouvrant une console 
 et en affichant leur version, sinon il faudra les installer.
 
-    `bash --version`
-    `node --version`
-    `npm --version`
+    `bash --version;`
+    `node --version;`
+    `npm --version;`
     `git --version`
 
-+ Pour les installer : bash, node, npm, git.
++ Pour les installer : Bash est présent sur GNU/Linux et Mac OS. 
+[bash: sous Windows 10](https://korben.info/installer-shell-bash-linux-windows-10.html), 
+[node](https://nodejs.dev/how-to-install-nodejs), 
+[npm](https://www.npmjs.com/get-npm), 
+[git](https://git-scm.com).
 
 + Pour automatiser la conversion des enregistrements audio, il est 
-aussi conseillé d'installer *ffmpeg*. Vérifiez sa présence :
+aussi conseillé d'installer [ffmpeg](https://ffmpeg.org). Vérifiez sa présence :
 
     `ffmpeg -version`
 
-+ Pafait, vous pouvez passer à l'installation de la fabrique.
++ Parfait ! Vous pouvez passer à l'installation de la fabrique.
 
 ### Première installation de la fabrique
 
@@ -90,7 +94,7 @@ plates-formes.
 
 + Pour créer une version minifiée des bibliothèques css et javascript 
 externes. Il s'agit notamment des scripts et styles fournis par 
-w3school.
+w3school, ainsi que la police d'icones IcoMoon.
 
     `npm run vendors`
 
