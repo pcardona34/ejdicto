@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: https://pcardona34.github.io/ejdicto/favicon.ico
+Disallow: https://pcardona34.github.io/ejdicto/build/*
+Disallow: https://pcardona34.github.io/ejdicto/public/*
+Disallow: https://pcardona34.github.io/ejdicto/static/*
+Disallow: https://pcardona34.github.io/ejdicto/src/*
