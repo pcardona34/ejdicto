@@ -28,10 +28,10 @@ outils de développement activés : notamment l'interpréteur de commandes
 (shell) Bash. Vérifiez la présence de ces outils en ouvrant une console 
 et en affichant leur version, sinon il faudra les installer.
 
-    `bash --version;`
-    `node --version;`
-    `npm --version;`
-    `git --version`
+    bash --version;
+    node --version;
+    npm --version;
+    git --version
 
 + Pour les installer : Bash est présent sur GNU/Linux et Mac OS. 
 [bash: sous Windows 10](https://korben.info/installer-shell-bash-linux-windows-10.html), 
@@ -43,16 +43,16 @@ et en affichant leur version, sinon il faudra les installer.
 
 ### Première installation de la fabrique
 
-    `git clone https://github.com/pcardona34/ejdicto/`
-    `cd ejdicto`
-    `npm install`
+    git clone https://github.com/pcardona34/ejdicto/
+    cd ejdicto
+    npm install
 
 ### Pour exécuter le serveur de développement
-    `npm run dev`
+    npm run dev
 
-+ Affichez l'application en phase de développement à l'URL :
++ Affichez l'application en phase de développement, par exemple à l'URL :
 
-    `http://127.0.0.1:9966/`
+    http://127.0.0.1:9966/
 
 + Pour une personnalisation avancée, le code à adapter à vos besoins se situe dans les dossiers  
 `src` et `src/lib`.
@@ -82,16 +82,17 @@ plates-formes.
 externes. Il s'agit notamment des styles fournis par 
 w3school, ainsi que la police d'icones IcoMoon.
 
-    `npm run vendors`
+    npm run vendors
 
 ### La première fois et les suivantes
 
-    `npm run build`
-    `npm run test`
+    npm run build
+    npm run test
 
-+ Testez la version de pré-production dans votre navigateur à l'URL indiquée par le serveur après son démarrage :
++ Testez la version de pré-production dans votre navigateur à l'URL indiquée par le serveur après son 
+démarrage, par exemple :
 
-    `http://localhost:8080/`
+    http://localhost:8080/
 
 + Pour arrêter le serveur de test : `Ctrl + C`
 
@@ -101,6 +102,12 @@ w3school, ainsi que la police d'icones IcoMoon.
 + Effectuez préalablement ce réglage dans les paramètres de votre dépôt 
 Github la première fois. Puis exécutez :
 
-    `npm run clean`
-    `npm run deploy`
+    npm run clean
+    npm run deploy
+    
+## Pour préparer les fichiers audio nécessaires
+
++ Utilisez les scripts de conversion du projet compagnon [eat : ejDicto 
+Audio Tolls](https://github.com/pcardona34/eat)
+
 
