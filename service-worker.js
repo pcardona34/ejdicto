@@ -14,7 +14,7 @@
    License : MIT
 */
 
-let version = "2.0.0";
+let version = "2.0.1";
 
 let cacheName = "MyCacheV" + version;
 
@@ -24,6 +24,7 @@ let filesToCache = [
 "./manifest.webmanifest",
 "./service-worker.js",
 "./public/app.min.js",
+"./public/lib/styles/ejdicto.min.css",
 "./static/audio/dictee31.mp3",
 "./static/audio/dictee31.ogg",
 "./static/audio/dictee31.aac",
@@ -65,7 +66,20 @@ let filesToCache = [
 "./static/config/licence.json",
 "./static/config/liste_dictees.json",
 "./static/config/liste_reecritures.json",
+"./static/config/menu_accueil_exercice.json",
 "./static/config/menu_accueil.json",
+"./static/config/menu_aide.json",
+"./static/config/menu_consigne.json",
+"./static/config/menu_dictee.json",
+"./static/config/menu_ecouter.json",
+"./static/config/menu_liste.json",
+"./static/config/menu_mentions_dictee.json",
+"./static/config/menu_mentions_reecriture.json",
+"./static/config/menu_modprefs.json",
+"./static/config/menu_profil.json",
+"./static/config/menu_reecriture.json",
+"./static/config/menu_saisir_dictee.json",
+"./static/config/menu_saisir_reecriture.json",
 "./static/config/messages.json",
 "./static/config/niveaux.json",
 "./static/config/popups.json",
@@ -92,15 +106,10 @@ let filesToCache = [
 "./static/data/jecho501.json",
 "./static/data/jecho502.json",
 "./static/data/jecho52.json",
-"./vendor/icomoon/fonts/icomoon.eot",
-"./vendor/icomoon/fonts/icomoon.ttf",
-"./vendor/icomoon/fonts/icomoon.woff",
-"./vendor/icomoon/fonts/icomoon.svg",
-"./vendor/icomoon/style.min.css",
-"./static/images/encrier.jpg",
+"./static/images/ccbync.png",
 "./static/images/encrier144.png",
-"./static/images/encrier16.png",
 "./static/images/encrier168.png",
+"./static/images/encrier16.png",
 "./static/images/encrier180.png",
 "./static/images/encrier192.png",
 "./static/images/encrier32.png",
@@ -108,9 +117,13 @@ let filesToCache = [
 "./static/images/encrier512.png",
 "./static/images/encrier72.png",
 "./static/images/encrier96.png",
+"./static/images/encrier.jpg",
 "./static/images/github.png",
-"./static/images/ccbync.png",
-"./public/lib/styles/ejdicto.min.css",
+"./vendor/icomoon/fonts/icomoon.eot",
+"./vendor/icomoon/fonts/icomoon.svg",
+"./vendor/icomoon/fonts/icomoon.ttf",
+"./vendor/icomoon/fonts/icomoon.woff",
+"./vendor/icomoon/style.min.css",
 "./vendor/w3school/styles/w3.min.css"
 ];
 
