@@ -1,0 +1,33 @@
+<!-- ==================================
+ *            e j D i c t o             *
+ * ==================================== *
+ * (c)2012-2020 - Patrick Cardona       *
+ * Licence GPL version 3 ou ultérieure  *
+ * VOIR la licence complète à la racine *
+ * ==================================== -->
+ 
+<!-- Handlebars Partial : assistantDeLaSaisieTemplate.hbs -->
+
+<!-- Affiche une proposition de saisie sous forme de QCU -->
+
+<form class="w3-container w3-border w3-padding"
+name="form_{{indexPlusUn nom}}" id="form_{{indexPlusUn nom}}">
+{{#each this}}
+  {{#unless @last}}
+
+  <input type="radio" class="w3-radio" name="lacune_{{indexPlusUn ../nom}}" 
+  value="{{this}}">
+  <label>{{this}}</label>
+
+  {{else}}
+  &nbsp;&nbsp;&nbsp;
+  <span class="w3-button w3-round-xxlarge triadic" id="bouton_insertion_{{indexPlusUn ../nom}}"
+onclick="inserer_mot('lacune_{{indexPlusUn ../nom}}')">
+  {{indexPlusUn ../nom}}
+  <i class="icon-finir"></i>
+  </span>
+
+  {{/unless}}
+{{/each}}
+</form>
+

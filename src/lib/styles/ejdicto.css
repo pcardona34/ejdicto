@@ -6,13 +6,60 @@
  * VOIR la licence complète à la racine *
  * ==================================== */
 
-/* dictee.css */
+/* ejdicto.css */
+
+@media screen and (min-width: 1000px) {
+
+body {
+background-color: gray;
+}
+
+#menu, #app, footer {
+  margin: 0 auto;
+  width: 75%;
+}
+
+.w3-modal-content {
+  max-width: 50%;
+}
+
+#app {
+  background-color: white;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+}
+
+#liste {
+  width: 50%;
+}
+
+.w3-bottom {
+position: fixed;
+width: 75%;
+z-index: 1
+}.w3-top{top:0}.w3-bottom{bottom:0}
+
+#menu_gauche {
+width: 50%;
+max-width: 300px;
+}
+
+}
 
 /*Styles de la zone de correction */
 
+#zone_correction {
+  max-width: 600px;
+  }
+
 .correction {
-    background-color: beige;
     padding: 4px;
+    font-size: 1.2rem;
+    color: black;
+    opacity: 78%;
 }
 
 .correction > del, .correction > ins {
@@ -34,12 +81,72 @@
   background-color: rgba(231, 76, 60,.5);
 }
 
-.correction > .bilan {
-  text-align: center;
-  color: darkgray;
+#ma_saisie {
+  font-size: 1.2rem;
+  background-color: #98caff;
+  padding: 10px;
+  color: rgba(0,0,0,.66);
 }
 
-.correction .bravo {
-  text-align: center;
-  color: orange;
+.auteur {
+  font-variant : small-caps;
 }
+
+p.mention {
+  font-size: 1.1rem;
+  color: black;
+  opacity: 70%;
+}
+
+
+/* On surcharge le style dans w3.css : class w3-button */
+.w3-button {
+  font-size: 1.1rem;
+}
+
+#contenu_message {
+  font-size: 1.2rem;
+  padding: auto;
+  color: dark;
+  opacity: 60%;
+  text-align: center;
+}
+
+.primaire {
+  background-color: #6699cc;
+}
+
+.fonce {
+  background-color: #326b9b;
+  color: white;
+}
+
+.clair {
+  background-color: #98caff;
+  color: black;
+}
+
+.complementaire {
+background-color: #cc9966;
+}
+
+.triadic {
+background-color: #9966cc;
+}
+
+.analogue {
+background-color: #6666cc;
+color: white;
+}
+
+.texte-fonce {
+color: #326b9b;
+font-weight: 500;
+}
+
+.texte-lien {
+color: #9966cc;
+font-weight: 500;
+text-decoration: none;
+}
+

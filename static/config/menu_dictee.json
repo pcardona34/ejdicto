@@ -1,0 +1,34 @@
+/* Items du menu dans le contexte dictée */
+
+{ 'menu': {
+'did': '',
+'couleur': 'blue-gray',
+'contexte': {
+    'bouton': false,
+    'titre': 'Accueil',
+    'icone': "<i class='icon-retourner'></i>",
+    'action': '#!liste/dictees'
+},
+'items': [],
+'actions':[
+    {
+    'bouton': false,
+    'icone': "<i class='icon-info'></i>",
+    'legende': 'Mentions légales',
+    'lien': '#!mentions/dictee'
+    },
+    {
+    'bouton': false,
+    'icone': "<i class='icon-plume'></i>",
+    'legende': 'Saisir la dictée',
+    'lien': '#!saisir/dictee'
+    },
+    {
+    'bouton': false,
+    'icone': "<i class='icon-ecouteurs'></i>",
+    'legende': 'Écouter la dictée',
+    'lien': '#!ecouter'
+    }
+]
+}}
+

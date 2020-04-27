@@ -1,0 +1,22 @@
+{
+"app_name": "ejDicto",
+"auteur": "Anonyme",
+"titre": "Une mésaventure de Renart",
+"ouvrage": "Le Roman de Renart, Renart et Chantecler",
+"prof": "Patrick Cardona",
+"consigne": "Renart (nom propre), messire Constant",
+"attendu": "Un jour, Renart qui, comme d'habitude, était toujours prêt à jouer quelque tour de sa façon et à s'amuser aux dépens d'autrui, se dirigeait vers un hameau situé dans un bois et bien pourvu en poules, coqs, canes, canards, jars et oies. Habitait là, en bordure du hameau, messire Constant, un paysan très riche, dont la maison regorgeait de tout. On y trouvait abondance de chapons, et tout autant de viande salée. Le blé non plus n’y manquait pas. Le jardin était soigneusement clôturé par une palissade de gros pieux de chêne taillés en pointe au pied desquels poussait de l’aubépine.",
+"fourni": "Un jour, Renart qui, comme d'habitude, était toujours _(1)_ à jouer quelque tour de sa façon et à s'amuser _(2)_ d'autrui, se dirigeait vers un hameau _(3)_ dans un bois et bien pourvu en poules, coqs, canes, canards, jars et oies. _(4)_, en bordure du hameau, messire Constant, un paysan très riche, _(5)_ la maison regorgeait de tout. On y trouvait abondance de chapons, et _(6)_ autant de viande salée. Le blé non plus _(7)_ manquait pas. Le jardin était soigneusement clôturé par une palissade de gros pieux de chêne _(8)_ en pointe au pied _(9)_ _(10)_ de l’aubépine.",
+"lacunes": [
+"pré | près | prêt",
+"au dé pend | aux dépens | ode et pan",
+"si tu es | situé | situer",
+"Habitait là | Habitaient là | Habitez-la",
+"don | donc | dont",
+"tous | tout | toute",
+"ni | nid | n’y",
+"taillé | taillés | tailler",
+"des quels | desquelles | desquels",
+"poussait | poussaient | pousser"
+]
+}

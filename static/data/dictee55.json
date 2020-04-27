@@ -1,9 +1,10 @@
 {
-  "app_name":"jDicto",
-  "texte":"Claire est la nuit, et la lune brillante. Charles est couché, mais il est plein de deuil pour Roland, et son cœur est lourd à cause d'Olivier, et des douze pairs, et des Français : à Roncevaux, il les a laissés morts, tout sanglants. Il prie Dieu qu'il sauve les âmes. Il est las, car sa peine est très grande. Il s'endort, il n'en peut plus. Par tous les prés, les Francs se sont endormis. Pas un cheval qui puisse se tenir debout ; s'ils veulent de l'herbe, ils la broutent couchés.",
-  "auteur":"Anonyme - Traduction : Joseph Bédier",
-  "titre":"Le chagrin de Charlemagne",
-  "ouvrage":"La Chanson de Roland",
-  "audio":"dictee55",
-  "prof":"Patrick Cardona"
+  "app_name": "ejDicto",
+  "auteur": "Anonyme - Traduction : Joseph Bédier",
+  "titre": "Le chagrin de Charlemagne",
+  "ouvrage": "La Chanson de Roland",
+  "prof":"Patrick Cardona",
+  "consigne": "",
+  "attendu": "Claire est la nuit, et la lune brillante. Charles est couché, mais il est plein de deuil pour Roland, et son cœur est lourd à cause d'Olivier, et des douze pairs, et des Français : à Roncevaux, il les a laissés morts, tout sanglants. Il prie Dieu qu'il sauve les âmes. Il est las, car sa peine est très grande. Il s'endort, il n'en peut plus. Par tous les prés, les Francs se sont endormis. Pas un cheval qui puisse se tenir debout ; s'ils veulent de l'herbe, ils la broutent couchés.",
+  "fourni": ""
 }

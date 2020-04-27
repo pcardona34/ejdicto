@@ -7,12 +7,10 @@
 		  <meta http-equiv="X-UA-Compatible" content="ie=edge">
           <!-- Feuilles de style et icones -->
           <link rel="stylesheet" href="./vendor/icomoon/style.css">
-		  <link rel="stylesheet" href="./src/lib/styles/ejdicto.css">
 		  <link rel="stylesheet" href="./vendor/w3school/styles/w3.css">
-
+		  <link rel="stylesheet" href="./src/lib/styles/ejdicto.css">
 		  <title>ejDicto: DEV!</title>
 	</head>
-	
 <!-- ==================================
  *            e j D i c t o             *
  * ==================================== *
@@ -20,24 +18,20 @@
  * Licence GPL version 3 ou ultérieure  *
  * VOIR la licence complète à la racine *
  * ==================================== -->
-
 	<body>
 	<!-- Zone d'affichage du menu -->
 	<div id="menu"></div>
 
+	<!-- Zone d'affichage des notifications -->
+	<div id="notification" class="w3-modal"></div>
+    <!-- inséré avant app : contenu généré -->
+    
 	<!-- Page de mon application -->
 	<div id="app" class="w3-padding-32"></div>
 
     <!-- Pied de page -->
-    <div id="pied" class="w3-bottom w3-center w3-teal">
-      Application hébergée par <a href="https://github.com" target="_blank">
-      <img src="./static/images/github.png">
-      </a>
-    </div>
-    <!-- Libs locales -->
-	<script src="./src/lib/scripts/ejdicto.js"></script>
-    <!-- Vendor : W3.js -->
-	<script src="./vendor/w3school/scripts/w3.js"></script>
+    <!-- inséré après app : contenu généré -->
+
     <!-- Bundle principal de l'application -->
 	<script src="./build/app.js"></script>
 	</body>

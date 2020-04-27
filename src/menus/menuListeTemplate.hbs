@@ -6,37 +6,45 @@
  * VOIR la licence complète à la racine *
  * ==================================== -->
 
- <!-- Navigation : Menu : menuListe.hbs -->
+ <!-- Navigation : Menu : menuTemplate.hbs -->
 
-<div class="w3-top w3-hide-small">
-  <div class="w3-bar w3-light-grey w3-text-teal">
+<!-- ============================================ -->
 
-  <a href="#!" class="w3-bar-item w3-button w3-teal">
-    <i class="icon-home"></i> ejDicto
-  </a>
+<!-- Sidebar -->
+<div class="w3-sidebar w3-bar-block" style="display:none" id="menu_gauche">
+  <button onclick="refermer_navigation()" class="w3-bar-item w3-button w3-large w3-text-teal">Fermer 
+  <i class="icon-fermer"></i></button>
+{{#each this.items}}
+  <a href="{{lien}}" class="w3-bar-item w3-button w3-light-gray w3-border">
+  {{{icone}}} {{legende}}</a>
+  {{/each}}
 
-  <button onclick="$('#panneau_recherche').toggle()" 
-  class="w3-bar-item w3-button w3-right">
-  <i class="icon-recherche"></i>
-  </button>
-  </div>
 </div>
 
-
-<!-- ooooooooooooooooooooooooooooooooooooo -->
-
-<!-- Version mobile : on fonce la barre, suffisant pour ce menu. -->
-
-<div class="w3-top w3-hide-medium w3-hide-large">
-  <div class="w3-bar w3-dark-grey">
-
-  <a href="#!" class="w3-bar-item w3-button w3-teal">
-    <i class="icon-home"></i> jDicto
-  </a>
-
-  <button onclick="$('#panneau_recherche').toggle()" 
-  class="w3-bar-item w3-button w3-dark-grey w3-right">
-  <i class="icon-recherche"></i>
-  </button>
+<!-- Contexte -->
+<div class="w3-{{couleur}}">
+{{#with this.contexte}}
+  {{#if bouton}}
+    <button class="w3-button w3-{{couleur}} w3-xlarge" onclick="{{action}}">{{{icone}}}</button>
+  {{else}}
+    <a href="{{{action}}}" class="w3-button w3-{{couleur}} w3-xlarge">{{{icone}}}</a>
+  {{/if}}
+  
+<!-- Actions -->
+{{#each ../actions}}
+  {{#if bouton}}
+      <button onclick="{{lien}}" class="w3-bar-item w3-button w3-{{couleur}} w3-right">{{{icone}}} {{legende}} 
+      </button>
+  {{else}}
+      <a href="{{lien}}" class="w3-bar-item w3-button w3-{{couleur}} w3-right">{{{icone}}} {{legende}}</a>
+  {{/if}}
+{{/each}}
+  <div class="w3-container">
+    <h1>{{titre}} des {{../exercice}}s 
+    {{#if (cetteDicteeEstAmenagee ../exercice)}}
+	 aménagées
+	{{/if}}
+    </h1>
   </div>
 </div>
+{{/with}}

@@ -10,26 +10,62 @@
   mentionsTemplate.hbs
  -->
 
-   <div class="w3-container w3-padding-48">
+<!-- Bouton de partage conditionnel : nécessite l'API
+sur le client concerné -->
+   <div class="w3-container w3-padding">
 		<div class="w3-card">
-			   <header class="w3-green w3-padding">
-			   {{#if partage}}
-                <button class="w3-button w3-right" onclick="navigator.share({title: 'ejDicto: dictée {{{did}}}',
-                text: 'Découvrez la dictée {{{did}}}',
-                url: 'https://pcardona34.github.io/ejdicto/#!dictee/{{{ did }}}'})">
-                  <i class="icon-partage"></i>
-                </button>
-               {{/if }}
-			   <h3>Mentions légales</h3>
-			  
-			   </header>
-			   <div class="w3-container">
-			   		 <h3>{{ titre }}</h3>
-				      <p><span class="w3-text-green">Référence :</span>
-				       <span class="auteur">{{ auteur }}</span>,
-                        <span class="ouvrage"><em>{{ ouvrage }}</em></span>
-	 			      </p>
-  	 			      <p><span class="w3-text-green">Dictée proposée par </span>{{ prof }}</p>
-			  </div>
+		<header class="w3-padding analogue">
+		{{#if partage}}
+        <button class="w3-button w3-right" 
+        onclick="navigator.share({title: 'ejDicto: 
+{{{exercice}}} {{{did}}}',
+        text: 'Découvrez la {{{exercice}}} {{{did}}}',
+        url: 'https://pcardona34.github.io/ejdicto/#!{{{cible}}}/{{{ did }}}'})">
+        <i class="icon-partage"></i>
+        </button>
+        {{/if }}
+		<h3>Mentions légales</h3>
+        </header>
+
+		<div class="w3-container">
+		<h3 class="texte-fonce">{{ titre }}</h3>
+		<p class="mention"><b>Référence :</b>
+		<span class="auteur">{{ auteur }}</span>,
+        <em>{{ ouvrage }}</em>
+        {{#if remarque}}<br>
+        {{remarque}}
+        {{/if}}
+	 	</p>
+  	 	<p class="mention"><b>
+  	 	{{capitalisePremiereLettre exercice}} proposée par </b></span>{{ prof }}  
+  	 	<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+  	 	<img alt="Licence Creative Commons" 
+  	 	style="border-width:0" 
+  	 	src="../../static/images/ccbync.png" />
+  	 	</a>
+  	 	</p>
+  	 	<p class="w3-hide-small"><span xmlns:dct="http://purl.org/dc/terms/" 
+  	 	href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">
+  	 	Cette {{exercice}}</span> de
+  	 	<a xmlns:cc="http://creativecommons.org/ns#" 
+  	 	href="https://pcardona34.github.io/ejdicto" 
+  	 	property="cc:attributionName" 
+  	 	rel="cc:attributionURL" 
+  	 	target="_blank"
+  	 	class="w3-button">
+  	 	l'application ejDicto
+  	 	</a> est mise à disposition selon les termes de la licence internationale 
+  	 	<a rel="license" 
+  	 	href="http://creativecommons.org/licenses/by-nc/4.0/"
+  	 	target="_blank"
+  	 	class="w3-button">
+  	 	Creative Commons
+  	 	</a>  Attribution - 
+  	 	Pas d’Utilisation Commerciale 4.0.</p>
+  	 	{{#if voix}}
+  	 	<p>Avec la voix de {{voix}}.
+  	 	{{/if}}
+  	 	</p>
 		</div>
-   </div>
+        </div>
+</div>

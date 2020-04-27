@@ -5,103 +5,123 @@
  * Licence GPL version 3 ou ultérieure  *
  * VOIR la licence complète à la racine *
  * ==================================== -->
- 
- <!-- Template de saisie, correction et affichage de la correction 
+<!-- Template de saisie, correction et affichage de la correction 
     saisirTemplate.hbs
  -->
+<!-- A --><div class="w3-container">
 
-<div class="w3-container w3-padding-32">
-<div id="zone_saisie">
+<!-- Zone responsive -->
+<!-- -B --><div class="w3-cell-row" id="zone_saisie">
 
-	<h3 class="w3-text-teal">Saisie de la dictée {{did}} 
-		<a href="#!boutons/{{did}}" data-navigo class="w3-badge w3-dark-grey w3-hide-large w3-hide-medium"
-		style="text-decoration: none"
-		>?</a>
-	</h3>
 
-<!-- Zone de notification modale -->
-
-<div id="notification" class="w3-modal">
-  <div class="w3-modal-content">
-    <div class="w3-container">
-      <span onclick="document.getElementById('notification').style.display='none'"
-      class="w3-button w3-display-topright"><i class="icon-fermer"></i></span>
-      <h4 id="titre_notification">Notification</h4>
-      <p id="message_notification">Mon message...</p>
+<!-- Début de cell : assistant -->
+<!-- --C --><div id="assistant" class="w3-cell w3-mobile w3-margin-right" style="display: none">
+{{#if (cetteDicteeEstAmenagee exercice)}}
+    <!-- ============================================= -->
+    <!-- Assistant de la saisie : partial -->
+    <div>
+    <h3 class="texte-fonce"><i class="icon-fermer w3-button" 
+    onclick="$('#assistant').hide();$('.autres_boutons').show()"></i>Assistant de la saisie 
+    </h3>
+    {{#each propositions as |proposition|}}
+    {{>assistant (decoupeLaProposition proposition) nom=@index}}
+    {{/each}}
     </div>
-  </div>
-</div>
+{{/if}}
+<!-- --C-BIS --></div> <!-- Fin de la zone cell (fin assistant) -->
 
-	<!-- zone de boutons : actions sur la saisie : version bureau -->
-<div class="w3-hide-small w3-container w3-padding">
-	<nav class="w3-row">
-	    <button onclick="$('#barre_car_spec').toggle()" class="w3-button w3-green">
+
+<!-- Zone : cell saisie du texte -->
+<!-- --D --><div class="w3-cell w3-mobile">
+<!-- ---E --><div class="w3-card">
+
+<!-- zone de boutons : actions sur la saisie -->
+<!-- ----F --><div>
+<nav class="w3-bar w3-large fonce">
+    <span class="autres_boutons">
+	    <button onclick="$('#barre_car_spec').toggle()" class="w3-button"
+	    title="Insérer des caractères spéciaux">
     		<i class="icon-omega"></i>
 	    </button>
-    	<button class="w3-button w3-orange" onclick="dictee.recommencerSaisie()">Effacer</button>
-		<button class="w3-button w3-green" onclick="dictee.corriger()">Corriger</button>
-		<button class="w3-button w3-red" onclick="dictee.terminer()">Terminer</button>
-	</nav>
-</div> <!-- fin zone de boutons -->
-
-	<!-- zone de boutons : actions sur la saisie : version mobile -->
-<div class="w3-hide-large w3-hide-medium w3-container w3-padding">
-	<nav class="w3-row">
-	    <button onclick="$('#barre_car_spec').toggle()" class="w3-button w3-green">
-    		<i class="icon-omega"></i>
-	    </button>
-    	<button class="w3-button w3-orange" onclick="dictee.recommencerSaisie()">
+    	<button class="w3-button" onclick="exercice.recommencerSaisie()"
+    	title="Recommencer">
     	<i class="icon-corbeille"></i>
     	</button>
-		<button class="w3-button w3-green" onclick="dictee.corriger()">
+		<button class="w3-button" onclick="exercice.corriger()"
+		title="Vérifier">
 		<i class="icon-verifier"></i>
 		</button>
-		<button class="w3-button w3-red" onclick="dictee.terminer()">
+		<button class="w3-button" onclick="exercice.terminer()"
+		title="Terminer">
 		<i class="icon-finir"></i>
 		</button>
+    </span>
+    {{#if (cetteDicteeEstAmenagee exercice)}}
+    <span>
+	    <button onclick="actualiser_assistant()" class="w3-button w3-right"
+	    title="Assistant">
+    		<i class="icon-assistant"></i>
+	    </button>
+    </span>
+    {{/if}}
+    <span>
+    <button onclick="$('.autres_boutons').show();$('#assistant').hide()" 
+    class="w3-button w3-right"
+    title="Modifier le texte">
+    	<i class="icon-editer"></i>
+	</button>
+	</span>
+    </nav>
+<!-- F-BIS --></div><!-- fin zone de boutons -->
 
-	</nav>
-</div> <!-- fin zone de boutons -->
+
+<!-- Barre de caractères spéciaux et zone de saisie -->
+<!-- G --><div class="w3-card">
+<!-- H --><div id="conteneur_barre" class="w3-bar w3-light-gray">
+<!-- I --><div id="barre_car_spec" class="w3-light-gray" style="display: none">
+{{#each caracteres}}
+{{>barre this}}
+{{/each}}
+<!-- I-BIS --></div>
+<!-- H-BIS --></div>
+<!-- G-BIS --></div><!-- Fin des caractères spéciaux
 
 
+<!-- Zone de saisie du texte de l'exercice -->
+<textarea 
+	id="ma_saisie" 
+	spellcheck="false" 
+	class="w3-block" 
+	rows="15" 
+	placeholder="Saisissez ici le texte de votre {{exercice}} notée au brouillon..." 
+	onblur="sessionStorage.setItem('{{cible}}', this.value)" 
+	{{#if (cetteDicteeEstAmenagee exercice)}}
+	onclick="$('#assistant').hide();$('.autres_boutons').show()" 
+	{{/if}}>{{saisie}}</textarea>
 
-	<!-- Barre de caractères spéciaux et zone de saisie -->
-	<div class="w3-container"> 
-		<div id="conteneur_barre" class="w3-bar">
-		    <div id="barre_car_spec" style="display: none">
-			{{#each caracteres}}
-			    {{>barre this}}
-			{{/each}}
-		    </div>
-		</div>
-	</div>
 
-	<!-- Zone de saisie du texte de la dictée -->
-	<textarea id="ma_saisie" spellcheck="false" class="w3-block w3-sand" rows="15" 
-	style="max-width: 600px"
-	placeholder="Saisissez ici le texte de votre dictée notée au brouillon..." 
-	onblur="sessionStorage.setItem('dictee', this.value)">{{saisie}}</textarea>
+<!-- E-BIS --></div>  <!-- Fin de la zone de type card -->
+<!-- D-BIS --></div>  <!-- Fin de la Cell (2) -->
+<!-- B-BIS --></div> <!-- fin de zone responsive responsive-->
 
-</div>  <!-- Fin de la zone de saisie -->
 
-	<!-- ============================================== -->
+<!-- J --><div id="zone_correction" class="w3-container" style="display: none">
+ <h3 class="w3-text-teal">Correction
+   <a href="#!" class="w3-button w3-text-teal" data-navigo>
+  <i class="icon-fermer"></i></a>
+ </h3>
+<p id="corrige" class="correction"></p>
+<!-- J-BIS --></div> <!-- Fin div zone_correction -->
 
-<div id="zone_correction" class="w3-container" style="display: none">
-<div class="w3-display-container">
-  <a href="#!" class="w3-button w3-display-topright "><i class="icon-fermer"></i></a>
-</div>
- <h3 class="w3-text-teal">Correction</h3>
-
- <p id="corrige" class="correction"></p>
-
-</div> <!-- Fin div zone_correction -->
-
-</div> <!-- fin de la zone englobante des zones de la page -->
+<!-- A-BIS --></div> <!-- fin de la zone englobante des zones de la page -->
 
 <!-- ================================================== -->
 
 <!-- BLOC MASQUE: MAIS NECESSAIRE POUR LA CORRECTION
     Son contenu est utilisé par la méthode corriger() de l'objet Dictee -->
 
-<div id="texte" style="visibility: hidden">{{texte}}</div>
-
+<!-- Texte attendu après la transformation -->
+<div id="attendu" style="visibility: hidden">{{attendu}}</div>
+<!-- Texte initial, c-à-d avant la transformation -->
+<div id="fourni" style="visibility: hidden">{{fourni}}</div>
+<div id="type_exercice" style="visibility: hidden">{{cible}}</div>

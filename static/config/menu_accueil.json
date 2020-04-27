@@ -1,0 +1,37 @@
+/* Données template du menu Accueil */
+
+{ 'menu': {
+'couleur': 'fonce',
+'contexte': {
+    'bouton': true,
+    'titre': 'ejDicto',
+    'icone': '☰',
+    'action': 'derouler_navigation()',
+},
+'items': [
+    {
+    'icone': "<i class='icon-liste'></i>",
+    'legende': 'Liste des dictées',
+    'lien': '#!liste/dictees'
+    },
+    {
+    'icone': "<i class='icon-liste'></i>",
+    'legende': 'Liste des réécritures',
+    'lien': '#!liste/reecritures'
+    }
+],
+'actions':[
+    {
+    'bouton': false,
+    'icone': "<i class='icon-profil'></i>",
+    'legende': 'Profil',
+    'lien': '#!profil'
+    },
+    {
+    'bouton': false,
+    'icone': "<i class='icon-aide'></i>",
+    'legende': 'Aide',
+    'lien': '#!aide'
+    }
+]}}
+

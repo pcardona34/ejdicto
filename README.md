@@ -39,11 +39,6 @@ et en affichant leur version, sinon il faudra les installer.
 [npm](https://www.npmjs.com/get-npm), 
 [git](https://git-scm.com).
 
-+ Pour automatiser la conversion des enregistrements audio, il est 
-aussi conseillé d'installer [ffmpeg](https://ffmpeg.org). Vérifiez sa présence :
-
-    `ffmpeg -version`
-
 + Parfait ! Vous pouvez passer à l'installation de la fabrique.
 
 ### Première installation de la fabrique
@@ -63,8 +58,6 @@ aussi conseillé d'installer [ffmpeg](https://ffmpeg.org). Vérifiez sa présenc
 `src` et `src/lib`.
 + Pour modifier les listes de dictées ou de réécritures, le code au 
 format JSON se situe dans `static/config`.
-
-
 + Pour arrêter le serveur de développement : `Ctrl + C`
 
 ### Pour ajouter de nouveaux exercices
@@ -72,17 +65,10 @@ format JSON se situe dans `static/config`.
 + Pour ajouter de nouvelles dictées ou réécritures : respectez les 
 modèles au format JSON `dicteex.json` (dictée x) et `jechox.json` (exercice 
 x de réécriture) puis déposez ces nouvelles données dans `static/data`.
-+ Pour ajouter un nouvel enregistrement, `dicteex.mp3` 
-(enregistrement de la dictée x) : copiez-le dans `static/audio`, puis 
-exécutez la commande suivante afin de cloner cet enregistrement dans 
-les autres formats (nécessite la présence de la commande `ffmpeg` dans 
-votre système) :
-
-    `npm run audio`
-
-+ Alternative : vous pouvez aussi convertir votre enregistrement mp3
-manuellement aux formats alternatifs `ogg` (Vorbis) et `aac` au moyen du logiciel 
- *Audacity*, par exemple. La présence des trois formats est nécessaire 
++ Pour ajouter un nouvel enregistrement, voyez le dépôt complémentaire EAT
+qui vous permettra de générer automatiquement les formats audio nécssaires `dicteex.mp3|dicteex.ogg|dicteex.aac` 
+(enregistrements de la dictée x) : copiez-les dans le dossier `static/audio`.  
+ La présence des trois formats est nécessaire 
 afin de garantir le fonctionnement de ejDicto sur toutes les 
 plates-formes.
 
@@ -93,7 +79,7 @@ plates-formes.
 ### La première fois seulement
 
 + Pour créer une version minifiée des bibliothèques css et javascript 
-externes. Il s'agit notamment des scripts et styles fournis par 
+externes. Il s'agit notamment des styles fournis par 
 w3school, ainsi que la police d'icones IcoMoon.
 
     `npm run vendors`
@@ -103,9 +89,9 @@ w3school, ainsi que la police d'icones IcoMoon.
     `npm run build`
     `npm run test`
 
-+ Testez la version de pré-production dans votre navigateur à l'URL :
++ Testez la version de pré-production dans votre navigateur à l'URL indiquée par le serveur après son démarrage :
 
-    `http://localhost:8000/'
+    `http://localhost:8080/`
 
 + Pour arrêter le serveur de test : `Ctrl + C`
 

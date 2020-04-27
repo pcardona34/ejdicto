@@ -1,0 +1,12 @@
+/* Messages de l'interface */
+
+
+{
+"msg": {
+  "bienvenue": "Bienvenue dans votre espace d'entrainement en orthographe&nbsp;!",
+  "consigneDictee": "D'abord, écoutez la dictée et notez-la au brouillon",
+  "consigneDicteeAmenagee": "Écoutez la dictée en parcourant le \
+        texte lacunaire. Passez la souris au-dessus des lacunes pour \
+        découvrir les choix proposés. Notez-les au brouillon."
+  }
+}

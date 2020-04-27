@@ -10,32 +10,93 @@
 
 
 <div class="w3-container">
-
-	<h3 class="w3-text-teal w3-padding-32">Écouter la dictée {{did}}</h3>
-
     <audio controls="controls">
-      <source src="./static/audio/dictee{{did}}.ogg" type="audio/ogg">
-      <source src="./static/audio/dictee{{did}}.mp3" type="audio/mpeg">
+      <!-- Partial : source audio -->
+      {{#each sources}}
+      {{> sourceaudio format=this.format cid=../did}}
+      {{/each}}
       <p>Erreur de chargement du fichier audio...</p>
     </audio>
 </div>
 
-<div class="w3-container w3-padding">
+{{#if mots}}
+<div class="w3-container">
+<div class="w3-card">
+<header class="w3-container w3-green">
+<h4 class="w3-green">Mots ou expressions</h4>
+</header>
+<div class="w3-container w3-light-grey">
+<p class="w3-center">{{mots}}</p>
+</div>
+</div>
+</div>
+{{/if}}
+
+{{#if (cetteDicteeEstAmenagee exercice)}}
+<div class="w3-padding-24">
+<div class="w3-bar w3-light-grey w3-border">
+{{#each rubs}}
+  <button class="w3-bar-item w3-button tablink 
+  {{#if @first}}
+  triadic
+  {{/if}}
+  " onclick="afficheRubrique(event, '{{lien}}')">{{legende}} 
+  </button>
+{{/each}}
+</div>
+</div>
+{{/if}}
+
+<div id="conseils" 
+{{#if (cetteDicteeEstAmenagee exercice)}}
+class="rubrique"
+{{/if}}
+>
+<div class="w3-container">
+    <h3 class="w3-padding w3-round analogue">Conseils</h3>
 	<ul class="w3-ul">
-		<li class="w3-green">
-			<h3>Conseils</h3>
-		</li>	
-		<li>D'abord, écoutez une première fois la dictée, sans chercher à l'écrire. Efforcez-vous d'en saisir le sens.
+		<li>D'abord, écoutez une première fois la dictée, 
+		sans chercher à l'écrire. Efforcez-vous d'en saisir le sens.
 		</li>
 		<li>
-			Puis écoutez-la de nouveau, en la notant sur votre cahier de brouillon. Au besoin, mettez en pause le lecteur audio.
+		{{#if (cetteDicteeEstAmenagee exercice)}}
+		    Puis affichez le texte aménagé 
+            et notez vos choix au brouillon avec méthode : <br>
+            <ol><li>Mon choix 1 : ...</li><li>Etc</li></ol>
+        {{else}}
+			Puis écoutez-la de nouveau, en la notant sur votre 
+			cahier de brouillon. 
+        {{/if}}
+			Au besoin, mettez en pause le 
+			lecteur audio.
 		</li>
 		<li>
 			Relisez-vous en écoutant une dernière fois la dictée.
 		</li>
 	</ul>
-	
-  <p>
-	Passez maintenant à la <a class="w3-button w3-text-green" style="text-decoration: none" href="#!saisir/{{did}}">saisie</a> de cette dictée...
-  </p>
-    </div>
+</div>
+</div>
+
+{{#if (cetteDicteeEstAmenagee exercice)}}
+<div id="texte" class="rubrique"
+style="display: none">
+<div class="w3-container">
+    <h3 class="texte-fonce">Texte aménagé</h3>
+    <p style="max-width: 500px">
+    {{{afficheLesEtiquettes fourni lacunes}}}
+    </p>
+</div>
+</div>
+
+<div id="choix" class="rubrique"
+style="display: none">
+<div class="w3-container">
+    <h3 class="texte-fonce">Propositions</h3>
+    <ul class="w3-ul">
+      {{#each lacunes as |lacune|}}
+      <li>{{indexPlusUn @index}}) {{lacune}}</li>
+      {{/each}}
+    </ul>
+</div>
+</div>
+{{/if}}

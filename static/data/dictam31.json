@@ -1,0 +1,22 @@
+{
+	"app_name": "ejDicto",
+	"auteur": "Jean GIONO",
+	"titre": "Le cerf",
+	"ouvrage": "Que ma joie demeure",
+	"prof": "Patrick CARDONA",
+	"consigne": "",
+	"attendu": "Le cerf arriva au bord du marécage au moment où la lune était au plus haut de la nuit. Des nichées de canards s'envolaient et retombaient. Il entra dans l'eau et il mugit quand le froid toucha son ventre. Alors, au fond des bois, la biche lui répondit. Il nagea vers le large de l'étang où la lune s'était écrasée. De chaque pointe de ses sabots montaient des grappes de bulles, étincelantes. Les grosses carpes dormaient à fleur d'eau. Elles sautèrent en l'air et elles se mirent à fuir devant la bête.",
+	"fourni": "Le cerf arriva au bord du marécage au moment _(1)_ la lune était au plus haut de la nuit. Des _(2)_ de canards s'envolaient et _(3)_. Il entra dans l'eau et il _(4)_ quand le froid toucha son ventre. Alors, au fond des bois, la biche _(5)_ répondit. Il nagea vers le large de l'_(6)_ où la lune s'était _(7)_. De _(8)_ pointe de ses sabots _(9)_ des grappes de bulles, étincelantes. Les grosses carpes dormaient à fleur d'eau. Elles _(10)_ en l'air et elles se mirent à fuir devant la bête.",
+ "lacunes": [
+ "houx | ou | où",
+ "nichés | nichées | nicher",
+ "retombait | retombaient | retomber",
+ "mugi | mugis | mugit",
+ "lui | luis | luit",
+ "étang | étant | étend",
+ "écrasé | écrasée | écraser",
+ "chat que | chaque | chaques",
+ "montait | montaient | monter",
+ "sauter | sautairent | sautèrent"
+ ]
+}

@@ -17,51 +17,73 @@
     {
 	"id": "51",
 	"titre": "La rose",
-	"niveau": "5e"
+	"niveau": "5e",
+	"dictam": false
     },
     {
 	"id": "52",
 	"titre": "Un comportement étrange",
-	"niveau": "5e"
+	"niveau": "5e",
+	"dictam": false
     },
     {
 	"id": "53",
 	"titre": "Un château inquiétant",
-	"niveau": "5e"
+	"niveau": "5e",
+	"dictam": false
     },
     {
 	"id": "54",
 	"titre": "Les maximes de Scapin",
-	"niveau" : "5e"
+	"niveau" : "5e",
+	"dictam": false
     },
     {
 	"id": "55",
 	"titre": "Le chagrin de Charlemagne",
-	"niveau" : "5e"
+	"niveau" : "5e",
+	"dictam": false
+    },
+    {
+	"id": "56",
+	"titre": "Une mésaventure de Renart",
+	"niveau" : "5e",
+	"dictam": true
     },
     {
 	"id": "31",
 	"titre": "Le cerf",
-	"niveau": "3e"
+	"niveau": "3e",
+	"dictam": true
     },    {
 	"id": "32",
 	"titre": "Le tourisme",
-	"niveau": "3e"
+	"niveau": "3e",
+	"dictam": false
     },
     {
 	"id": "33",
 	"titre": "La villa Aurore (1)",
-	"niveau": "3e"
+	"niveau": "3e",
+		"dictam": false
     },
     {
 	"id": "34",
 	"titre": "La villa Aurore (2)",
-	"niveau": "3e"
+	"niveau": "3e",
+	"dictam": false
     },
     {
 	"id": "35",
 	"titre": "Ma mère et la maladie",
-	"niveau": "3e"
+	"niveau": "3e",
+	"dictam": false
+    },
+    {
+    "id": "36",
+    "titre": "La fontaine",
+    "niveau": "3e",
+    "dictam": true
     }
 ]
 

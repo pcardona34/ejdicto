@@ -1,13 +1,13 @@
 {
   "name": "ejdicto",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Version améliorée de jDicto",
   "main": "build/app.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
-    "audio": "bash ./outils.sh audio",
+    "help": "bash ./outils.sh help",
     "dev": "bash ./outils.sh dev",
     "vendors": "bash ./outils.sh vendors",
     "build": "bash ./outils.sh build",
@@ -38,6 +38,7 @@
     "clean-css": "^4.2.3",
     "handlebars": "^4.7.6",
     "hbsfy": "^2.8.1",
+    "http-server": "^0.12.1",
     "jsmin": "^1.0.1"
   }
 }

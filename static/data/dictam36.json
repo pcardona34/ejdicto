@@ -1,0 +1,24 @@
+{
+"app_name": "ejDicto",
+"auteur": "Albert camus",
+"titre": "La fontaine",
+"ouvrage": "Le Premier Homme, édition posthume, 1994.",
+"prof": "M. Cardona",
+"consigne": "",
+"attendu": "Dès qu'ils étaient au complet, ils partaient, promenant la raquette le long des grilles rouillées des jardins devant les maisons, avec un grand bruit qui réveillait le quartier et faisait bondir les chats endormis sous les glycines poussiéreuses. Ils couraient, traversant la rue, essayant de s'attraper, couverts déjà d'une bonne sueur, mais toujours dans la même direction, vers le champ, non loin de leur école, à quatre ou cinq rues de là. Mais il y avait une station obligatoire, à ce qu'on appelait le jet d’eau, sur une place assez grande, une énorme fontaine ronde à deux étages, où l'eau ne coulait pas, mais dont le bassin, depuis longtemps bouché, était rempli jusqu'à ras bord, de loin en loin, par les énormes pluies du pays.",
+"fourni": "_(1)_ qu'ils étaient au complet, ils partaient, promenant la raquette le long des grilles rouillées des jardins devant les maisons, avec un grand bruit qui réveillait le quartier et _(2)_ bondir les chats endormis sous les _(3)_ poussiéreuses. _(4)_, traversant la rue, essayant de s'attraper, _(5)_ déjà d'une bonne sueur, mais toujours dans la même direction, vers le champ, non loin de leur école, à quatre ou cinq rues de là.  Mais il y avait une station obligatoire, à _(6)_ qu'on _(7)_ le jet d’eau, sur une place assez grande, une énorme fontaine ronde à deux étages, _(8)_ l'eau ne coulait pas, mais dont le bassin, depuis longtemps _(9)_, était _(10)_ jusqu'à ras bord, de loin en loin, par les énormes pluies du pays.",
+"lacunes": [
+"Des | Dés | Dès",
+"faisait | faisaient | fesait",
+"glicines | glicynes | glycines",
+"Il courait | Ils couraient | Ils courraient",
+"couvert | cous verts | couverts",
+"ce | ceux | se",
+"appelait | appelaient | appeler",
+"houx | ou | où",
+"bouché | bouchée | boucher",
+"rempli | remplie | remplis"
+],
+"voix": "",
+"remarque": "Dictée du Brevet 2019, série générale"
+}

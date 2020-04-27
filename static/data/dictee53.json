@@ -1,10 +1,10 @@
 {
-	"app_name":"jDicto",
-	"texte":"Voilà où commencent les vraies difficultés. Voici le château du sorcier. Regardez-le, surgissant d'un voile de brume comme un gigantesque monument funéraire. Sept tours (comptez-les) et pas une qui ait moins de vingt mètres de haut. De grands murs de pierre, visqueux, ruisselants d'humidité. Et un sombre fossé aux eaux immobiles, sans doute grouillant des plus infâmes créatures imaginables. Avez-vous jamais vu un endroit aussi abominable ? Vous grincez des dents à la pensée de la belle reine qui se languit au fond du donjon.",
-	"auteur":"J.-H. BRENNAN",
-	"titre":"Un château inquiétant",
-	"ouvrage":"Le Château des Ténèbres",
-	"audio":"dictee53",
-	"prof":"Patrick CARDONA",
-	"version":"13janvier2013-20h54"
-	}
+	"app_name": "ejDicto",
+	"auteur": "J.-H. BRENNAN",
+	"titre": "Un château inquiétant",
+	"ouvrage": "Le Château des Ténèbres",
+	"prof": "Patrick CARDONA",
+	"consigne": "",
+	"attendu": "Voilà où commencent les vraies difficultés. Voici le château du sorcier. Regardez-le, surgissant d'un voile de brume comme un gigantesque monument funéraire. Sept tours (comptez-les) et pas une qui ait moins de vingt mètres de haut. De grands murs de pierre, visqueux, ruisselants d'humidité. Et un sombre fossé aux eaux immobiles, sans doute grouillant des plus infâmes créatures imaginables. Avez-vous jamais vu un endroit aussi abominable ? Vous grincez des dents à la pensée de la belle reine qui se languit au fond du donjon.",
+	"fourni": ""
+}

@@ -1,0 +1,9 @@
+/* Niveaux d'enseignement */
+
+{
+  'niveaux': [
+              { 'chiffre': '5', 'nom': 'Cinquième' },
+              { 'chiffre': '3', 'nom': 'Troisième' },
+              { 'chifrre': '*', 'nom': 'Tous' }
+  ]
+}

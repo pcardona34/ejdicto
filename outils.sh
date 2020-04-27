@@ -7,10 +7,35 @@ if [[ "$1" != "" ]];then
   SCRIPT=$0;
 else
   echo "Erreur dans $0 : aucun argment."
+  help
   exit 1
 fi
 
-# Fonctions
+### Fonctions
+
+help() {
+
+echo "Pour exécuter une tâche :"
+echo "npm run [tache]"
+echo "--------------------------------"
+echo "Tâches principales disponibles :"
+echo "--------------------------------"
+echo "dev : exécute le serveur de développement (Budo)"
+echo "build : crée le bundle principal de l'application"
+echo "test : exécute un serveur HTTP local afin de tester le bundle en pré-production."
+echo "clean : nettoie le dossier 'build' avant le déploiement"
+echo "deploy : déploie en production vers les pages Github (gh-pages)"
+echo "--------------------------------"
+echo "Tâches secondaires disponibles :"
+echo "--------------------------------"
+echo "vendors : minifie les ressouces tierces avant la mise en production."
+echo "--------------------------------"
+echo "Tâches supprimées :"
+echo "--------------------------------"
+echo "La tâche 'audio' a été transférée dans le dépôt dédié EAT (Ejdicto Audio Tools)."
+}
+
+
 
 build() {
 
@@ -23,10 +48,9 @@ echo "Building main bundle to app..."
 browserify src/main.js -t hbsfy -o build/app.js;
 echo "Done."
 echo "Cleaning and minifying CSS : lib"
-echo "1) ejdicto.css" && cleancss -o public/lib/styles/ejdicto.min.css src/lib/styles/ejdicto.css;
+echo "- ejdicto.css" && cleancss -o public/lib/styles/ejdicto.min.css src/lib/styles/ejdicto.css;
 echo "Minifying JS..."
-echo "1) ejDicto lib" && jsmin -o public/lib/scripts/ejdicto.min.js src/lib/scripts/ejdicto.js;
-echo "2) main app bundle..." && jsmin -o public/app.min.js build/app.js;
+echo "- main app bundle..." && jsmin -o public/app.min.js build/app.js;
 echo "All is done !";
 
 }
@@ -56,6 +80,7 @@ deploy() {
 echo "Publishing on the gh-pages..."
 
 git add *
+sleep 3
 git commit -m "Mise à jour : version $VERSION"
 git push
 
@@ -74,54 +99,24 @@ echo "Serveur de développement..." && budo src/main.js --live --serve build/app
 
 testing() {
 
-echo "Test before publishing..."
-
-echo "Serveur Web local (Python http)..."
-
-python3 -m http.server
+echo "Testing build app before publishing..."
+echo "You should run : 'npm run build' before !"
+http-server ./
 
 }
 
 vendors() {
 
 echo "Cleaning and minifying CSS : vendors..."
-echo "1) w3.css" && cleancss -o vendor/w3school/styles/w3.min.css vendor/w3school/styles/w3.css;
+echo "1) w3.css..." && cleancss -o vendor/w3school/styles/w3.min.css vendor/w3school/styles/w3.css;
 echo "2) IcoMoon icons..." && cleancss -o vendor/icomoon/style.min.css vendor/icomoon/style.css;
-echo "Minifying JS..."
-echo "1) w3.js" && jsmin -o vendor/w3school/scripts/w3.min.js vendor/w3school/scripts/w3.js;
+#echo "Minifying JS..."
 echo "All is done !";
-
-}
-
-audio() {
-
-which ffmpeg
-if [[ $? -eq 1 ]];then
-  echo "Veuillez installer ffmpeg."
-  exit 1
-fi
-
-for fic in static/audio/*.mp3
-do echo "Conversion de ${fic} en ${fic%.mp3}.aac"
-ffmpeg -v quiet -n -i "$fic" "${fic%.mp3}.aac"
-echo "OK"
-done
-
-for fic in static/audio/*.mp3
-do echo "Conversion de ${fic} en ${fic%.mp3}.ogg"
-ffmpeg -v quiet -n -i "$fic" "${fic%.mp3}.ogg"
-echo "OK"
-done
-
-return 0
-
 }
 
 # On exécute la tâche
 
 case $TACHE in
-  "audio")
-  audio;;
   "build")
   build;;
   "clean")
@@ -134,6 +129,8 @@ case $TACHE in
   testing;;
   "vendors")
   vendors;;
+  "help")
+  help;;
   *)
   echo "Argument $TACHE : tâche inconnue dans $SCRIPT";
   exit 1;
