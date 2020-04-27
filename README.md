@@ -90,7 +90,7 @@ w3school, ainsi que la police d'icones IcoMoon.
     npm run test
 
 + Testez la version de pré-production dans votre navigateur à l'URL indiquée par le serveur après son 
-démarrage, par exemple :
+démarrage, par exemple&nbsp;:
 
     http://localhost:8080/
 
@@ -108,6 +108,6 @@ Github la première fois. Puis exécutez :
 ## Pour préparer les fichiers audio nécessaires
 
 + Utilisez les scripts de conversion du projet compagnon [eat : ejDicto 
-Audio Tolls](https://github.com/pcardona34/eat)
+Audio Tools](https://github.com/pcardona34/eat)
 
 
