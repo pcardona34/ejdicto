@@ -22,7 +22,6 @@ let filesToCache = [
 "./index.html",
 "./favicon.ico",
 "./manifest.webmanifest",
-"./service-worker.js",
 "./public/app.min.js",
 "./public/lib/styles/ejdicto.min.css",
 "./static/audio/dictee31.mp3",
