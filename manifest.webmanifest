@@ -30,12 +30,12 @@
     "sizes": "168x168",
     "type": "image/jpeg"
   }, {
-    "src": "./static/images/encrier192.jpg",
+    "src": "./static/images/encrier192.png",
     "sizes": "192x192",
-    "type": "image/jpeg"
+    "type": "image/png"
   }, {
-    "src": "./static/images/encrier512.jpg",
+    "src": "./static/images/encrier512.png",
     "sizes": "512x512",
-    "type": "image/jpeg"
+    "type": "image/png"
   }]
 }
