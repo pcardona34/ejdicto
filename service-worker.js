@@ -14,7 +14,7 @@
    License : MIT
 */
 
-let version = "2.0.2";
+let version = "2.0.3";
 
 let cacheName = "MyCacheV" + version;
 
@@ -105,17 +105,10 @@ let filesToCache = [
 "./static/data/jecho501.json",
 "./static/data/jecho502.json",
 "./static/data/jecho52.json",
-"./static/images/ccbync.png",
-"./static/images/encrier144.png",
-"./static/images/encrier168.png",
+"./static/images/ccbync.jpg",
 "./static/images/encrier16.png",
 "./static/images/encrier180.png",
-"./static/images/encrier192.png",
 "./static/images/encrier32.png",
-"./static/images/encrier48.png",
-"./static/images/encrier512.png",
-"./static/images/encrier72.png",
-"./static/images/encrier96.png",
 "./static/images/encrier.jpg",
 "./static/images/github.png",
 "./vendor/icomoon/fonts/icomoon.eot",

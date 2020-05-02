@@ -10,20 +10,11 @@
   mentionsTemplate.hbs
  -->
 
-<!-- Bouton de partage conditionnel : nécessite l'API
+<!-- Bouton de partage conditionnel : nécessite l'API Web share
 sur le client concerné -->
    <div class="w3-container w3-padding">
 		<div class="w3-card">
 		<header class="w3-padding analogue">
-		{{#if partage}}
-        <button class="w3-button w3-right" 
-        onclick="navigator.share({title: 'ejDicto: 
-{{{exercice}}} {{{did}}}',
-        text: 'Découvrez la {{{exercice}}} {{{did}}}',
-        url: 'https://pcardona34.github.io/ejdicto/#!{{{cible}}}/{{{ did }}}'})">
-        <i class="icon-partage"></i>
-        </button>
-        {{/if }}
 		<h3>Mentions légales</h3>
         </header>
 
@@ -41,7 +32,7 @@ sur le client concerné -->
   	 	<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
   	 	<img alt="Licence Creative Commons" 
   	 	style="border-width:0" 
-  	 	src="./static/images/ccbync.png" />
+  	 	src="./static/images/ccbync.jpg" />
   	 	</a>
   	 	</p>
   	 	<p class="w3-hide-small"><span xmlns:dct="http://purl.org/dc/terms/" 
@@ -66,6 +57,9 @@ sur le client concerné -->
   	 	<p>Avec la voix de {{voix}}.
   	 	{{/if}}
   	 	</p>
+  	 	<p class="mention w3-hide-small" ><b>Lien :</b> 
+  	 	<span id="lienExercice">
+  	 	https://pcardona34.github.io/ejdicto/#!{{cible}}/{{did}}</span></p>
 		</div>
         </div>
 </div>

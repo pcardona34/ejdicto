@@ -11,26 +11,31 @@
 <div class="w3-container">
 <header class="w3-container">
 <h3 class="w3-round w3-padding analogue">Mode d'emploi</h3>
+<p class="texte-lien">Utilisez le bouton <i class="icon-actions"></i>pour afficher les actions.</p>
 </header>
 <div class="w3-container">
 <ul class="w3-ul w3-padding">
 
 		<li><span class="w3-badge triadic">1</span> 
 		    {{#if (cetteDicteeEstAmenagee exercice)}}
-              {{ consigneDicteeAmenagee }}
+              {{{ consigneDicteeAmenagee }}}
             {{else}}
-              {{consigne}}
+              {{{consigne}}}
             {{/if}}
 		</li>
 		<li>
 			<span class="w3-badge triadic">2</span> Saisissez votre 
-            texte et obtenez un bilan. Si des erreurs persistent, 
-            tentez d'améliorer cette saisie.
+            texte <span class="texte-lien">(<i class="icon-plume"></i>)</span>
+            {{#if (cetteDicteeEstAmenagee exercice)}} au moyen de l'assistant <span class="texte-lien">
+            (<i class="icon-assistant"></i>)</span>{{/if}} et obtenez un bilan <span class="texte-lien">
+            (<i class="icon-verifier"></i>)</span>. Si des erreurs persistent, 
+            tentez encore d'améliorer cette saisie.
 		</li>
 		<li>
 			<span class="w3-badge triadic">3</span> Quand vous aurez 
 			effectué toutes les corrections possibles, 
-			terminez la saisie pour voir la correction.
+			terminez la saisie pour voir la correction&nbsp;: <span class="texte-lien">
+			(<i class="icon-finir"></i>)</span>.
 		</li>
 	</ul>
 </div>

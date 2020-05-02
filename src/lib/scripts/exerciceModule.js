@@ -67,9 +67,8 @@ exercice.corriger = function () {
 	 *  et le corrigé : sortie.corrigee
 	 */
 	var sortie = diffString(this.saisie, this.attendu);
-	/* On remplace les retours à la ligne par le code HTML :
-     * On peut afficher par dessus (popup) le bilan
-     */
+     /* On peut afficher par dessus (popup) le bilan
+      */
     let msgid = sortie.bilan;
     popup.afficherMessage(msgid);
     }else{
@@ -98,7 +97,7 @@ exercice.terminer = function () {
 	 */
 	var sortie = diffString(this.saisie, this.attendu);
 	/* On remplace les retours à la ligne par le code HTML */
-	this.correction = sortie.corrigee.replace(/\n/g,"<br />");
+	this.correction = sortie.corrigee.replace(/\n/g,"<\/ins><br><ins>");
     /* On propage la correction dans la zone ad hoc */
     document.getElementById("corrige").innerHTML = this.correction;
     /* On affiche cette zone */

@@ -23,10 +23,21 @@
 <div class="w3-container">
 <div class="w3-card">
 <header class="w3-container analogue">
-<h4>Mots ou expressions</h4>
+<h4>Mots ou expressions
+<button id="bouton_montrer_panneau_mots" 
+onclick="$('#panneau_mots').show();$(this).hide()" 
+class="w3-button w3-right w3-xlarge" 
+style="display: none">
+<i class="icon-voir"></i></button>
+</h4>
 </header>
-<div class="w3-container w3-light-grey">
-<p class="w3-center">{{mots}}</p>
+<div id="panneau_mots" class="w3-container w3-light-grey">
+<p class="w3-center">
+<button 
+onclick="$('#panneau_mots').hide();$('#bouton_montrer_panneau_mots').show()" 
+class="w3-button w3-left">
+<i class="icon-fermer"></i></button>
+{{mots}}</p>
 </div>
 </div>
 </div>
@@ -35,15 +46,26 @@
 {{#if (cetteDicteeEstAmenagee exercice)}}
 <div class="w3-padding-24">
 <div class="w3-bar w3-light-grey w3-border">
+<span id="autres_boutons">
 {{#each rubs}}
   <button class="w3-bar-item w3-button tablink 
   {{#if @first}}
   triadic
   {{/if}}
+  {{#if @last}}
+  w3-hide-small
+  {{/if}}
   " onclick="afficheRubrique(event, '{{lien}}')">{{legende}} 
   </button>
 {{/each}}
-</div>
+</span>
+<button class="w3-button w3-hide-medium w3-hide-large w3-bar-item w3-right"
+onclick="$('#bouton_choix').toggle();$('#autres_boutons').toggle()">
+<i class="icon-actions"></i>
+</button>
+<span id="bouton_choix" style="display: none">
+<button class="w3-button w3-bar-item" onclick="afficheRubrique(event, 'choix')">Propositions</button>
+</span>
 </div>
 {{/if}}
 

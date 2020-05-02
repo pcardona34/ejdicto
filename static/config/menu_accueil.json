@@ -11,12 +11,12 @@
 'items': [
     {
     'icone': "<i class='icon-liste'></i>",
-    'legende': 'Liste des dictées',
+    'legende': 'Dictées',
     'lien': '#!liste/dictees'
     },
     {
     'icone': "<i class='icon-liste'></i>",
-    'legende': 'Liste des réécritures',
+    'legende': 'Réécritures',
     'lien': '#!liste/reecritures'
     }
 ],

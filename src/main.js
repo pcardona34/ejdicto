@@ -281,7 +281,7 @@ const app = $('#app');
 
 const aide = $("#aide");
 const notification = $("#notification"); 
-const piedDePage = piedDePageTemplate();
+const piedDePage = piedDePageTemplate({'version': versionApp});
 
 /* ==================================================
  *                 * MENUS *
@@ -450,6 +450,7 @@ var router = new Navigo(root, useHash, hash);
 	let html = accueilExerciceTemplate(contenu);
     dataMenuDictee.did = params.id;
     dataMenuDictee.exercice = 'dictée';
+    dataMenuDictee.actionsMobile = [].slice.call(dataMenuDictee.actions).reverse();
 	let menuD = menuExerciceTemplate(dataMenuDictee);
 	menu.html(menuD);
 	app.html(html);
@@ -462,14 +463,14 @@ var router = new Navigo(root, useHash, hash);
 	let contenu = {
 		'did': params.id,
 		'exercice': 'réécriture',
-		'consigne': "D'abord, lisez attentivement la consigne de la \
-          réécriture. Notez au brouillon les passages à transformer",
+		'consigne': MSG.consigneReecriture,
 		'lien': 'consigne',
 		'legende': 'consigne'
 	}
 	let html = accueilExerciceTemplate(contenu);
 	dataMenuReecriture.did = params.id;
 	dataMenuReecriture.exercice = 'réécriture';
+    dataMenuReecriture.actionsMobile = [].slice.call(dataMenuReecriture.actions).reverse();
 	let menuR = menuExerciceTemplate(dataMenuReecriture);
 	menu.html(menuR);
 	app.html(html);
@@ -514,6 +515,7 @@ var router = new Navigo(root, useHash, hash);
     /* Gestion du menu */
     dataMenuEcouter.did = params.id;
     dataMenuEcouter.exercice = 'dictée';
+    dataMenuEcouter.actionsMobile = [].slice.call(dataMenuEcouter.actions).reverse();
 	let menuD = menuExerciceTemplate(dataMenuEcouter);
 	menu.html(menuD);
 	},
@@ -577,6 +579,7 @@ var router = new Navigo(root, useHash, hash);
 	/* On crée et on affiche le menu lié au contexte Dictée */
     dataMenuSaisirDictee.did = params.id;
     dataMenuSaisirDictee.exercice = 'dictée';
+    dataMenuSaisirDictee.actionsMobile = [].slice.call(dataMenuSaisirDictee.actions).reverse();
 	let menuD = menuExerciceTemplate(dataMenuSaisirDictee);
 	menu.html(menuD);
     /* Notifications */
@@ -639,6 +642,7 @@ var router = new Navigo(root, useHash, hash);
 	/* On crée et on affiche le menu lié au contexte : modèle Dictée */
     dataMenuSaisirReecriture.did = params.id;
     dataMenuSaisirReecriture.exercice = 'réécriture';
+    dataMenuSaisirReecriture.actionsMobile = [].slice.call(dataMenuSaisirReecriture.actions).reverse();
 	let menuR = menuExerciceTemplate(dataMenuSaisirReecriture);
 	menu.html(menuR);
 	/* Notifications */
@@ -676,14 +680,6 @@ var router = new Navigo(root, useHash, hash);
             contenu.cible = 'dictee';
             contenu.remarque = data.remarque || "";
             contenu.voix = data.voix || "";
-            /* On ajoute une condition pour montrer 
-             * le bouton de partage 
-             */
-            if(navigator.share){
-              contenu.partage = true;
-            }else{
-              contenu.partage = false;
-            }
 		    /* On crée le contenu de la zone de mentions */
 		    let html = mentionsTemplate(contenu);
 		    	/* On l'intègre dans le document */
@@ -696,6 +692,8 @@ var router = new Navigo(root, useHash, hash);
 	/* On crée et on affiche le menu lié au contexte Dictée */
 	dataMenuMentionsDictee.did = params.id;
 	dataMenuMentionsDictee.exercice = 'dictée';
+	dataMenuMentionsDictee.cible = 'dictee';
+    dataMenuMentionsDictee.actionsMobile = [].slice.call(dataMenuMentionsDictee.actions).reverse();
 	let menuD = menuExerciceTemplate(dataMenuMentionsDictee);
 	menu.html(menuD);
 	}, /* Fin du routage vers la page des mentions de la dictée */
@@ -728,13 +726,6 @@ var router = new Navigo(root, useHash, hash);
             contenu.ouvrage = data.ouvrage;
             contenu.exercice = 'réécriture';
             contenu.cible = 'reecriture';
-            /* On ajoute une condition pour montrer 
-            le bouton de partage */
-            if(navigator.share){
-              contenu.partage = true;
-            }else{
-              contenu.partage = false;
-            }
 		    /* On crée le contenu de la zone de mentions */
 		    let html = mentionsTemplate(contenu);
 		    /* On l'intègre dans le document */
@@ -749,6 +740,8 @@ var router = new Navigo(root, useHash, hash);
 	 */
 	dataMenuMentionsReecriture.did = params.id;
 	dataMenuMentionsReecriture.exercice = 'réécriture';
+	dataMenuMentionsReecriture.cible = 'reecriture';
+    dataMenuMentionsReecriture.actionsMobile = [].slice.call(dataMenuMentionsReecriture.actions).reverse();
 	let menuR = menuExerciceTemplate(dataMenuMentionsReecriture);
 	menu.html(menuR);
 	},
@@ -792,6 +785,7 @@ var router = new Navigo(root, useHash, hash);
 	 */
     dataMenuConsigne.did = params.id;
     dataMenuConsigne.exercice = 'réécriture';
+    dataMenuConsigne.actionsMobile = [].slice.call(dataMenuConsigne.actions).reverse();
 	let menuR = menuExerciceTemplate(dataMenuConsigne);
 	menu.html(menuR);
 	},
