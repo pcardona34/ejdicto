@@ -7,11 +7,12 @@
 <meta name="description" content="Auteur: Patrick Cardona. Application d'entrainement en orthographe. Exercices de dictée et de réécriture.">
 <meta name="keywords" content="orthographe, dictée, réécriture">
 <link rel="manifest" href="./manifest.webmanifest">
+<meta name="application-name" content="ejDicto">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<link rel="apple-touch-icon" sizes="180x180" href="./static/images/encrier180.png">
-<link rel="icon" type="image/png" href="./static/images/encrier32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="./static/images/encrier16.png" sizes="16x16">
+<link rel="apple-touch-icon" sizes="180x180" href="./static/images/encrier180.jpg">
+<link rel="icon" type="image/png" href="./static/images/encrier32.jpg" sizes="32x32">
+<link rel="icon" type="image/png" href="./static/images/encrier16.jpg" sizes="16x16">
 <link rel="stylesheet" href="./vendor/icomoon/style.min.css">
 <link rel="stylesheet" href="./vendor/w3school/styles/w3.min.css">
 <link rel="stylesheet" href="./public/lib/styles/ejdicto.min.css">
@@ -20,12 +21,9 @@
 <div id="notification" class="w3-modal"></div>
 <div id="app" class="w3-padding-32"></div>
 <script src="./public/app.min.js"></script>
-<script>
-if('serviceWorker' in navigator) {
-navigator.serviceWorker
-.register( './service-worker.js')
-.then(function() { 
-console.log("Service Worker Registered"); 
-});
-}
-</script></body></html>
+<script type="module">
+import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+const el = document.createElement('pwa-update');
+document.body.appendChild(el);
+</script>
+</body></html>
