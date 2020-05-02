@@ -1,7 +1,7 @@
 {
   "name": "ejDicto, entrainement en orthographe",
   "short_name": "ejDicto",
-  "start_url": "./index.html",
+  "start_url": ".",
   "display": "fullscreen",
   "background_color": "#fff",
   "theme_color": "#000",
