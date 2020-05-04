@@ -42,6 +42,16 @@
 	"id": "32",
 	"titre": "Accords dans la dictée 32",
 	"niveau": "3e"
+    },
+    {
+	"id": "PR14",
+	"titre": "Texte D - Les leçons du chat",
+	"niveau": "3e"
+    },
+    {
+	"id": "PR16",
+	"titre": "Texte F - Un maître bienveillant",
+	"niveau": "3e"
     }
 ]
 
