@@ -49,6 +49,12 @@
 	"titre": "Une mésaventure de Renart",
 	"niveau" : "5e",
 	"dictam": true
+	},
+    {
+	"id": "57",
+	"titre": "Chant d'amour",
+	"niveau" : "5e",
+	"dictam": false
     },
     {
 	"id": "31",
