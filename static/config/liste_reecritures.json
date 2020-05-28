@@ -28,9 +28,15 @@
 	"id": "51",
 	"titre": "Le monstre marin",
 	"niveau": "5e"
-    },    {
+    },
+    {
 	"id": "52",
 	"titre": "Accords dans la dictée 52",
+	"niveau": "5e"
+    },
+    {
+	"id": "57",
+	"titre": "Réécriture de texte de la dictée 57 : chant d'amour",
 	"niveau": "5e"
     },
     {
