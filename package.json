@@ -1,6 +1,6 @@
 {
   "name": "ejdicto",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "description": "Version améliorée de jDicto",
   "main": "build/app.js",
   "directories": {

@@ -96,6 +96,12 @@
     "titre": "L'épuisement des soignants",
     "niveau": "3e",
     "dictam": true
+    },
+    {
+    "id": "38",
+    "titre": "Esthétique du pays basque",
+    "niveau": "3e",
+    "dictam": false
     }
 ]
 
