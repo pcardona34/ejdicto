@@ -40,6 +40,11 @@
 	"niveau": "5e"
     },
     {
+	"id": "DIAL5E",
+	"titre": "Réécriture d'un dialogue",
+	"niveau": "5e"
+    },
+    {
 	"id": "31",
 	"titre": "À Montigny",
 	"niveau": "3e"
