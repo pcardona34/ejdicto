@@ -1,11 +1,8 @@
-/* Formats audio invoqués dans les propriétés "source" de la balise 
- * audio
- */
-
 {
-  'source': [
-		        {'format':{'extension': 'ogg', 'type': 'ogg'}},
-		        {'format':{'extension': 'aac', 'type': 'aac'}},
-		        {'format':{'extension': 'mp3', 'type': 'mpeg'}}
-            ]
+	"description": "Formats audio invoqués dans les propriétés source de la balise audio",
+	"source": [
+		        {"format":{"extension": "ogg", "type": "ogg"}},
+		        {"format":{"extension": "aac", "type": "aac"}},
+		        {"format":{"extension": "mp3", "type": "mpeg"}}
+	]
 }

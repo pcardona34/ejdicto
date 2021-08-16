@@ -1,28 +1,30 @@
-/* Items du menu dans le contexte dictée */
-
-{ 'menu': {
-'did': '',
-'couleur': 'blue-gray',
-'contexte': {
-    'bouton': false,
-    'titre': 'Saisie',
-    'icone': "<i class='icon-retourner'></i>",
-    'action': '#!liste/reecritures'
-},
-'items': [],
-'actions':[
-    {
-    'bouton': false,
-    'icone': "<i class='icon-info'></i>",
-    'legende': 'Mentions légales',
-    'lien': '#!mentions/reecriture'
-    },
-    {
-    'bouton': false,
-    'icone': "<i class='icon-consigne'></i>",
-    'legende': 'Consigne de la réécriture',
-    'lien': '#!consigne'
-    }
-]
-}}
-
+{
+	"menu":
+		{
+		"did": "",
+		"couleur": "blue-gray",
+		"contexte":
+			{
+			"bouton": false,
+			"titre": "Saisie",
+			"icone": "<i class='icon-retourner'></i>",
+			"action": "#!liste/reecritures"
+			},
+		"items": [],
+		"actions":
+			[
+				{
+				"bouton": false,
+				"icone": "<i class='icon-info'></i>",
+				"legende": "Mentions légales",
+				"lien": "#!mentions/reecriture"
+				},
+				{
+				"bouton": false,
+				"icone": "<i class='icon-consigne'></i>",
+				"legende": "Consigne de la réécriture",
+				"lien": "#!consigne"
+				}
+			]
+		}
+}

@@ -1,14 +1,14 @@
-/* Données template du menu Aide */
-
-{ 'menu': {
-'couleur': 'clair',
-'contexte': {
-    'bouton': false,
-    'titre': 'Aide',
-    'icone': "<i class='icon-retourner'></i>",
-    'action': '#!'
-},
-'items': [],
-'actions':[]
-}}
-
+{ 
+	"menu":
+		{
+		"couleur": "clair",
+		"contexte": {
+    		"bouton": false,
+    		"titre": "Aide",
+    		"icone": "<i class='icon-retourner'></i>",
+    		"action": "#!"
+		},
+	"items": [],
+	"actions":[]
+		}
+}

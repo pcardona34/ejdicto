@@ -1,14 +1,13 @@
-/* Table des caractères spéciaux */
-
 {
-  'caracteres': [
-    { car: '«' },
-    { car: '—' },
-    { car: '»' },
-    { car: '…' },
-    { car: 'œ' },
-    { car: 'Œ' },
-    { car: 'É' },
-    { car: 'À' }
-    ]
+	"caracteres":
+		[
+			{ "car": "«" },
+			{ "car": "—" },
+			{ "car": "»" },
+			{ "car": "…" },
+			{ "car": "œ" },
+			{ "car": "Œ" },
+			{ "car": "É" },
+			{ "car": "À" }
+		]
 }

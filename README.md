@@ -39,6 +39,18 @@ et en affichant leur version, sinon il faudra les installer.
 [npm](https://www.npmjs.com/get-npm), 
 [git](https://git-scm.com).
 
+Maintenant que le gestionnaire npm est disponible, vous devez installer :
+
++ [browserify](https://browserify.org/)
++ [budo](https://www.npmjs.com/package/budo/v/11.0.0)
++ [clean-css-cli](https://github.com/clean-css/clean-css-cli#install)
+
+À savoir :
+
+    sudo npm install -g browserify
+    sudo npm install -g budo
+    sudo npm install clean-css-cli -g
+
 + Parfait ! Vous pouvez passer à l'installation de la fabrique.
 
 ### Première installation de la fabrique
@@ -100,14 +112,13 @@ démarrage, par exemple&nbsp;:
 
 + La cible de la publication est la branche *gh-pages* qui coïncide avec la branche *master*.
 + Effectuez préalablement ce réglage dans les paramètres de votre dépôt 
-Github la première fois. Puis exécutez :
+Github la première fois. Puis exécutez:
 
-    npm run clean
+
+    npm run clean;
     npm run deploy
     
 ## Pour préparer les fichiers audio nécessaires
 
 + Utilisez les scripts de conversion du projet compagnon [eat : ejDicto 
 Audio Tools](https://github.com/pcardona34/eat)
-
-

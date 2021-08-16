@@ -1,13 +1,10 @@
-/* Messages de l'interface */
-
-
 {
-"msg": {
-  "bienvenue": "Bienvenue dans votre espace d'entrainement en orthographe&nbsp;!",
-  "consigneDictee": "D'abord, écoutez la dictée <span class='texte-lien'>(<i class='icon-ecouteurs'></i>)</span> et notez-la au brouillon.",
-  "consigneDicteeAmenagee": "Écoutez la dictée <span class='texte-lien'>(<i class='icon-ecouteurs'></i>)</span> en parcourant le \
-        texte aménagé au-dessous pour y découvrir les choix proposés. Notez-les au brouillon.",
-  "consigneReecriture": "D'abord, lisez attentivement la consigne <span class='texte-lien'>\
-  (<i class='icon-consigne'></i>)</span> de la réécriture. Notez au brouillon les passages à transformer."
-  }
+	"description": "Messages de l'interface",
+	"msg": 
+	{
+		"bienvenue": "Bienvenue dans votre espace d'entrainement en orthographe&nbsp;!",
+		"consigneDictee": "D'abord, écoutez la dictée <span class='texte-lien'>(<i class='icon-ecouteurs'></i>)</span> et notez-la au brouillon.",
+		"consigneDicteeAmenagee": "Écoutez la dictée <span class='texte-lien'>(<i class='icon-ecouteurs'></i>)</span> en parcourant le texte aménagé au-dessous pour y découvrir les choix proposés. Notez-les au brouillon.",
+		"consigneReecriture": "D'abord, lisez attentivement la consigne <span class='texte-lien'> (<i class='icon-consigne'></i>)</span> de la réécriture. Notez au brouillon les passages à transformer."
+	}
 }

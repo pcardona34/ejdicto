@@ -1,17 +1,3 @@
-/* ==================================== *
- *            e j D i c t o             *
- * ==================================== *
- * (c)2012-2020 - Patrick Cardona       *
- * Licence GPL version 3 ou ultérieure  *
- * VOIR la licence complète à la racine *
- * ==================================== */
-
-/*
- * Données au format JSON
- * de la page A propos : sources et contributions
- * dans le cadre du projet ejDicto
- */
-
 [
 	{
 		"appname": "Agrégateur de scripts (bundle) : Browserify",

@@ -1,13 +1,13 @@
-/* Rubriques des onglets : page Licence */
-
-{ 'rubriques': [
-  { 
-  'lien': 'page1',
-  'legende': "1"
-  },
-  {
-  'lien': 'page2',
-  'legende': "2"
-  }
-]
+{
+	"rubriques":
+		[
+			{ 
+			"lien": "page1",
+			"legende": "1"
+			},
+			{
+			"lien": "page2",
+			"legende": "2"
+			}
+		]
 }

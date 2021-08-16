@@ -1,34 +1,36 @@
-/* Items du menu dans le contexte réécriture */
-
-{ 'menu': {
-'did': '',
-'couleur': 'blue-gray',
-'contexte': {
-    'bouton': false,
-    'titre': 'Accueil',
-    'icone': "<i class='icon-retourner'></i>",
-    'action': '#!liste/reecritures'
-},
-'items': [],
-'actions':[
-    {
-    'bouton': false,
-    'icone': "<i class='icon-info'></i>",
-    'legende': 'Mentions légales',
-    'lien': '#!mentions/reecriture'
-    },
-    {
-    'bouton': false,
-    'icone': "<i class='icon-plume'></i>",
-    'legende': 'Saisir la réécriture',
-    'lien': '#!saisir/reecriture'
-    },
-    {
-    'bouton': false,
-    'icone': "<i class='icon-consigne'></i>",
-    'legende': 'Consigne de la réécriture',
-    'lien': '#!consigne'
-    }
-]
-}}
-
+{
+	"menu":
+		{
+		"did": "",
+		"couleur": "blue-gray",
+		"contexte":
+			{
+			"bouton": false,
+			"titre": "Accueil",
+			"icone": "<i class='icon-retourner'></i>",
+			"action": "#!liste/reecritures"
+			},
+		"items": [],
+		"actions":
+			[
+				{
+				"bouton": false,
+				"icone": "<i class='icon-info'></i>",
+				"legende": "Mentions légales",
+				"lien": "#!mentions/reecriture"
+				},
+				{
+				"bouton": false,
+				"icone": "<i class='icon-plume'></i>",
+				"legende": "Saisir la réécriture",
+				"lien": "#!saisir/reecriture"
+				},
+				{
+				"bouton": false,
+				"icone": "<i class='icon-consigne'></i>",
+				"legende": "Consigne de la réécriture",
+				"lien": "#!consigne"
+				}
+			]
+		}
+}

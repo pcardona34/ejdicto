@@ -1,18 +1,3 @@
-/* ==================================== *
- *            e j D i c t o             *
- * ==================================== *
- * (c)2012-2020 - Patrick Cardona       *
- * Licence GPL version 3 ou ultérieure  *
- * VOIR la licence complète à la racine *
- * ==================================== */
-
-/*
- * Liste des réécritures au format JSON
- * Champs : id, titre et niveau.
- *
- */
-
-
 [
     {
 	"id": "501",

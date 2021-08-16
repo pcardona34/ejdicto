@@ -1,17 +1,17 @@
-/* Rubriques des onglets : page A propos */
-
-{ 'rubriques': [
-  {
-  'lien': 'conseils',
-  'legende': "Conseils"
-  },
-  {
-  'lien': 'texte',
-  'legende': "Texte aménagé"
-  },
-  {
-  'lien': 'choix',
-  'legende': "Propositions"
-  }
-  ]
+{
+	"rubriques":
+		[
+			{
+			"lien": "conseils",
+			"legende": "Conseils"
+			},
+			{
+			"lien": "texte",
+			"legende": "Texte aménagé"
+			},
+			{
+			"lien": "choix",
+			"legende": "Propositions"
+			}
+		]
 }

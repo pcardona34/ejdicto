@@ -1,28 +1,30 @@
-/* Items du menu dans le contexte : écouter */
-
-{ 'menu': {
-'did': '',
-'couleur': 'blue-gray',
-'contexte': {
-    'bouton': false,
-    'titre': 'Écoute',
-    'icone': "<i class='icon-retourner'></i>",
-    'action': '#!liste/dictees'
-},
-'items': [],
-'actions':[
-    {
-    'bouton': false,
-    'icone': "<i class='icon-info'></i>",
-    'legende': 'Mentions légales',
-    'lien': '#!mentions/dictee'
-    },
-    {
-    'bouton': false,
-    'icone': "<i class='icon-plume'></i>",
-    'legende': 'Saisir la dictée',
-    'lien': '#!saisir/dictee'
-    }
-]
-}}
-
+{ 
+	"menu":
+		{
+		"did": "",
+		"couleur": "blue-gray",
+		"contexte":
+			{
+			"bouton": false,
+    			"titre": "Écoute",
+    			"icone": "<i class='icon-retourner'></i>",
+    			"action": "#!liste/dictees"
+			},
+		"items": [],
+		"actions":
+			[
+    				{
+    				"bouton": false,
+    				"icone": "<i class='icon-info'></i>",
+    				"legende": "Mentions légales",
+    				"lien": "#!mentions/dictee"
+    				},
+    				{
+    				"bouton": false,
+    				"icone": "<i class='icon-plume'></i>",
+    				"legende": "Saisir la dictée",
+    				"lien": "#!saisir/dictee"
+    				}
+			]
+		}
+}

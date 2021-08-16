@@ -1,17 +1,17 @@
-/* Rubriques des onglets : page A propos */
-
-{ 'rubriques': [
-  { 
-  'lien': 'apropos',
-  'legende': "À propos"
-  },
-  {
-  'lien': 'fabrique',
-  'legende': "Fabrique"
-  },
-  {
-  'lien': 'credits',
-  'legende': "Crédits"
-  }
-  ]
+{
+	"rubriques":
+		[
+			{
+			"lien": "apropos",
+			"legende": "À propos"
+			},
+			{
+			"lien": "fabrique",
+			"legende": "Fabrique"
+			},
+			{
+			"lien": "credits",
+			"legende": "Crédits"
+			}
+		]
 }
