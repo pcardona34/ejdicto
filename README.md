@@ -8,6 +8,8 @@ et intègre aussi l'exerciseur de réécriture.
 + Elle propose une liste filtrée des dictées et de même, une liste filtrée des réécritures. L'usage mobile 
  a été mis en œuvre : voir la section suivante.
 
+ Pour voir une présentation et une démo, consultez le site [ejdicto_info](https://pcardona34.github.io/ejdicto_info)...
+
 ## Usages mobiles
 
 + Cette version de l'exerciseur de dictée est capable de s'adapter aux usages mobiles.
@@ -94,6 +96,8 @@ plates-formes.
 externes. Il s'agit notamment des styles fournis par 
 w3school, ainsi que la police d'icones IcoMoon.
 
+Exécutez :
+
     npm run vendors
 
 ### La première fois et les suivantes
@@ -112,8 +116,9 @@ démarrage, par exemple&nbsp;:
 
 + La cible de la publication est la branche *gh-pages* qui coïncide avec la branche *master*.
 + Effectuez préalablement ce réglage dans les paramètres de votre dépôt 
-Github la première fois. Puis exécutez:
+Github la première fois. 
 
+Puis exécutez:
 
     npm run clean;
     npm run deploy
